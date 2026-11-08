@@ -1,0 +1,1512 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="VeloVault">
+<meta name="theme-color" content="#F7F8F4">
+<title>VeloVault Demo</title>
+<style>
+:root{
+  --navy:#0B1F33;--teal:#1C7293;--mint:#5FD4C0;--bg:#F7F8F4;--card:#FFFFFF;
+  --line:#E2E8EA;--muted:#5C6C79;--soft:#EEF3F2;--green:#13865A;--greenbg:#E3F6EE;
+  --danger:#B93C3C;--dangerbg:#FBEAEA;--warn:#9A5B00;--warnbg:#FFF3DC;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+html,body{margin:0;padding:0}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--navy);
+  background:radial-gradient(circle at 30% 20%,#FFFFFF 0,#E9EDE7 65%);min-height:100vh;display:flex;align-items:center;justify-content:center;-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit;cursor:pointer}
+input{font:inherit}
+.stage{display:flex;flex-direction:column;align-items:center;padding:30px 10px}
+.stage-caption{margin-top:16px;font-size:13px;color:var(--muted);text-align:center}
+.phone{position:relative;width:414px;height:868px;padding:12px;border-radius:58px;background:#101820;
+  box-shadow:0 0 0 2px #2a3640,0 30px 80px rgba(11,31,51,.35);transform-origin:top center;flex:none}
+.screen{position:relative;width:390px;height:844px;border-radius:46px;overflow:hidden;background:var(--bg);display:flex;flex-direction:column}
+.notch{position:absolute;top:11px;left:50%;width:118px;height:34px;margin-left:-59px;border-radius:20px;background:#101820;z-index:60;pointer-events:none}
+.statusbar{flex:none;height:54px;display:flex;align-items:center;justify-content:space-between;padding:8px 30px 0 38px;font-size:15px;font-weight:600}
+.sb-icons{display:flex;gap:6px;align-items:center}
+.demo-strip{flex:none;display:flex;align-items:center;justify-content:space-between;gap:8px;padding:2px 10px 6px 16px}
+.demo-pill{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;font-weight:700;color:var(--teal);background:rgba(28,114,147,.09);
+  border:1px solid rgba(28,114,147,.22);padding:5px 10px;border-radius:999px}
+.demo-pill i{width:6px;height:6px;border-radius:50%;background:var(--teal);display:inline-block}
+.icon-btn{width:44px;height:44px;display:inline-flex;align-items:center;justify-content:center;border:none;background:transparent;border-radius:12px;flex:none}
+.icon-btn:active{background:rgba(11,31,51,.08)}
+.menu-btn{background:#fff;border:1px solid var(--line)}
+#view{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;position:relative;overscroll-behavior:none}
+.pad{padding:6px 20px 28px}
+.muted{color:var(--muted)}
+.small{font-size:13px;line-height:1.45}
+.center{text-align:center}
+.tabbar{flex:none;display:flex;background:#fff;border-top:1px solid var(--line);padding:4px 6px 10px}
+.tabbar.hidden{display:none}
+.tab{flex:1;min-height:54px;border:none;background:none;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-size:11px;font-weight:700;color:#8795A1}
+.tab.active{color:var(--teal)}
+
+/* Buttons & fields */
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;min-height:54px;border-radius:14px;border:none;font-size:16px;font-weight:700;background:var(--teal);color:#fff;padding:0 18px}
+.btn+.btn{margin-top:10px}
+.btn:active{filter:brightness(.9)}
+.btn.outline{background:#fff;color:var(--teal);border:2px solid var(--teal)}
+.btn.ghost{background:transparent;color:var(--navy);border:1.5px solid #CBD6DC}
+.btn.dark{background:var(--navy)}
+.btn.mint{background:var(--mint);color:var(--navy)}
+.btn.sm{width:auto;min-height:44px;padding:0 16px;font-size:14px;border-radius:12px}
+.link{border:none;background:none;color:var(--teal);font-weight:700;font-size:14px;min-height:44px;min-width:44px;padding:0 4px}
+.field{width:100%;min-height:54px;border-radius:14px;border:1.5px solid #CBD6DC;background:#fff;padding:0 16px;font-size:17px;color:var(--navy);outline:none}
+.field:focus{border-color:var(--teal);box-shadow:0 0 0 4px rgba(28,114,147,.15)}
+.field-label{display:block;font-size:13px;font-weight:800;margin:18px 0 8px}
+.err{color:var(--danger);font-size:13.5px;margin:8px 2px 0;font-weight:600}
+.sub-head{display:flex;align-items:center;gap:2px;margin:0 0 6px -10px}
+.sub-head h2{font-size:21px;margin:0}
+.page-title{font-size:24px;margin:4px 0 4px;letter-spacing:-.01em}
+
+/* Onboarding / sign in */
+.ob{min-height:100%;display:flex;flex-direction:column;padding:4px 24px 28px}
+.ob-top{display:flex;justify-content:space-between;align-items:center}
+.ob-art{flex:1;display:flex;align-items:center;justify-content:center;min-height:240px}
+.ob-circle{width:190px;height:190px;border-radius:50%;background:radial-gradient(circle at 35% 30%,var(--mint),var(--teal) 72%);display:flex;align-items:center;justify-content:center;color:#fff;box-shadow:0 20px 50px rgba(28,114,147,.3)}
+.ob-step{font-size:12px;font-weight:800;color:var(--teal);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px}
+.ob h1{font-size:27px;line-height:1.2;margin:0 0 10px;letter-spacing:-.01em}
+.ob p{font-size:16px;line-height:1.5;color:var(--muted);margin:0 0 22px}
+.dots{display:flex;gap:8px;margin-bottom:22px}
+.dots i{width:8px;height:8px;border-radius:99px;background:#C8D4DA;transition:width .2s}
+.dots i.on{width:26px;background:var(--teal)}
+.ob-actions{display:flex;gap:10px}
+.ob-actions .btn{margin:0}
+.ob-actions .btn.ghost{flex:0 0 110px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:19px}
+.logo-mark{width:40px;height:40px;border-radius:12px;background:var(--navy);color:var(--mint);display:flex;align-items:center;justify-content:center}
+.signin{min-height:100%;display:flex;flex-direction:column;padding:10px 24px 28px}
+.signin h1{font-size:27px;margin:34px 0 8px}
+.signin p{color:var(--muted);line-height:1.5;margin:0}
+
+/* Home */
+.home-title{font-size:20px;font-weight:800;letter-spacing:-.01em;margin:6px 0 10px}
+.status-ok{display:inline-flex;align-items:center;gap:8px;background:var(--greenbg);color:var(--green);font-weight:800;font-size:14px;padding:8px 13px;border-radius:999px}
+.status-ok .dot{width:9px;height:9px;border-radius:50%;background:#1DB97A;box-shadow:0 0 0 4px rgba(29,185,122,.18);animation:pulse 2s infinite}
+@keyframes pulse{50%{box-shadow:0 0 0 7px rgba(29,185,122,.06)}}
+.plan-card{display:block;width:100%;text-align:left;margin:16px 0 22px;background:linear-gradient(135deg,var(--navy),#14405F);color:#fff;border:none;border-radius:20px;padding:16px 18px;box-shadow:0 12px 30px rgba(11,31,51,.2)}
+.pc-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.pc-top small{display:block;font-size:12px;opacity:.7;margin-bottom:3px}
+.pc-top b{font-size:17px}
+.days{text-align:right}
+.days b{font-size:28px;line-height:1;display:block;color:var(--mint)}
+.bar{height:10px;border-radius:99px;background:rgba(255,255,255,.18);overflow:hidden;margin:14px 0 8px}
+.bar span{display:block;height:100%;background:var(--mint);border-radius:99px;transition:width .4s}
+.bar.light{background:#E3EAED;margin:0}
+.bar.light span{background:var(--teal)}
+.bar.hi span{background:#E2A03F}
+.bar.full span{background:var(--danger)}
+.pc-foot{display:flex;justify-content:space-between;font-size:12.5px;opacity:.85}
+.row-between{display:flex;justify-content:space-between;align-items:center;margin:0 0 8px}
+.sec{font-size:17px;margin:0}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.tile{position:relative;min-height:106px;border-radius:20px;background:#fff;border:1px solid var(--line);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:12px 6px;box-shadow:0 1px 2px rgba(11,31,51,.05);transition:transform .1s;min-width:0}
+.tile:active{transform:scale(.96)}
+.tile-ic{width:52px;height:52px;border-radius:16px;display:flex;align-items:center;justify-content:center;flex:none}
+.tile-ic.sm{width:36px;height:36px;border-radius:11px}
+.tile-name{font-size:13px;font-weight:700;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding:0 4px}
+.tile.add{border:2px dashed #93A9B6;background:transparent;color:var(--teal);box-shadow:none}
+.tile.add .tile-ic{border:2px dashed var(--teal)}
+.tile-badge{position:absolute;top:7px;right:7px;font-size:9.5px;font-weight:800;background:var(--warnbg);color:var(--warn);padding:2px 6px;border-radius:99px}
+.letter{font-weight:800;line-height:1}
+.hint{font-size:13px;color:var(--muted);margin:16px 2px 0;line-height:1.45}
+
+/* App view */
+.app-wrap{min-height:100%;display:flex;flex-direction:column}
+.app-top{position:sticky;top:0;z-index:5;background:#fff;box-shadow:0 1px 0 var(--line)}
+.app-head{display:flex;align-items:center;gap:6px;padding:6px 10px 6px 2px}
+.app-title{display:flex;align-items:center;gap:9px;flex:1;min-width:0}
+.app-title>div{min-width:0}
+.app-title b{display:block;font-size:16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.app-title small{display:block;font-size:11px;color:var(--muted);white-space:nowrap}
+.app-ic{width:34px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex:none}
+.chip{position:relative;display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:800;background:var(--navy);color:#fff;padding:7px 10px;border-radius:99px;white-space:nowrap;flex:none}
+.chip-plus{position:absolute;right:4px;top:-6px;font-size:11px;font-weight:800;color:var(--teal);opacity:0;pointer-events:none;white-space:nowrap}
+.chip-plus.go{animation:floatup 1s ease-out}
+@keyframes floatup{0%{opacity:1;transform:translateY(4px)}100%{opacity:0;transform:translateY(-18px)}}
+.app-meter{height:4px;background:var(--soft)}
+.app-meter span{display:block;height:100%;background:var(--mint);transition:width .3s}
+.note-strip{display:flex;align-items:center;gap:8px;background:#E4F7F3;color:#0E6B5C;font-size:12.5px;font-weight:800;padding:8px 14px}
+.note-strip.prem{background:#E8F1F6;color:var(--teal)}
+.app-body{flex:1;display:flex;flex-direction:column}
+.list-label{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);padding:14px 16px 8px}
+
+/* Chat mock */
+.chat-list{background:#fff;flex:1}
+.chat-row{display:flex;align-items:center;gap:12px;width:100%;border:none;background:#fff;padding:12px 16px;border-bottom:1px solid var(--line);text-align:left;min-height:74px}
+.avatar{width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;flex:none;font-size:15px}
+.avatar.sm{width:36px;height:36px;font-size:13px}
+.cr-main{flex:1;min-width:0}
+.cr-top{display:flex;justify-content:space-between;gap:8px}
+.cr-top small{color:var(--muted);font-size:12px}
+.cr-last{display:block;color:var(--muted);font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:3px}
+.unread{min-width:22px;height:22px;border-radius:99px;background:var(--mint);color:var(--navy);font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;padding:0 6px}
+.convo{flex:1;display:flex;flex-direction:column}
+.convo-head{display:flex;align-items:center;gap:8px;padding:4px 6px;background:#F0F5F6;border-bottom:1px solid var(--line)}
+.convo-name{flex:1;min-width:0}
+.convo-name b{display:block;font-size:15px}
+.convo-name small{color:var(--muted);font-size:12px}
+.msgs{flex:1;padding:14px 12px 12px;display:flex;flex-direction:column;gap:8px;background:#EAF1EF;min-height:360px}
+.bubble{max-width:78%;padding:9px 12px;border-radius:16px;border-top-left-radius:4px;font-size:15px;line-height:1.35;background:#fff;align-self:flex-start;box-shadow:0 1px 1px rgba(0,0,0,.05)}
+.bubble.me{align-self:flex-end;background:#CDEFE8;border-top-left-radius:16px;border-top-right-radius:4px}
+.bubble small{display:block;font-size:10.5px;color:var(--muted);text-align:right;margin-top:3px}
+.composer{position:sticky;bottom:0;display:flex;gap:8px;padding:10px;background:#fff;border-top:1px solid var(--line)}
+.composer input{flex:1;min-width:0;min-height:46px;border-radius:99px;border:1.5px solid #CBD6DC;padding:0 16px;font-size:16px;outline:none}
+.composer input:focus{border-color:var(--teal)}
+.send-btn{width:46px;height:46px;border-radius:50%;border:none;background:var(--teal);color:#fff;display:flex;align-items:center;justify-content:center;flex:none}
+
+/* Feed mock */
+.feed{background:#E9EEF0;flex:1;padding-bottom:10px}
+.composer-card{display:flex;align-items:center;gap:10px;background:#fff;padding:12px 14px;margin-bottom:10px}
+.composer-card input{flex:1;min-width:0;min-height:44px;border-radius:99px;border:1px solid var(--line);background:var(--soft);padding:0 14px;font-size:16px;outline:none}
+.post{background:#fff;margin-bottom:10px;padding-top:12px}
+.post-head{display:flex;align-items:center;gap:10px;padding:0 14px}
+.post-head b{display:block;font-size:14.5px}
+.post-head small{color:var(--muted);font-size:12px}
+.post p{padding:0 14px;margin:10px 0;font-size:15px;line-height:1.45}
+.post-stats{font-size:12.5px;color:var(--muted);padding:8px 14px}
+.post-actions{display:flex;border-top:1px solid var(--line)}
+.pa{flex:1;min-height:48px;border:none;background:none;display:flex;align-items:center;justify-content:center;gap:6px;font-weight:700;font-size:14px;color:var(--muted)}
+.pa.on{color:var(--teal)}
+.pa.on svg{fill:currentColor}
+.ph{position:relative;width:100%;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.8)}
+.ph-tag,.q-tag{position:absolute;left:10px;bottom:10px;font-size:11px;font-weight:800;background:rgba(11,31,51,.72);color:#fff;padding:4px 8px;border-radius:99px}
+.q-tag{bottom:auto;top:12px}
+
+/* Photos mock */
+.photos{background:#F2F5F6;flex:1}
+.stories{display:flex;gap:10px;overflow-x:auto;overscroll-behavior:none;padding:12px 14px;background:#fff;border-bottom:1px solid var(--line)}
+.story{border:none;background:none;display:flex;flex-direction:column;align-items:center;gap:5px;font-size:11.5px;flex:none;width:68px}
+.story-ring{width:62px;height:62px;border-radius:50%;padding:3px;background:linear-gradient(135deg,var(--mint),var(--teal))}
+.story-ring span{display:block;width:100%;height:100%;border-radius:50%;border:3px solid #fff}
+.story.seen .story-ring{background:#C8D4DA}
+.ig-post{background:#fff;padding-top:10px;margin-bottom:8px}
+.ig-actions{display:flex;padding:2px 4px}
+.liked{color:#D94F5C}
+.liked svg{fill:#D94F5C}
+.saved svg{fill:var(--navy)}
+.ig-likes{font-weight:800;font-size:14px;padding:0 14px}
+.ig-post p{margin:4px 14px 12px;font-size:14.5px;line-height:1.4}
+
+/* Shorts mock */
+.shorts{background:#06121E;padding:8px;display:flex;flex-direction:column;gap:8px;flex:1}
+.short{position:relative;height:520px;border-radius:18px;overflow:hidden;color:#fff;cursor:pointer}
+.short-center{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:.92}
+.short-side{position:absolute;right:10px;bottom:96px;display:flex;flex-direction:column;gap:12px}
+.side-btn{width:58px;min-height:58px;border:none;background:rgba(0,0,0,.28);border-radius:16px;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font-size:11px;font-weight:700}
+.side-btn.liked{color:#FF8A94}
+.side-btn.liked svg{fill:#FF8A94}
+.short-cap{position:absolute;left:14px;right:84px;bottom:26px;font-size:14px;line-height:1.4;text-shadow:0 1px 3px rgba(0,0,0,.4)}
+.short-cap b{display:block;margin-bottom:2px}
+.prog{position:absolute;left:0;right:0;bottom:0;height:4px;background:rgba(255,255,255,.25)}
+.prog span{display:block;height:100%;width:0;background:var(--mint)}
+.prog.run span{animation:prog 8s linear infinite}
+@keyframes prog{from{width:0}to{width:100%}}
+
+/* Video mock */
+.yt{background:#fff;flex:1}
+.player{position:relative;aspect-ratio:16/9;color:#fff;cursor:pointer}
+.player-center{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+.yt-info{padding:12px 16px;border-bottom:1px solid var(--line)}
+.yt-info h3{margin:0 0 4px;font-size:17px}
+.yt-info small{color:var(--muted)}
+.vid-row{display:flex;gap:12px;width:100%;border:none;background:none;text-align:left;padding:8px 16px;align-items:flex-start}
+.vid-thumb{position:relative;width:138px;aspect-ratio:16/9;border-radius:10px;display:flex;align-items:center;justify-content:center;color:#fff;flex:none}
+.vid-thumb em{position:absolute;right:6px;bottom:6px;font-style:normal;font-size:11px;background:rgba(0,0,0,.6);padding:1px 5px;border-radius:4px}
+.vid-meta{min-width:0}
+.vid-meta b{display:block;font-size:14.5px;line-height:1.3}
+.vid-meta small{color:var(--muted);font-size:12px}
+
+/* Site mock */
+.site{background:#fff;flex:1}
+.urlbar{display:flex;align-items:center;gap:6px;margin:10px 12px;background:var(--soft);border-radius:12px;padding:10px 12px;font-size:13.5px;color:var(--muted);overflow:hidden;white-space:nowrap}
+.site-hero{margin:0 12px;border-radius:18px;padding:24px 20px;color:#fff}
+.site-hero small{font-weight:800;opacity:.85;text-transform:uppercase;font-size:11px;letter-spacing:.06em}
+.site-hero h2{margin:4px 0 6px;font-size:26px;word-break:break-word}
+.site-hero p{margin:0;opacity:.92;font-size:14.5px;line-height:1.45;word-break:break-word}
+.site-tabs{display:flex;gap:8px;padding:14px 12px 6px}
+.site-tabs button{flex:1;min-height:44px;border-radius:12px;border:1px solid var(--line);background:#fff;font-weight:700}
+.site-tabs button.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+.site-sec{padding:8px 12px 24px}
+.art{border:1px solid var(--line);border-radius:16px;overflow:hidden;margin-bottom:12px}
+.art .ph{aspect-ratio:2/1}
+.art-body{padding:12px 14px}
+.art-body h4{margin:0 0 6px;font-size:16px}
+.art-body p{margin:0 0 6px;color:var(--muted);font-size:14px;line-height:1.45}
+.news-row{display:flex;justify-content:space-between;gap:10px;width:100%;border:none;background:none;text-align:left;padding:14px 4px;border-bottom:1px solid var(--line);font-size:15px;font-weight:700;min-height:52px}
+.news-row small{color:var(--muted);font-weight:600;white-space:nowrap}
+
+/* Center screens */
+.center-screen{min-height:100%;display:flex;flex-direction:column;justify-content:center;text-align:center;padding:16px 24px 30px}
+.big-ic{width:96px;height:96px;border-radius:50%;margin:0 auto 18px;display:flex;align-items:center;justify-content:center;flex:none}
+.big-ic.warn{background:var(--warnbg);color:var(--warn)}
+.big-ic.ok{background:var(--greenbg);color:var(--green)}
+.big-ic.lock{background:#E3ECF1;color:var(--navy)}
+.big-ic.pulse{animation:ring 1.3s infinite}
+@keyframes ring{0%{box-shadow:0 0 0 0 rgba(28,114,147,.35)}100%{box-shadow:0 0 0 22px rgba(28,114,147,0)}}
+.center-screen h2{font-size:22px;line-height:1.25;margin:0 0 10px}
+.center-screen p{color:var(--muted);line-height:1.5;margin:0 0 20px}
+.count{font-size:46px;font-weight:800;color:var(--teal);margin:0 0 18px}
+.back-row{position:absolute;top:4px;left:8px}
+
+/* Plans & payment */
+.seg{display:flex;background:#E4EBED;border-radius:14px;padding:4px;margin:14px 0 18px}
+.seg-btn{flex:1;min-height:44px;border:none;background:none;border-radius:10px;font-weight:800;font-size:14px;color:var(--muted)}
+.seg-btn.on{background:#fff;color:var(--navy);box-shadow:0 1px 3px rgba(11,31,51,.14)}
+.plan{position:relative;background:#fff;border:1.5px solid var(--line);border-radius:20px;padding:18px;margin-bottom:16px}
+.plan.popular{border:2px solid var(--teal);box-shadow:0 10px 30px rgba(28,114,147,.15)}
+.badge{position:absolute;top:-11px;right:16px;background:var(--mint);color:var(--navy);font-size:11.5px;font-weight:800;padding:4px 10px;border-radius:99px}
+.plan-head{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.plan-head h3{margin:0;font-size:18px}
+.price{white-space:nowrap}
+.price b{font-size:26px}
+.price span{color:var(--muted);font-size:13px;margin-left:2px}
+.rules{list-style:none;padding:0;margin:12px 0 16px}
+.rules li{display:flex;gap:8px;align-items:flex-start;font-size:14.5px;line-height:1.4;margin-bottom:7px}
+.rules li svg{color:var(--teal);flex:none;margin-top:1px}
+.rules li.no svg{color:var(--danger)}
+.current-tag{text-align:center;font-size:12.5px;color:var(--green);font-weight:800;margin-top:9px}
+.banner{border-radius:14px;padding:12px 14px;font-size:14px;line-height:1.45;margin:10px 0;text-align:left}
+.banner.warn{background:var(--warnbg);color:#7A4A00}
+.banner.info{background:#E8F1F6;color:#15506A}
+.banner.danger{background:var(--dangerbg);color:#8E2B2B}
+.test-badge{display:inline-flex;align-items:center;gap:6px;background:var(--warnbg);color:var(--warn);font-weight:800;font-size:12px;padding:6px 11px;border-radius:99px;text-transform:uppercase;letter-spacing:.05em}
+.summary{background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px 16px;margin:14px 0}
+.sum-row{display:flex;justify-content:space-between;gap:10px;padding:5px 0;font-size:14.5px}
+.sum-row span:first-child{color:var(--muted)}
+.sum-row.total{border-top:1px solid var(--line);margin-top:6px;padding-top:11px;font-weight:800;font-size:16px}
+.sum-row.total span:first-child{color:var(--navy)}
+.opt{display:flex;align-items:center;gap:12px;width:100%;min-height:62px;border:1.5px solid var(--line);background:#fff;border-radius:14px;padding:10px 14px;margin-bottom:10px;text-align:left;font-weight:800;font-size:15.5px}
+.opt.on{border-color:var(--teal);background:#F0F8FA}
+.opt small{display:block;font-weight:500;color:var(--muted);font-size:12.5px}
+.opt .grow{flex:1}
+.radio{width:22px;height:22px;border-radius:50%;border:2px solid #9FB3BF;flex:none;display:flex;align-items:center;justify-content:center}
+.opt.on .radio{border-color:var(--teal)}
+.opt.on .radio::after{content:'';width:11px;height:11px;border-radius:50%;background:var(--teal)}
+.prov-dot{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:#fff;flex:none}
+
+/* Usage */
+.usage-hero{background:#fff;border:1px solid var(--line);border-radius:20px;padding:18px;margin:14px 0}
+.big-num{font-size:34px;font-weight:800;letter-spacing:-.02em}
+.big-num small{font-size:15px;color:var(--muted);font-weight:700;letter-spacing:0}
+.usage-hero .bar.light{height:12px;margin:12px 0 10px}
+.u-meta{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);gap:10px}
+.app-bar{display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid var(--line)}
+.ab-main{flex:1;min-width:0}
+.ab-top{display:flex;justify-content:space-between;font-size:14px;font-weight:800;margin-bottom:7px;gap:8px}
+.ab-top span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ab-top small{color:var(--muted);font-weight:700;white-space:nowrap}
+
+/* Admin */
+.kpis{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0}
+.kpi{background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px 14px}
+.kpi b{display:block;font-size:22px}
+.kpi small{color:var(--muted);font-size:12px;font-weight:600}
+.tbl-wrap{overflow-x:auto;overscroll-behavior:none;border:1px solid var(--line);border-radius:14px;background:#fff;-webkit-overflow-scrolling:touch}
+table{border-collapse:collapse;width:100%;font-size:12px;min-width:330px}
+th{text-align:left;background:#F0F4F5;font-size:10px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);padding:9px 6px;white-space:nowrap}
+td{padding:9px 6px;border-top:1px solid var(--line);vertical-align:top}
+td b{white-space:nowrap}
+td small{display:block;color:var(--muted);font-size:11px;margin-top:1px}
+tfoot td{font-weight:800;background:#F5F9F9}
+.st{display:inline-block;font-size:10px;font-weight:800;padding:3px 6px;border-radius:99px;white-space:nowrap}
+.st.active{background:var(--greenbg);color:var(--green)}
+.st.expired{background:var(--dangerbg);color:var(--danger)}
+.st.cap{background:var(--warnbg);color:var(--warn)}
+
+/* About */
+.about-h{font-size:16px;margin:20px 0 8px}
+.about-list{list-style:none;padding:0;margin:0}
+.about-list li{display:flex;gap:10px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px 14px;margin-bottom:8px;font-size:14.5px;line-height:1.45}
+.about-list li svg{flex:none;margin-top:2px}
+.about-list.sim svg{color:var(--warn)}
+.about-list.real svg{color:var(--teal)}
+
+/* Menu sheet & toast */
+.sheet-backdrop{position:absolute;inset:0;background:rgba(11,31,51,.45);z-index:80;display:flex;align-items:flex-end;opacity:0;pointer-events:none;transition:opacity .2s}
+.sheet-backdrop.open{opacity:1;pointer-events:auto}
+.sheet{width:100%;max-height:calc(100% - 8px);overflow-y:auto;overscroll-behavior:none;-webkit-overflow-scrolling:touch;background:#fff;border-radius:24px 24px 0 0;padding:8px 14px calc(16px + env(safe-area-inset-bottom));transform:translateY(100%);transition:transform .25s}
+.sheet-backdrop.open .sheet{transform:none}
+.sheet-grip{width:40px;height:5px;border-radius:9px;background:#D3DCE1;margin:4px auto 6px}
+.sheet-head{display:flex;justify-content:space-between;align-items:center;padding-left:6px}
+.sheet-head b{font-size:18px}
+.sheet-note{font-size:13px;line-height:1.45;background:#E8F1F6;color:#15506A;border-radius:12px;padding:10px 12px;margin:4px 0 8px}
+.menu-item{display:flex;align-items:center;gap:12px;width:100%;min-height:54px;border:none;background:none;border-radius:12px;padding:0 8px;font-size:16px;font-weight:700;text-align:left}
+.menu-item:active{background:var(--soft)}
+.mi-ic{width:36px;height:36px;border-radius:10px;background:var(--soft);color:var(--teal);display:flex;align-items:center;justify-content:center;flex:none}
+.menu-item.danger{color:var(--danger)}
+.menu-item.danger .mi-ic{background:var(--dangerbg);color:var(--danger)}
+.toast{position:absolute;left:50%;bottom:100px;transform:translate(-50%,20px);background:var(--navy);color:#fff;font-size:14px;font-weight:700;padding:11px 16px;border-radius:14px;opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;z-index:90;width:max-content;max-width:86%;text-align:center;box-shadow:0 10px 30px rgba(11,31,51,.3)}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+
+/* Demo menu: usage line & switch */
+.usage-line{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12.5px;font-weight:700;background:var(--navy);color:var(--mint);border-radius:10px;padding:9px 12px;margin:2px 0 6px}
+.toggle-row{display:flex;align-items:center;gap:12px;width:100%;min-height:60px;border:none;background:none;text-align:left;padding:8px;border-radius:12px}
+.toggle-row:active{background:var(--soft)}
+.toggle-row .grow{flex:1;min-width:0}
+.toggle-row b{display:block;font-size:15.5px}
+.toggle-row small{display:block;color:var(--muted);font-size:12.5px;line-height:1.4;margin-top:2px}
+.switch{width:52px;height:32px;border-radius:99px;background:#C8D4DA;position:relative;flex:none;transition:background .2s}
+.switch i{position:absolute;top:3px;left:3px;width:26px;height:26px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.25);transition:left .2s}
+.switch.on{background:var(--teal)}
+.switch.on i{left:23px}
+
+/* Custom icons & cropper */
+.has-img{background:transparent!important;overflow:hidden;padding:0;border-radius:22%!important}
+.has-img img{width:100%;height:100%;object-fit:cover;display:block}
+.tile-ic.big{width:78px;height:78px;border-radius:22px}
+.ic-row{display:flex;align-items:center;gap:12px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:10px 10px 10px 12px;margin-bottom:10px}
+.ic-row .grow{flex:1;min-width:0}
+.ic-row b{display:block;font-size:15.5px}
+.ic-row small{color:var(--muted);font-size:12.5px}
+.btn.danger-ghost{background:transparent;color:var(--danger);border:1.5px solid #E7B9B9}
+.lock-pill{display:inline-flex;align-items:center;gap:6px;margin:0 auto 14px;background:var(--warnbg);color:var(--warn);font-size:12.5px;font-weight:800;padding:6px 12px;border-radius:99px}
+.crop-wrap{position:absolute;inset:0;z-index:85;background:#0B1F33;display:none;flex-direction:column;align-items:center;padding:calc(14px + env(safe-area-inset-top)) 20px calc(20px + env(safe-area-inset-bottom));color:#fff;overflow-y:auto;overscroll-behavior:none}
+.crop-wrap.open{display:flex}
+.crop-wrap .demo-pill{background:rgba(95,212,192,.15);color:var(--mint);border-color:rgba(95,212,192,.35);margin-top:40px}
+.crop-wrap .demo-pill i{background:var(--mint)}
+.crop-wrap h3{margin:14px 0 4px;font-size:19px}
+.crop-wrap p{margin:0 0 16px;font-size:13.5px;opacity:.8;text-align:center;line-height:1.4}
+.crop-stage{width:260px;height:260px;flex:none;border-radius:22%;overflow:hidden;background:#fff;box-shadow:0 0 0 3px var(--mint)}
+.crop-stage canvas{display:block;width:260px;height:260px;touch-action:none;cursor:grab}
+.crop-zoom{display:flex;align-items:center;gap:10px;width:280px;margin:18px 0 4px}
+.crop-zoom input{flex:1;accent-color:#5FD4C0;height:44px}
+.crop-zoom button{width:44px;height:44px;border-radius:12px;border:1px solid rgba(255,255,255,.3);background:transparent;color:#fff;font-size:22px;font-weight:700;flex:none}
+.crop-prev{display:flex;align-items:center;gap:12px;margin:10px 0 18px;background:rgba(255,255,255,.08);padding:10px 16px;border-radius:14px;font-size:14px}
+.crop-prev canvas{width:52px;height:52px;border-radius:22%;background:#fff}
+.crop-actions{display:flex;gap:10px;width:100%;max-width:320px}
+.crop-actions .btn{margin:0}
+.crop-actions .btn.ghost{color:#fff;border-color:rgba(255,255,255,.4)}
+.file-input{position:absolute;left:-9999px;top:0;width:1px;height:1px;opacity:0}
+@media (max-width:520px), (pointer:coarse) and (max-height:520px){ .crop-wrap .demo-pill{margin-top:4px} }
+
+/* Phone-sized screens: run full screen, no frame */
+@media (max-width:520px), (pointer:coarse) and (max-height:520px){
+  html,body{position:fixed;inset:0;width:100%;height:100%;overflow:hidden;overscroll-behavior:none}
+  body{display:block;background:var(--bg)}
+  .stage{padding:0;display:block}
+  .stage-caption,.notch,.statusbar{display:none}
+  .phone{width:100%;height:100vh;height:100dvh;padding:0;border-radius:0;box-shadow:none;background:var(--bg);transform:none!important;margin:0!important}
+  .screen{width:100%;height:100%;border-radius:0;padding:env(safe-area-inset-top) env(safe-area-inset-right) 0 env(safe-area-inset-left)}
+  .screen.no-tabs{padding-bottom:env(safe-area-inset-bottom)}
+  .tabbar{padding-bottom:max(10px,env(safe-area-inset-bottom))}
+}
+</style>
+</head>
+<body>
+<div class="stage">
+  <div class="phone" id="phone">
+    <div class="screen" id="screen">
+      <div class="notch"></div>
+      <div class="statusbar"><span id="clock">9:41</span>
+        <span class="sb-icons">
+          <svg width="18" height="12" viewBox="0 0 18 12" fill="currentColor" aria-hidden="true"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5" width="3" height="7" rx="1"/><rect x="10" y="2.5" width="3" height="9.5" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1" opacity=".35"/></svg>
+          <svg width="26" height="12" viewBox="0 0 26 12" fill="none" aria-hidden="true"><rect x=".5" y=".5" width="22" height="11" rx="3" stroke="currentColor" opacity=".5"/><rect x="2.5" y="2.5" width="14" height="7" rx="1.5" fill="currentColor"/><rect x="24" y="4" width="1.5" height="4" rx=".75" fill="currentColor" opacity=".5"/></svg>
+        </span>
+      </div>
+      <div class="demo-strip">
+        <span class="demo-pill"><i></i>Interactive demo - simulated</span>
+        <button class="icon-btn menu-btn" data-act="menu" aria-label="Open demo controls" title="Demo controls" id="menuBtn"></button>
+      </div>
+      <main id="view" aria-live="polite"></main>
+      <nav class="tabbar hidden" id="tabbar">
+        <button class="tab" data-act="go" data-to="home" id="tab-home"></button>
+        <button class="tab" data-act="go" data-to="plans" id="tab-plans"></button>
+        <button class="tab" data-act="go" data-to="usage" id="tab-usage"></button>
+        <button class="tab" data-act="go" data-to="about" id="tab-about"></button>
+      </nav>
+      <div class="sheet-backdrop" id="menu" aria-hidden="true"></div>
+      <div class="crop-wrap" id="cropper" role="dialog" aria-label="Crop icon" aria-hidden="true"></div>
+      <input type="file" accept="image/*" id="iconFile" class="file-input" tabindex="-1" aria-hidden="true">
+      <div class="toast" id="toast" role="status"></div>
+    </div>
+  </div>
+  <div class="stage-caption">VeloVault prototype · interactive demo · everything is simulated and works offline</div>
+</div>
+
+<script>
+(function(){
+'use strict';
+var DAY = 86400000;
+function $(s){ return document.querySelector(s); }
+var view = $('#view'), tabbar = $('#tabbar'), menuEl = $('#menu'), toastEl = $('#toast');
+
+/* ---------- Icons (simple generic line icons) ---------- */
+var I = {
+  chat:'<path d="M4 5h16v11H9l-5 4z"/>',
+  people:'<circle cx="9" cy="8" r="3.2"/><path d="M3 19c0-3.3 2.7-5.5 6-5.5s6 2.2 6 5.5"/><circle cx="17" cy="9" r="2.4"/><path d="M15.6 13.6c3 .2 5.4 2.1 5.4 5"/>',
+  camera:'<rect x="3" y="7" width="18" height="13" rx="3"/><circle cx="12" cy="13.5" r="3.5"/><path d="M8.5 7l1.5-3h4l1.5 3"/>',
+  note:'<path d="M9 18V5l11-2v13"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="17.5" cy="16" r="2.5"/>',
+  play:'<rect x="3" y="5" width="18" height="14" rx="3"/><path d="M10 9l5 3-5 3z" fill="currentColor"/>',
+  playtri:'<path d="M8 5l11 7-11 7z" fill="currentColor"/>',
+  pause:'<path d="M9 6v12M15 6v12"/>',
+  plus:'<path d="M12 5v14M5 12h14"/>',
+  home:'<path d="M4 11l8-7 8 7v9h-5v-6H9v6H4z"/>',
+  card:'<rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18M7 15h4"/>',
+  chart:'<path d="M5 20V11M12 20V4M19 20v-6"/>',
+  info:'<circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.6v.4"/>',
+  dots:'<circle cx="12" cy="5" r="1.7" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.7" fill="currentColor" stroke="none"/><circle cx="12" cy="19" r="1.7" fill="currentColor" stroke="none"/>',
+  back:'<path d="M15 5l-7 7 7 7"/>',
+  lock:'<rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>',
+  phone:'<rect x="7" y="2" width="10" height="20" rx="2.5"/><path d="M11 18.5h2"/>',
+  check:'<path d="M5 12.5l4.5 4.5L19 7.5"/>',
+  cross:'<path d="M6 6l12 12M18 6L6 18"/>',
+  heart:'<path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/>',
+  share:'<path d="M4 13v7h16v-7M12 3v12M7 8l5-5 5 5"/>',
+  send:'<path d="M4 12l16-8-6 16-3-6z"/>',
+  call:'<path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a1 1 0 0 1-1 1A16 16 0 0 1 4 5a1 1 0 0 1 1-1z"/>',
+  globe:'<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.5 3.5 5.5 3.5 9s-1 6.5-3.5 9c-2.5-2.5-3.5-5.5-3.5-9s1-6.5 3.5-9z"/>',
+  shield:'<path d="M12 3l8 3v6c0 4.5-3.4 8.2-8 9-4.6-.8-8-4.5-8-9V6z"/><path d="M9 12l2 2 4-4"/>',
+  bolt:'<path d="M13 2L4 14h7l-1 8 9-12h-7z"/>',
+  image:'<rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10" r="1.5"/><path d="M21 16l-5-5-8 8"/>',
+  table:'<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M9 10v10"/>',
+  forward:'<path d="M4 6l7 6-7 6zM13 6l7 6-7 6z"/>',
+  data:'<path d="M7 4v16M7 20l-3-3M7 20l3-3M17 20V4M17 4l-3 3M17 4l3 3"/>',
+  reset:'<path d="M4 4v6h6"/><path d="M5.6 15A7 7 0 1 0 7 7.5L4 10"/>',
+  bookmark:'<path d="M6 3h12v18l-6-4-6 4z"/>',
+  wallet:'<rect x="3" y="6" width="18" height="14" rx="3"/><path d="M16 13h2M3 10h18M6 6V5a2 2 0 0 1 2-2h9"/>',
+  vault:'<rect x="3" y="4" width="18" height="16" rx="3"/><circle cx="12" cy="12" r="4"/><path d="M12 8v1.5M12 14.5V16M8 12h1.5M14.5 12H16M6 20v1.5M18 20v1.5"/>'
+};
+function ic(n, size, cls){
+  size = size || 24;
+  return '<svg class="ic '+(cls||'')+'" width="'+size+'" height="'+size+'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+I[n]+'</svg>';
+}
+
+/* ---------- Static data ---------- */
+/* ===== Data settings: every amount below is in MB (1 GB = 1024 MB) ===== */
+var CAPS_MB = { msg: 20, std: 6144, prem: 20480 };   // fair-use cap per billing cycle (Message & Calls = small demo cap)
+var TAP_MB = {                                       // [min, max] MB added per tap, before the speed multiplier
+  presentation: { msg: [1, 3], std: [1, 3],   prem: [1, 3] },     // Presentation mode: taps only
+  realistic:    { msg: [2, 8], std: [15, 50], prem: [40, 120] }   // Presentation mode off: taps and scrolls
+};
+var SPEEDS = { off:{label:'Off', k:0}, slow:{label:'Slow', k:0.5}, normal:{label:'Normal', k:1}, fast:{label:'Fast', k:5} };
+
+var PLANS = {
+  msg: {id:'msg', name:'Message & Calls', prices:{weekly:0.40, monthly:1.50, quarterly:4.00}, demoCap:true, realCap:'light fair-use cap',
+        rules:[['ok','Chat only: messaging and calls'],['no','Media-heavy apps (Instagram, TikTok, YouTube) are not included'],['ok','Light fair-use cap']]},
+  std: {id:'std', name:'Standard', popular:true, prices:{weekly:0.90, monthly:3.80, quarterly:10.50}, realCap:'6 GB (6144 MB) fair-use cap',
+        rules:[['ok','All apps included'],['ok','Images compressed to save about 70% data'],['ok','6 GB fair-use cap']]},
+  prem:{id:'prem', name:'Premium', prices:{weekly:2.50, monthly:10.00, quarterly:27.00}, realCap:'20 GB (20480 MB) fair-use cap',
+        rules:[['ok','All apps included'],['ok','Original image and video quality'],['ok','20 GB fair-use cap']]}
+};
+var PLAN_ORDER = ['msg','std','prem'];
+var PERIODS = {
+  weekly:{label:'Weekly', days:7, per:'week', adj:'weekly'},
+  monthly:{label:'Monthly', days:30, per:'month', adj:'monthly'},
+  quarterly:{label:'Quarterly', days:90, per:'quarter', adj:'quarterly'}
+};
+var PROVIDERS = [
+  {id:'orange', label:'Orange Money', sub:'Approve with your wallet PIN', short:'OM', bg:'#0B1F33'},
+  {id:'mtn', label:'MTN MoMo', sub:'Approve with your wallet PIN', short:'MM', bg:'#1C7293'},
+  {id:'other', label:'Other', sub:'Another Mobile Money wallet', short:'+', bg:'#5C6C79'}
+];
+var DEFAULT_APPS = [
+  {id:'whatsapp', name:'WhatsApp', kind:'chat', icon:'chat', media:false, bg:'#1C7293', fg:'#FFFFFF'},
+  {id:'facebook', name:'Facebook', kind:'feed', icon:'people', media:false, bg:'#0B1F33', fg:'#5FD4C0'},
+  {id:'instagram', name:'Instagram', kind:'photos', icon:'camera', media:true, bg:'#5FD4C0', fg:'#0B1F33'},
+  {id:'tiktok', name:'TikTok', kind:'shorts', icon:'note', media:true, bg:'#163E5C', fg:'#FFFFFF'},
+  {id:'youtube', name:'YouTube', kind:'video', icon:'play', media:true, bg:'#2B8FA6', fg:'#FFFFFF'}
+];
+var GRADS = [
+  'linear-gradient(135deg,#1C7293,#5FD4C0)','linear-gradient(135deg,#0B1F33,#1C7293)',
+  'linear-gradient(135deg,#3FAE9C,#D9EFD8)','linear-gradient(135deg,#2E4A62,#9AD9CC)',
+  'linear-gradient(135deg,#D9A35B,#1C7293)','linear-gradient(135deg,#7A9E9F,#0B1F33)',
+  'linear-gradient(160deg,#14405F,#5FD4C0)','linear-gradient(135deg,#5FD4C0,#2E4A62)'
+];
+var AV_COLORS = ['#1C7293','#0B1F33','#2B8FA6','#3E7C6E','#5C6C79','#14405F','#7A5C3E'];
+var CHATS0 = [
+  {id:'c1', name:'Family group', group:true, time:'09:12', unread:2, msgs:[
+    {me:false,t:'Good morning everyone!',at:'08:02'},{me:true,t:'Morning! Who is cooking tonight?',at:'08:15'},{me:false,t:'Dinner at 7 tonight?',at:'09:12'}]},
+  {id:'c2', name:'Study group', group:true, time:'08:40', unread:5, msgs:[
+    {me:false,t:'Did everyone finish chapter 4?',at:'08:31'},{me:false,t:'Slides for Monday are uploaded.',at:'08:40'}]},
+  {id:'c3', name:'Alex', time:'Yesterday', unread:0, msgs:[
+    {me:true,t:'Are we still on for football Saturday?',at:'18:20'},{me:false,t:'Yes, 9 am at the usual field.',at:'18:42'}]},
+  {id:'c4', name:'Market prices', group:true, time:'Yesterday', unread:1, msgs:[
+    {me:false,t:'Rice and onions are cheaper this week.',at:'16:05'}]},
+  {id:'c5', name:'Sam', time:'Mon', unread:0, msgs:[
+    {me:false,t:'Can you send me the bus times?',at:'11:10'},{me:true,t:'Sure, sending now.',at:'11:12'}]},
+  {id:'c6', name:'Football club', group:true, time:'Sun', unread:0, msgs:[
+    {me:false,t:'Great match today, well played all.',at:'19:30'}]}
+];
+var REPLIES = ['Got it, thanks!','Sounds good.','Okay, talk later.','Nice one!','Sure, no problem.'];
+var POSTS0 = [
+  {id:'p1', author:'Community Market', time:'2 h', text:'Fresh vegetables arrived this morning. We are open until 6 pm today.', img:0, likes:24, comments:3},
+  {id:'p2', author:'Riverside Football Club', time:'5 h', text:'Training moves to Saturday at 9 am this week. Bring water!', img:null, likes:57, comments:12},
+  {id:'p3', author:'Daily Recipes', time:'8 h', text:'A simple three-ingredient pepper soup you can make tonight.', img:2, likes:132, comments:18},
+  {id:'p4', author:'Town Library', time:'1 d', text:'Our new reading corner for children opens next week.', img:3, likes:41, comments:5}
+];
+var IG0 = [
+  {id:'g1', user:'travel.snaps', caption:'Sunset by the river.', img:4, likes:312},
+  {id:'g2', user:'street.food.daily', caption:'Lunch special today.', img:2, likes:98},
+  {id:'g3', user:'plant.corner', caption:'New leaves this week.', img:0, likes:57},
+  {id:'g4', user:'city.walks', caption:'Morning light downtown.', img:5, likes:205}
+];
+var SHORTS0 = [
+  {id:'s1', user:'dance.steps', cap:'Learn this move in 15 seconds', likes:1200},
+  {id:'s2', user:'quick.recipes', cap:'One-pan breakfast idea', likes:860},
+  {id:'s3', user:'study.tips', cap:'3 tricks to remember anything', likes:2300},
+  {id:'s4', user:'funny.pets', cap:'He did not expect that', likes:5400},
+  {id:'s5', user:'football.skills', cap:'Practise this drill at home', likes:990}
+];
+var VIDEOS0 = [
+  {title:'Learn spreadsheets in 10 minutes', channel:'Skills Hub', views:'48K', dur:'10:12', img:1},
+  {title:'Easy one-pot rice dinner', channel:'Home Kitchen', views:'210K', dur:'7:45', img:4},
+  {title:'How solar panels work', channel:'Energy Basics', views:'92K', dur:'12:03', img:0},
+  {title:'Morning stretch routine', channel:'Move Daily', views:'31K', dur:'8:20', img:6},
+  {title:'Top 10 goals of the season (sample)', channel:'Sports Recap', views:'1.2M', dur:'9:58', img:5},
+  {title:'Mobile Money safety tips', channel:'Money Smart', views:'15K', dur:'5:30', img:3}
+];
+var ADMIN = [
+  {u:'User 01', n:'104', plan:'std', period:'monthly', usedMB:3287, exp:18},
+  {u:'User 02', n:'377', plan:'prem', period:'monthly', usedMB:13107, exp:9},
+  {u:'User 03', n:'512', plan:'msg', period:'weekly', usedMB:430, exp:3},
+  {u:'User 04', n:'228', plan:'std', period:'quarterly', usedMB:6144, exp:41},
+  {u:'User 05', n:'961', plan:'msg', period:'monthly', usedMB:973, exp:-2},
+  {u:'User 06', n:'640', plan:'std', period:'weekly', usedMB:1403, exp:5},
+  {u:'User 07', n:'085', plan:'prem', period:'quarterly', usedMB:20480, exp:62},
+  {u:'User 08', n:'733', plan:'std', period:'monthly', usedMB:4669, exp:-6}
+];
+function adminCapMB(plan){ return plan === 'msg' ? null : CAPS_MB[plan]; }   // demo users on Message & Calls: fair use, no cap
+var OB = [
+  {icon:'vault', title:'Your apps, one safe sandbox', text:'VeloVault is a container that hosts the apps you already use. It is not a messaging app itself.'},
+  {icon:'bolt', title:'Works on a zero-balance SIM', text:'Keep using your apps even when your SIM has no airtime or data bundle, on one flat plan.'},
+  {icon:'wallet', title:'Pay with Mobile Money', text:'Weekly, monthly or quarterly plans from $0.40. Pay with Orange Money, MTN MoMo and other wallets.'}
+];
+
+function clone(o){ return JSON.parse(JSON.stringify(o)); }
+
+/* ---------- State ---------- */
+function freshMock(){
+  return { chat:null, chats:clone(CHATS0), posts:clone(POSTS0), ig:clone(IG0), seen:{}, shorts:clone(SHORTS0),
+           videos:clone(VIDEOS0), vid:0, vidPlaying:false, site:{} };
+}
+function freshState(){
+  var now = Date.now();
+  return {
+    screen:'onboard', prevScreen:'home', ob:0, signedIn:false, phone:'', signinErr:'',
+    plan:'std', period:'monthly', speed:'normal', presentation:true, forcedExpired:false, forcedCap:false, cycleStart:now - 12*DAY, expiresAt:now + 18*DAY,
+    used:8.4, perApp:{whatsapp:3.2, facebook:5.2},
+    apps:clone(DEFAULT_APPS), siteCount:0,
+    viewPeriod:'monthly', currentApp:null, addVal:'', addErr:'',
+    pay:{plan:'std', period:'monthly', provider:'orange', number:'', error:''},
+    approveLeft:3, receipt:null, mock:freshMock()
+  };
+}
+/* Custom icons live outside the demo state, so "Reset demo" keeps them */
+var ICON_KEY = 'velovault.icons.v1';
+function loadIcons(){
+  try { var raw = localStorage.getItem(ICON_KEY); var o = raw ? JSON.parse(raw) : {}; return (o && typeof o === 'object') ? o : {}; }
+  catch (e) { return {}; }
+}
+function saveIcons(){
+  try { localStorage.setItem(ICON_KEY, JSON.stringify(icons)); return true; } catch (e) { return false; }
+}
+var icons = loadIcons();
+var state = freshState();
+var timers = [];
+function clearTimers(){ timers.forEach(function(t){ clearTimeout(t); clearInterval(t); }); timers = []; }
+
+/* ---------- Helpers ---------- */
+function esc(s){ return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+function money(n){ return '$' + n.toFixed(2); }
+function mb(n){ return n >= 1023.95 ? (n/1024).toFixed(2).replace(/\.?0+$/, '') + ' GB' : n.toFixed(1) + ' MB'; }
+function fmtDate(t){ return new Date(t).toLocaleDateString('en-US',{month:'short', day:'numeric', year:'numeric'}); }
+function fmtShort(t){ return new Date(t).toLocaleDateString('en-US',{month:'short', day:'numeric'}); }
+function nowHM(){ var d = new Date(); return String(d.getHours()).padStart(2,'0') + ':' + String(d.getMinutes()).padStart(2,'0'); }
+function capMB(){ return CAPS_MB[state.plan]; }
+function tapRange(){ var t = TAP_MB[state.presentation ? 'presentation' : 'realistic'][state.plan], k = SPEEDS[state.speed].k; return [t[0]*k, t[1]*k]; }
+function rangeText(){ var r = tapRange(); if (!r[1]) return '+0 MB per tap (usage off)'; var f = function(n){ return String(Math.round(n*10)/10); };
+  return '+' + f(r[0]) + '–' + f(r[1]) + ' MB per ' + (state.presentation ? 'tap' : 'tap or scroll'); }
+function daysLeft(){
+  if (state.forcedExpired) return 0;
+  var d = Math.max(0, Math.ceil((state.expiresAt - Date.now()) / DAY));
+  return state.presentation ? Math.max(1, d) : d;   // Presentation mode: never runs out by itself
+}
+function lockReason(){
+  if (!state.signedIn) return null;
+  if (state.presentation){                 // only the demo-menu buttons can lock
+    if (state.forcedExpired) return 'expired';
+    if (state.forcedCap) return 'cap';
+    return null;
+  }
+  if (state.forcedExpired || Date.now() >= state.expiresAt) return 'expired';
+  if (state.forcedCap || state.used >= capMB() - 1e-9) return 'cap';
+  return null;
+}
+function getApp(id){ for (var i=0;i<state.apps.length;i++) if (state.apps[i].id === id) return state.apps[i]; return null; }
+function initials(n){ var p = n.split(/\s+/).filter(Boolean); return ((p[0]||'?')[0] + (p[1] ? p[1][0] : '')).toUpperCase(); }
+function avColor(n){ var h=0; for (var i=0;i<n.length;i++) h=(h*31 + n.charCodeAt(i))>>>0; return AV_COLORS[h % AV_COLORS.length]; }
+function tileIcon(a, size){
+  return '<span class="letter" style="font-size:'+Math.round(size*0.92)+'px">'+esc(a.name.charAt(0).toUpperCase())+'</span>';
+}
+function iconSrc(a){
+  var s = icons[a.id];
+  return (typeof s === 'string' && /^data:image\/(png|jpeg|webp);base64,[A-Za-z0-9+\/=]+$/.test(s)) ? s : null;
+}
+function icBox(a, cls, size){
+  var src = iconSrc(a);
+  if (src) return '<span class="'+cls+' has-img"><img src="'+src+'" alt=""></span>';
+  return '<span class="'+cls+'" style="background:'+a.bg+';color:'+a.fg+'">'+tileIcon(a, size)+'</span>';
+}
+function provider(id){ for (var i=0;i<PROVIDERS.length;i++) if (PROVIDERS[i].id===id) return PROVIDERS[i]; return PROVIDERS[0]; }
+function maskNum(num){ var d = String(num||'').replace(/\D/g,''); return '•••• ' + d.slice(-3); }
+function qualityTag(){ return state.plan==='std' ? 'Compressed · about 70% smaller' : state.plan==='prem' ? 'Original quality' : ''; }
+function ph(i, ratio){
+  var t = qualityTag();
+  return '<div class="ph" style="background:'+GRADS[i % GRADS.length]+';aspect-ratio:'+ratio+'">'+ic('image',34)+(t?'<span class="ph-tag">'+t+'</span>':'')+'</div>';
+}
+function backBtn(act, label){ return '<button class="icon-btn" data-act="'+act+'" aria-label="'+(label||'Back')+'">'+ic('back')+'</button>'; }
+
+var toastT;
+function toast(msg){
+  toastEl.textContent = msg; toastEl.classList.add('show');
+  clearTimeout(toastT); toastT = setTimeout(function(){ toastEl.classList.remove('show'); }, 2300);
+}
+
+/* ---------- Screens ---------- */
+var SCREENS = {};
+
+SCREENS.onboard = function(){
+  var c = OB[state.ob], last = state.ob === OB.length - 1;
+  return '<div class="ob">'+
+    '<div class="ob-top"><div class="logo"><span class="logo-mark">'+ic('vault',24)+'</span>VeloVault</div>'+
+      '<button class="link" data-act="ob-skip">Skip</button></div>'+
+    '<div class="ob-art"><div class="ob-circle">'+ic(c.icon,92)+'</div></div>'+
+    '<div class="ob-step">Step '+(state.ob+1)+' of '+OB.length+'</div>'+
+    '<h1>'+c.title+'</h1><p>'+c.text+'</p>'+
+    '<div class="dots">'+OB.map(function(_,i){ return '<i class="'+(i===state.ob?'on':'')+'"></i>'; }).join('')+'</div>'+
+    '<div class="ob-actions">'+(state.ob>0 ? '<button class="btn ghost" data-act="ob-back">Back</button>' : '')+
+      '<button class="btn" data-act="ob-next">'+(last ? 'Get started' : 'Next')+'</button></div>'+
+  '</div>';
+};
+
+SCREENS.signin = function(){
+  return '<div class="signin">'+
+    '<div class="sub-head" style="margin-left:-12px">'+backBtn('ob-return')+'<div class="logo"><span class="logo-mark">'+ic('vault',24)+'</span>VeloVault</div></div>'+
+    '<h1>Sign in with your phone</h1>'+
+    '<p>Enter your phone number to continue. Any number works in this demo and no SMS is sent.</p>'+
+    '<label class="field-label" for="signin">Phone number</label>'+
+    '<input class="field" id="signin" type="tel" inputmode="tel" autocomplete="off" placeholder="+000 00 000 000" value="'+esc(state.phone)+'" data-bind="phone" data-enter="signin">'+
+    (state.signinErr ? '<div class="err">'+state.signinErr+'</div>' : '')+
+    '<div style="flex:1;min-height:30px"></div>'+
+    '<button class="btn" data-act="signin">Continue</button>'+
+    '<p class="small muted center" style="margin-top:12px">Simulated sign-in. Nothing is stored after you reload.</p>'+
+  '</div>';
+};
+
+SCREENS.home = function(){
+  var p = PLANS[state.plan], per = PERIODS[state.period], cap = capMB();
+  var pct = Math.min(100, state.used / cap * 100);
+  var tiles = state.apps.map(function(a){
+    var locked = state.plan === 'msg' && a.media;
+    return '<button class="tile" data-act="open-app" data-id="'+a.id+'">'+icBox(a,'tile-ic',28)+
+      '<span class="tile-name">'+esc(a.name)+'</span>'+(locked ? '<span class="tile-badge">Upgrade</span>' : '')+'</button>';
+  }).join('');
+  return '<section class="pad">'+
+    '<h1 class="home-title">VeloVault - Your app sandbox</h1>'+
+    '<div class="status-ok"><span class="dot"></span>Zero-Balance Mode Active</div>'+
+    '<button class="plan-card" data-act="go" data-to="usage" aria-label="Open usage">'+
+      '<div class="pc-top"><div><small>Current plan</small><b>'+p.name+' · '+per.label+'</b></div>'+
+        '<div class="days"><b>'+daysLeft()+'</b><small>days left</small></div></div>'+
+      '<div class="bar"><span style="width:'+pct.toFixed(1)+'%"></span></div>'+
+      '<div class="pc-foot"><span>'+mb(state.used)+' of '+mb(cap)+' used</span><span>'+(p.demoCap ? 'Demo cap' : 'Fair-use cap')+' · details ›</span></div>'+
+    '</button>'+
+    '<div class="row-between"><h2 class="sec">Your apps</h2><button class="link" data-act="go" data-to="plans">Change plan</button></div>'+
+    '<div class="grid">'+tiles+
+      '<button class="tile add" data-act="go" data-to="add"><span class="tile-ic">'+ic('plus',28)+'</span><span class="tile-name">Add app</span></button>'+
+    '</div>'+
+    '<p class="hint">Tap an app to open it inside the sandbox. Data used inside apps counts towards your plan.</p>'+
+  '</section>';
+};
+
+SCREENS.app = function(){
+  var a = getApp(state.currentApp);
+  if (!a) return SCREENS.home();
+  var used = state.perApp[a.id] || 0, pct = Math.min(100, state.used / capMB() * 100);
+  var note = state.plan === 'std' ? '<div class="note-strip">'+ic('image',16)+'Images compressed: saved about 70%</div>'
+           : state.plan === 'prem' ? '<div class="note-strip prem">'+ic('image',16)+'Original quality · Premium</div>' : '';
+  return '<div class="app-wrap">'+
+    '<div class="app-top">'+
+      '<header class="app-head">'+backBtn('back-home','Back to sandbox')+
+        '<div class="app-title">'+icBox(a,'app-ic',20)+'<div><b>'+esc(a.name)+'</b><small>Inside VeloVault sandbox</small></div></div>'+
+        '<span class="chip" title="Data used in this app">'+ic('data',14)+'<span id="chipval">'+mb(used)+'</span><span class="chip-plus" id="chipplus"></span></span>'+
+      '</header>'+
+      '<div class="app-meter" title="Plan usage"><span id="appmeter" style="width:'+pct.toFixed(1)+'%"></span></div>'+
+      note+
+    '</div>'+
+    '<div class="app-body" id="appbody">'+APPS[a.kind](a)+'</div>'+
+  '</div>';
+};
+
+var APPS = {};
+APPS.chat = function(){
+  var m = state.mock;
+  if (m.chat){
+    var c = m.chats.filter(function(x){ return x.id === m.chat; })[0];
+    return '<div class="convo">'+
+      '<div class="convo-head">'+backBtn('chat-back','Back to chats')+
+        '<span class="avatar sm" style="background:'+avColor(c.name)+'">'+esc(initials(c.name))+'</span>'+
+        '<div class="convo-name"><b>'+esc(c.name)+'</b><small>'+(c.group ? 'Group chat (sample)' : 'Online (simulated)')+'</small></div>'+
+        '<button class="icon-btn" data-act="call" aria-label="Voice call">'+ic('call',22)+'</button></div>'+
+      '<div class="msgs" id="msgs">'+msgsHTML(c)+'</div>'+
+      '<div class="composer"><input id="chatin" type="text" placeholder="Type a message" autocomplete="off" data-enter="chat-send">'+
+        '<button class="send-btn" data-act="chat-send" aria-label="Send">'+ic('send',20)+'</button></div>'+
+    '</div>';
+  }
+  return '<div class="chat-list"><div class="list-label">Chats · sample conversations</div>'+
+    m.chats.map(function(c){
+      var last = c.msgs[c.msgs.length-1];
+      return '<button class="chat-row" data-act="chat-open" data-id="'+c.id+'">'+
+        '<span class="avatar" style="background:'+avColor(c.name)+'">'+esc(initials(c.name))+'</span>'+
+        '<span class="cr-main"><span class="cr-top"><b>'+esc(c.name)+'</b><small>'+esc(c.time)+'</small></span>'+
+        '<span class="cr-last">'+(last.me ? 'You: ' : '')+esc(last.t)+'</span></span>'+
+        (c.unread ? '<span class="unread">'+c.unread+'</span>' : '')+'</button>';
+    }).join('')+'</div>';
+};
+function msgsHTML(c){
+  return c.msgs.map(function(x){ return '<div class="bubble'+(x.me?' me':'')+'">'+esc(x.t)+'<small>'+esc(x.at)+'</small></div>'; }).join('');
+}
+APPS.feed = function(){
+  var m = state.mock;
+  return '<div class="feed">'+
+    '<div class="composer-card"><span class="avatar sm" style="background:var(--teal)">Y</span>'+
+      '<input id="fbin" type="text" placeholder="What\'s on your mind?" autocomplete="off" data-enter="fb-post">'+
+      '<button class="btn sm" data-act="fb-post">Post</button></div>'+
+    m.posts.map(function(p){
+      return '<article class="post"><div class="post-head"><span class="avatar sm" style="background:'+avColor(p.author)+'">'+esc(initials(p.author))+'</span>'+
+        '<div><b>'+esc(p.author)+'</b><small>'+esc(p.time)+' · Sample post</small></div></div>'+
+        '<p>'+esc(p.text)+'</p>'+(p.img != null ? ph(p.img,'16/10') : '')+
+        '<div class="post-stats">'+p.likes+' likes · '+p.comments+' comments</div>'+
+        '<div class="post-actions">'+
+          '<button class="pa'+(p.liked?' on':'')+'" data-act="like" data-id="'+p.id+'">'+ic('heart',18)+'Like</button>'+
+          '<button class="pa" data-act="comment" data-id="'+p.id+'">'+ic('chat',18)+'Comment</button>'+
+          '<button class="pa" data-act="share">'+ic('share',18)+'Share</button></div></article>';
+    }).join('')+'</div>';
+};
+APPS.photos = function(){
+  var m = state.mock, names = ['Your story','travel','food','plants','city','music'];
+  return '<div class="photos"><div class="stories">'+names.map(function(n,i){
+      return '<button class="story'+(m.seen[i]?' seen':'')+'" data-act="story" data-i="'+i+'"><span class="story-ring"><span style="background:'+GRADS[(i+3)%GRADS.length]+'"></span></span>'+n+'</button>';
+    }).join('')+'</div>'+
+    m.ig.map(function(p){
+      return '<article class="ig-post"><div class="post-head"><span class="avatar sm" style="background:'+avColor(p.user)+'">'+esc(p.user.charAt(0).toUpperCase())+'</span><div><b>'+esc(p.user)+'</b><small>Sample account</small></div></div>'+
+        '<div style="margin-top:10px">'+ph(p.img,'1/1')+'</div>'+
+        '<div class="ig-actions"><button class="icon-btn'+(p.liked?' liked':'')+'" data-act="ig-like" data-id="'+p.id+'" aria-label="Like">'+ic('heart')+'</button>'+
+          '<button class="icon-btn" data-act="share" aria-label="Share">'+ic('share')+'</button>'+
+          '<button class="icon-btn'+(p.saved?' saved':'')+'" style="margin-left:auto" data-act="ig-save" data-id="'+p.id+'" aria-label="Save">'+ic('bookmark')+'</button></div>'+
+        '<div class="ig-likes">'+p.likes+' likes</div><p><b>'+esc(p.user)+'</b> '+esc(p.caption)+'</p></article>';
+    }).join('')+'</div>';
+};
+APPS.shorts = function(){
+  var t = qualityTag();
+  return '<div class="shorts">'+state.mock.shorts.map(function(s,i){
+    return '<div class="short" role="button" tabindex="0" data-act="short-toggle" data-id="'+s.id+'" style="background:'+GRADS[(i+1)%GRADS.length]+'">'+
+      (t ? '<span class="q-tag">'+t+'</span>' : '')+
+      '<div class="short-center">'+(s.playing ? ic('pause',54) : ic('playtri',54))+'</div>'+
+      '<div class="short-side"><button class="side-btn'+(s.liked?' liked':'')+'" data-act="short-like" data-id="'+s.id+'">'+ic('heart',24)+'<small>'+s.likes+'</small></button>'+
+        '<button class="side-btn" data-act="share">'+ic('share',24)+'<small>Share</small></button></div>'+
+      '<div class="short-cap"><b>@'+esc(s.user)+'</b>'+esc(s.cap)+'</div>'+
+      '<div class="prog'+(s.playing?' run':'')+'"><span></span></div></div>';
+  }).join('')+'</div>';
+};
+APPS.video = function(){
+  var m = state.mock, v = m.videos[m.vid];
+  var q = state.plan === 'std' ? 'Data saver · 360p' : 'Original · 1080p';
+  return '<div class="yt">'+
+    '<div class="player" role="button" tabindex="0" data-act="vid-toggle" style="background:'+GRADS[v.img]+'">'+
+      '<span class="q-tag">'+q+'</span><div class="player-center">'+(m.vidPlaying ? ic('pause',56) : ic('playtri',56))+'</div>'+
+      '<div class="prog'+(m.vidPlaying?' run':'')+'"><span></span></div></div>'+
+    '<div class="yt-info"><h3>'+esc(v.title)+'</h3><small>'+esc(v.channel)+' · '+v.views+' views (sample)</small></div>'+
+    '<div class="list-label">Up next</div>'+
+    m.videos.map(function(x,i){
+      if (i === m.vid) return '';
+      return '<button class="vid-row" data-act="vid-pick" data-i="'+i+'"><span class="vid-thumb" style="background:'+GRADS[x.img]+'">'+ic('playtri',22)+'<em>'+x.dur+'</em></span>'+
+        '<span class="vid-meta"><b>'+esc(x.title)+'</b><small>'+esc(x.channel)+' · '+x.views+' views</small></span></button>';
+    }).join('')+'</div>';
+};
+APPS.site = function(a){
+  var s = state.mock.site[a.id] || (state.mock.site[a.id] = {tab:'home', open:{}});
+  var body = '';
+  if (s.tab === 'home'){
+    var arts = [['Welcome to '+a.name,'This is a generic placeholder article. The real page would load here, inside the sandbox.'],
+                ['Today\'s highlights','Sample text standing in for the site\'s main content. Nothing is downloaded in this demo.'],
+                ['Popular this week','More placeholder content so you can scroll and see the data meter move.']];
+    body = arts.map(function(x,i){
+      return '<div class="art">'+ph(i + (a.hue||0),'2/1')+'<div class="art-body"><h4>'+esc(x[0])+'</h4><p>'+esc(x[1])+'</p>'+
+        (s.open[i] ? '<p>Extra placeholder paragraph. In the real product, VeloVault would show the live page and count its data against your plan.</p>' : '')+
+        '<button class="link" data-act="site-more" data-i="'+i+'">'+(s.open[i] ? 'Show less' : 'Read more')+'</button></div></div>';
+    }).join('');
+  } else if (s.tab === 'news'){
+    body = [1,2,3,4,5].map(function(n){ return '<button class="news-row" data-act="site-news" data-i="'+n+'"><span>Sample headline '+n+'</span><small>'+n+' h ago</small></button>'; }).join('');
+  } else {
+    body = '<div class="art"><div class="art-body"><h4>About this page</h4><p>This is a mock page for '+esc(a.host)+'. The real VeloVault would open the website inside its secure container and route the traffic through your plan.</p></div></div>';
+  }
+  return '<div class="site"><div class="urlbar">'+ic('lock',14)+'<span>https://'+esc(a.host)+'</span></div>'+
+    '<div class="site-hero" style="background:'+GRADS[(a.hue||0) % GRADS.length]+'"><small>Mock page</small><h2>'+esc(a.name)+'</h2><p>A generic preview of '+esc(a.host)+' running inside the sandbox.</p></div>'+
+    '<div class="site-tabs">'+['home','news','about'].map(function(t){ return '<button class="'+(s.tab===t?'on':'')+'" data-act="site-tab" data-t="'+t+'">'+t.charAt(0).toUpperCase()+t.slice(1)+'</button>'; }).join('')+'</div>'+
+    '<div class="site-sec">'+body+'</div></div>';
+};
+
+SCREENS.blocked = function(){
+  var a = getApp(state.currentApp) || {name:'This app'};
+  return '<div class="center-screen">'+
+    (a.id ? '<div style="display:flex;justify-content:center;margin-bottom:14px">'+icBox(a,'tile-ic big',40)+'</div>' : '')+
+    '<div><span class="lock-pill">'+ic('lock',14)+'Locked on Message & Calls</span></div>'+
+    '<h2>Not included in your plan - upgrade</h2>'+
+    '<p>'+esc(a.name)+' is a media-heavy app. Your Message & Calls plan covers chat and calls only.</p>'+
+    '<div class="banner info">Standard ('+money(PLANS.std.prices[state.period])+'/'+PERIODS[state.period].per+') includes all apps with compressed images.</div>'+
+    '<button class="btn" data-act="upgrade">Upgrade plan</button>'+
+    '<button class="btn ghost" data-act="back-home">Back to sandbox</button></div>';
+};
+
+SCREENS.add = function(){
+  return '<div class="pad">'+
+    '<div class="sub-head">'+backBtn('back-home')+'<h2>Add an app</h2></div>'+
+    '<p class="muted" style="line-height:1.5;margin:4px 0 0">Type a website address. VeloVault adds it to your sandbox as a new tile.</p>'+
+    '<label class="field-label" for="addin">Website address</label>'+
+    '<input class="field" id="addin" type="text" inputmode="url" autocapitalize="off" autocorrect="off" spellcheck="false" autocomplete="off" placeholder="e.g. news.example.com" value="'+esc(state.addVal)+'" data-bind="addVal" data-enter="add-site">'+
+    (state.addErr ? '<div class="err">'+state.addErr+'</div>' : '')+
+    '<div class="field-label">Try one</div>'+
+    '<div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px">'+['example.com','news.example.org','shop.example.net'].map(function(v){
+      return '<button class="btn ghost sm" data-act="add-suggest" data-v="'+v+'">'+v+'</button>'; }).join('')+'</div>'+
+    '<button class="btn" data-act="add-site">Add to sandbox</button>'+
+    '<p class="small muted" style="margin-top:14px">In this demo the new tile opens a generic mock page. Nothing is loaded from the internet.</p>'+
+  '</div>';
+};
+
+SCREENS.plans = function(){
+  var v = state.viewPeriod, lock = lockReason();
+  var seg = ['weekly','monthly','quarterly'].map(function(k){
+    return '<button class="seg-btn'+(k===v?' on':'')+'" data-act="period" data-p="'+k+'">'+PERIODS[k].label+'</button>'; }).join('');
+  var cards = PLAN_ORDER.map(function(id){
+    var p = PLANS[id], current = state.plan === id && state.period === v;
+    return '<div class="plan'+(p.popular?' popular':'')+'">'+(p.popular ? '<span class="badge">Most popular</span>' : '')+
+      '<div class="plan-head"><h3>'+p.name+'</h3><div class="price"><b>'+money(p.prices[v])+'</b><span>/'+PERIODS[v].per+'</span></div></div>'+
+      '<ul class="rules">'+p.rules.map(function(r){ return '<li class="'+r[0]+'">'+ic(r[0]==='ok'?'check':'cross',17)+'<span>'+r[1]+'</span></li>'; }).join('')+'</ul>'+
+      '<button class="btn'+(p.popular?'':' outline')+'" data-act="choose" data-plan="'+id+'">'+(current ? 'Renew '+p.name : 'Choose '+p.name)+'</button>'+
+      (current ? '<div class="current-tag">'+(lock ? 'Your plan · needs renewal' : 'Your current plan')+'</div>' : '')+
+    '</div>';
+  }).join('');
+  return '<div class="pad">'+
+    '<h1 class="page-title">Plans</h1><p class="muted" style="margin:0">One flat price. Pay with Mobile Money, no card needed.</p>'+
+    (lock ? '<div class="banner danger">Your access has ended. Choose a plan to renew and continue.</div>' : '')+
+    '<div class="seg" role="tablist">'+seg+'</div>'+cards+
+    '<div class="banner info"><b>Demo note:</b> Standard and Premium use their real caps (6 GB and 20 GB). Message & Calls uses a 20 MB demo cap. App usage is simulated.</div>'+
+  '</div>';
+};
+
+SCREENS.pay = function(){
+  var p = state.pay, pl = PLANS[p.plan], per = PERIODS[p.period], price = pl.prices[p.period];
+  return '<div class="pad">'+
+    '<div class="sub-head">'+backBtn('go-plans')+'<h2>Mobile Money</h2></div>'+
+    '<span class="test-badge">'+ic('info',14)+'Test payment</span>'+
+    '<div class="summary"><div class="sum-row"><span>Plan</span><b>'+pl.name+'</b></div>'+
+      '<div class="sum-row"><span>Billing</span><b>'+per.label+' ('+per.days+' days)</b></div>'+
+      '<div class="sum-row total"><span>Total</span><span>'+money(price)+'</span></div></div>'+
+    '<div class="field-label">Pay with</div>'+
+    PROVIDERS.map(function(o){
+      return '<button class="opt'+(p.provider===o.id?' on':'')+'" data-act="provider" data-v="'+o.id+'">'+
+        '<span class="prov-dot" style="background:'+o.bg+'">'+o.short+'</span><span class="grow">'+o.label+'<small>'+o.sub+'</small></span><span class="radio"></span></button>';
+    }).join('')+
+    '<label class="field-label" for="paynum">Mobile Money number</label>'+
+    '<input class="field" id="paynum" type="tel" inputmode="tel" autocomplete="off" placeholder="Any number works" value="'+esc(p.number)+'" data-bind="pay.number" data-enter="pay-submit">'+
+    (p.error ? '<div class="err">'+p.error+'</div>' : '')+
+    '<button class="btn" style="margin-top:18px" data-act="pay-submit">Pay '+money(price)+'</button>'+
+    '<p class="small muted center" style="margin-top:12px">Test payment: no money moves and no request is sent to any wallet.</p>'+
+  '</div>';
+};
+
+SCREENS.approve = function(){
+  var p = state.pay, price = PLANS[p.plan].prices[p.period];
+  return '<div class="center-screen">'+
+    '<div><span class="test-badge">Test payment</span></div>'+
+    '<div class="big-ic lock pulse" style="margin-top:22px">'+ic('phone',44)+'</div>'+
+    '<h2>Approve on your phone</h2>'+
+    '<p>A '+provider(p.provider).label+' prompt was sent to '+esc(maskNum(p.number))+'. Approve it to pay '+money(price)+'.<br><span class="small">Simulated: it approves itself in a few seconds.</span></p>'+
+    '<div class="count" id="count">'+state.approveLeft+'</div>'+
+    '<button class="btn ghost" data-act="pay-cancel">Cancel</button></div>';
+};
+
+SCREENS.success = function(){
+  var r = state.receipt;
+  return '<div class="center-screen">'+
+    '<div><span class="test-badge">Test payment</span></div>'+
+    '<div class="big-ic ok" style="margin-top:20px">'+ic('check',46)+'</div>'+
+    '<h2>Payment successful</h2>'+
+    '<p>Your '+r.plan+' plan is active. No real money was charged.</p>'+
+    '<div class="summary" style="text-align:left;margin-top:0">'+
+      '<div class="sum-row"><span>Plan</span><b>'+r.plan+'</b></div>'+
+      '<div class="sum-row"><span>Billing</span><b>'+r.period+'</b></div>'+
+      '<div class="sum-row"><span>Paid with</span><b>'+r.provider+'</b></div>'+
+      '<div class="sum-row"><span>Reference</span><b>'+r.ref+'</b></div>'+
+      '<div class="sum-row"><span>Valid until</span><b>'+r.until+'</b></div>'+
+      '<div class="sum-row total"><span>Amount</span><span>'+r.amount+'</span></div></div>'+
+    '<button class="btn" data-act="go" data-to="home">Open my sandbox</button>'+
+    '<button class="btn ghost" data-act="go" data-to="usage">View usage</button></div>';
+};
+
+SCREENS.usage = function(){
+  var cap = capMB(), p = PLANS[state.plan], lock = lockReason();
+  var pct = Math.min(100, state.used / cap * 100);
+  var cls = pct >= 100 ? ' full' : pct >= 80 ? ' hi' : '';
+  var rows = state.apps.map(function(a){ return {a:a, v:state.perApp[a.id] || 0}; }).sort(function(x,y){ return y.v - x.v; });
+  return '<div class="pad">'+
+    '<h1 class="page-title">Usage</h1><p class="muted" style="margin:0">'+p.name+' · '+PERIODS[state.period].label+' · '+fmtShort(state.cycleStart)+' to '+fmtShort(state.expiresAt)+'</p>'+
+    (lock === 'cap' ? '<div class="banner warn">Data cap reached. Speed is reduced until you renew or top up.</div>' : '')+
+    (lock === 'expired' ? '<div class="banner danger">Your plan has ended. Renew to continue.</div>' : '')+
+    '<div class="usage-hero"><div class="big-num">'+mb(state.used)+' <small>of '+mb(cap)+'</small></div>'+
+      '<div class="bar light'+cls+'"><span style="width:'+pct.toFixed(1)+'%"></span></div>'+
+      '<div class="u-meta"><span>'+pct.toFixed(0)+'% of this cycle\'s cap</span><span>'+daysLeft()+' days left</span></div>'+
+      '<p class="small muted" style="margin:12px 0 0">'+(p.demoCap ? 'Demo cap. The real plan has a '+p.realCap+'.' : 'Fair-use cap: '+mb(cap)+' per billing cycle.')+'</p></div>'+
+    '<h2 class="sec" style="margin:20px 0 4px">By app</h2>'+
+    rows.map(function(r){
+      var excluded = state.plan === 'msg' && r.a.media;
+      return '<div class="app-bar">'+icBox(r.a,'tile-ic sm',18)+'<div class="ab-main"><div class="ab-top"><span>'+esc(r.a.name)+'</span><small>'+(excluded ? 'Not in plan' : mb(r.v))+'</small></div>'+
+        '<div class="bar light"><span style="width:'+Math.min(100, r.v / cap * 100).toFixed(1)+'%"></span></div></div></div>';
+    }).join('')+
+    '<button class="btn outline" style="margin-top:20px" data-act="go" data-to="plans">Change or renew plan</button>'+
+  '</div>';
+};
+
+SCREENS.lock = function(){
+  var r = lockReason() || 'expired', p = PLANS[state.plan], per = PERIODS[state.period];
+  return '<div class="center-screen">'+
+    '<div class="big-ic lock">'+ic('lock',44)+'</div>'+
+    '<h2>Your '+per.adj+' access has ended. Renew to continue.</h2>'+
+    (r === 'cap'
+      ? '<div class="banner warn">'+ic('bolt',16)+' You have used your full '+p.name+' fair-use cap '+(p.demoCap ? '('+mb(capMB())+' in this demo)' : 'of '+mb(capMB()))+'. Speed is reduced until you renew or top up.</div>'
+      : '<p>Your '+p.name+' plan expired on '+fmtDate(state.expiresAt)+'. Your apps are paused until you renew.</p>')+
+    '<button class="btn" style="margin-top:10px" data-act="renew">Renew '+p.name+' · '+money(p.prices[state.period])+'</button>'+
+    '<button class="btn ghost" data-act="go" data-to="plans">Choose a different plan</button>'+
+    (r === 'cap' ? '<button class="btn ghost" data-act="go" data-to="usage">See my usage</button>' : '')+
+  '</div>';
+};
+
+SCREENS.admin = function(){
+  var today = Date.now(), active=0, expired=0, capped=0, totalMB=0, value=0;
+  var rows = ADMIN.map(function(u){
+    var cap = adminCapMB(u.plan), st, stc;
+    if (u.exp < 0){ st='Expired'; stc='expired'; expired++; }
+    else if (cap && u.usedMB >= cap){ st='Cap reached'; stc='cap'; capped++; }
+    else { st='Active'; stc='active'; active++; }
+    totalMB += u.usedMB; value += PLANS[u.plan].prices[u.period];
+    return '<tr><td><b>'+u.u+'</b><small>•••• '+u.n+'</small></td>'+
+      '<td>'+(u.plan==='msg'?'Msg & Calls':PLANS[u.plan].name)+'<small>'+PERIODS[u.period].label+'</small></td>'+
+      '<td>'+mb(u.usedMB)+'<small>'+(cap ? 'of '+mb(cap) : 'fair use')+'</small></td>'+
+      '<td style="white-space:nowrap">'+fmtShort(today + u.exp*DAY)+'<small>'+(u.exp < 0 ? Math.abs(u.exp)+' d ago' : 'in '+u.exp+' d')+'</small></td>'+
+      '<td><span class="st '+stc+'">'+st+'</span></td></tr>';
+  }).join('');
+  return '<div class="pad">'+
+    '<div class="sub-head">'+backBtn('back-prev')+'<h2>Admin view</h2></div>'+
+    '<p class="muted small" style="margin:0">Operator dashboard with 8 fictional test users. No real people or numbers.</p>'+
+    '<div class="kpis"><div class="kpi"><b>'+active+'</b><small>Active</small></div><div class="kpi"><b>'+capped+'</b><small>Cap reached</small></div>'+
+      '<div class="kpi"><b>'+expired+'</b><small>Expired</small></div><div class="kpi"><b>'+money(value)+'</b><small>Plan value (test)</small></div></div>'+
+    '<div class="tbl-wrap"><table><thead><tr><th>User</th><th>Plan</th><th>Data</th><th>Expiry</th><th>Status</th></tr></thead>'+
+      '<tbody>'+rows+'</tbody>'+
+      '<tfoot><tr><td>Total<small>'+ADMIN.length+' users</small></td><td>'+money(value)+'<small>plan value</small></td><td>'+mb(totalMB)+'<small>all users</small></td><td>—</td>'+
+      '<td>'+active+' active<small>'+capped+' capped<br>'+expired+' expired</small></td></tr></tfoot></table></div>'+
+    '<p class="small muted" style="margin-top:10px">Totals cover all 8 test users. Plan value is the sum of their current plan prices.</p>'+
+  '</div>';
+};
+
+SCREENS.icons = function(){
+  return '<div class="pad">'+
+    '<div class="sub-head">'+backBtn('back-prev')+'<h2>Edit icons</h2></div>'+
+    '<p class="muted" style="line-height:1.5;margin:4px 0 14px">Choose an image from your device for each app tile and crop it to a rounded square. It shows on the tile and on the screen that opens from it. Images are saved only in this browser.</p>'+
+    DEFAULT_APPS.map(function(d){
+      var a = getApp(d.id) || d, has = !!iconSrc(a);
+      return '<div class="ic-row">'+icBox(a,'tile-ic',28)+
+        '<div class="grow"><b>'+esc(a.name)+'</b><small>'+(has ? 'Your image' : 'Letter tile')+'</small></div>'+
+        (has ? '<button class="icon-btn" data-act="icon-remove" data-id="'+a.id+'" aria-label="Remove '+esc(a.name)+' image">'+ic('cross',20)+'</button>' : '')+
+        '<button class="btn sm" data-act="icon-pick" data-id="'+a.id+'">'+(has ? 'Change' : 'Choose image')+'</button></div>';
+    }).join('')+
+    '<p class="small muted" style="margin:6px 2px 16px">Only use images you have the right to use. App names and logos belong to their respective owners.</p>'+
+    '<button class="btn danger-ghost" data-act="icons-reset">Reset icons</button>'+
+    '<p class="small muted center" style="margin-top:10px">Reset icons brings back the letter tiles. Reset demo keeps your icons.</p>'+
+  '</div>';
+};
+
+SCREENS.about = function(){
+  var sim = [
+    'No real data: every number is made up. In Presentation mode (on by default) each tap inside an open app adds 1 to 3 MB, scrolling adds nothing and the plan never ends by itself. With Presentation mode off, each tap or scroll adds 15 to 50 MB on Standard or 40 to 120 MB on Premium. Demo usage speed can turn usage off, halve it (Slow) or make it 5 times faster (Fast).',
+    'No real payments: the Mobile Money screens are a test flow. Nothing is charged and no wallet is contacted.',
+    'No real apps inside: WhatsApp, Facebook, Instagram, TikTok, YouTube and added websites are simple mock screens with letter tiles, not the real services.',
+    'Icons you upload in Edit icons are saved only in this browser (localStorage) and never leave your device.',
+    'No real accounts: any phone number signs in and no SMS is sent.',
+    'Standard and Premium use their real caps (6 GB = 6144 MB and 20 GB = 20480 MB). Message & Calls uses a small 20 MB demo cap. The lock screen appears when you press Fast-forward to end of plan or Use up data cap in the demo menu.',
+    'The admin view shows 8 fictional users.',
+    'Everything runs offline in this one file. Nothing is saved after you reload, except icons you upload.'
+  ];
+  var real = [
+    'Run your real apps inside a secure sandbox container on your phone.',
+    'Work with mobile network partners so traffic inside the sandbox works on a zero-balance SIM.',
+    'Take real payments through Orange Money, MTN MoMo and other Mobile Money wallets, approved on your phone.',
+    'Measure real data use per app and apply fair-use caps: 6 GB on Standard, 20 GB on Premium.',
+    'Compress images on the Standard plan to save about 70% of data.',
+    'Limit Message & Calls to chat and calls, and reduce speed when a cap is reached until renewal or top-up.',
+    'Give operators a live dashboard of subscribers, usage and renewals.'
+  ];
+  return '<div class="pad">'+
+    '<div class="sub-head">'+backBtn('back-prev')+'<h2>About this demo</h2></div>'+
+    '<p class="muted" style="line-height:1.5;margin:4px 0 0">VeloVault is a sandbox container app that hosts other apps, so people on a zero-balance SIM can use them on a flat plan paid by Mobile Money. It is not a messaging app itself.</p>'+
+    '<h3 class="about-h">What is simulated here</h3><ul class="about-list sim">'+sim.map(function(t){ return '<li>'+ic('info',18)+'<span>'+t+'</span></li>'; }).join('')+'</ul>'+
+    '<h3 class="about-h">What the real product will do</h3><ul class="about-list real">'+real.map(function(t){ return '<li>'+ic('check',18)+'<span>'+t+'</span></li>'; }).join('')+'</ul>'+
+    '<p class="banner info" style="margin-top:16px">App names and logos belong to their respective owners. VeloVault is a demo and is not affiliated with or endorsed by them.</p>'+
+    '<button class="btn outline" style="margin-top:6px" data-act="menu">Open demo controls</button>'+
+  '</div>';
+};
+
+/* ---------- Rendering & navigation ---------- */
+var LOCKABLE = ['home','app','add','blocked'];
+var TAB_SCREENS = ['home','plans','usage','about','lock'];
+var suppressUntil = 0;
+
+function render(){
+  var s = state.screen;
+  if (lockReason() && LOCKABLE.indexOf(s) >= 0) s = 'lock';
+  view.innerHTML = SCREENS[s]();
+  view.setAttribute('data-screen', s);
+  var showTabs = state.signedIn && TAB_SCREENS.indexOf(s) >= 0;
+  tabbar.classList.toggle('hidden', !showTabs);
+  $('#screen').classList.toggle('no-tabs', !showTabs);
+  var tabs = tabbar.querySelectorAll('.tab');
+  for (var i=0;i<tabs.length;i++) tabs[i].classList.toggle('active', tabs[i].getAttribute('data-to') === s);
+}
+function go(to){
+  if (state.screen === 'approve' && to !== 'success' && to !== 'approve') clearTimers();
+  var OVERLAY = ['about','admin','icons'];
+  if (OVERLAY.indexOf(to) >= 0 && OVERLAY.indexOf(state.screen) < 0){
+    state.prevScreen = state.screen === 'approve' ? 'pay' : state.screen;
+  }
+  if (to === 'plans' && state.screen !== 'plans') state.viewPeriod = state.period;
+  state.screen = to;
+  suppressUntil = Date.now() + 300;
+  render();
+  view.scrollTop = 0;
+}
+function refresh(){
+  var st = view.scrollTop;
+  suppressUntil = Date.now() + 300;
+  render();
+  view.scrollTop = st;
+}
+function scrollBottom(){ suppressUntil = Date.now() + 300; view.scrollTop = view.scrollHeight; }
+
+function openApp(id){
+  var a = getApp(id); if (!a) return;
+  state.currentApp = id;
+  state.mock.chat = null;
+  if (lockReason()) return go('lock');
+  if (state.plan === 'msg' && a.media) return go('blocked');
+  go('app');
+}
+
+function addUsage(){
+  if (state.screen !== 'app' || !state.currentApp || lockReason()) return;
+  var a = getApp(state.currentApp); if (!a) return;
+  var cap = capMB();
+  var rg = tapRange(), add = Math.round((rg[0] + Math.random()*(rg[1] - rg[0])) * 10) / 10;
+  // Presentation mode stops just below the cap so normal tapping can never lock the app
+  var room = state.presentation ? Math.max(0, cap - 0.1 - state.used) : cap - state.used;
+  var real = Math.round(Math.min(add, room) * 10) / 10;
+  if (real <= 0) return;
+  state.used += real;
+  state.perApp[a.id] = (state.perApp[a.id] || 0) + real;
+  var cv = $('#chipval'); if (cv) cv.textContent = mb(state.perApp[a.id]);
+  var cp = $('#chipplus');
+  if (cp){ cp.textContent = '+' + mb(real); cp.classList.remove('go'); void cp.offsetWidth; cp.classList.add('go'); }
+  var am = $('#appmeter'); if (am) am.style.width = Math.min(100, state.used / cap * 100).toFixed(1) + '%';
+  if (!state.presentation && state.used >= cap - 1e-9){
+    state.used = cap;
+    toast('Data cap reached. Speed reduced.');
+    timers.push(setTimeout(function(){ if (state.screen === 'app') go('lock'); }, 700));
+  }
+}
+
+function activate(plan, period){
+  var now = Date.now();
+  state.plan = plan; state.period = period;
+  state.cycleStart = now; state.expiresAt = now + PERIODS[period].days * DAY;
+  state.used = 0; state.perApp = {}; state.forcedExpired = false; state.forcedCap = false;
+}
+
+function parseHost(raw){
+  var h = String(raw || '').trim().toLowerCase().replace(/^[a-z][a-z0-9+.-]*:\/\//, '').split(/[\/?#\s]/)[0].replace(/:\d+$/, '').replace(/^www\./, '');
+  return /^[a-z0-9-]+(\.[a-z0-9-]+)+$/.test(h) && h.length <= 80 ? h : null;
+}
+function siteName(host){
+  var parts = host.split('.'), p = parts[0];
+  if (['m','mobile','web','app','en'].indexOf(p) >= 0 && parts.length > 2) p = parts[1];
+  return p.charAt(0).toUpperCase() + p.slice(1);
+}
+
+/* ---------- Demo menu ---------- */
+function openMenu(){
+  menuEl.innerHTML = '<div class="sheet" role="dialog" aria-label="Demo controls">'+
+    '<div class="sheet-grip"></div>'+
+    '<div class="sheet-head"><b>Demo controls</b><button class="icon-btn" data-act="menu-close" aria-label="Close">'+ic('cross')+'</button></div>'+
+    '<div class="usage-line" id="usageLine">Used '+(Math.round(state.used*10)/10)+' MB of '+capMB()+' MB, '+rangeText()+'</div>'+
+    '<button class="toggle-row" role="switch" aria-checked="'+state.presentation+'" data-act="presentation">'+
+      '<span class="grow"><b>Presentation mode</b><small>'+(state.presentation
+        ? 'On: 1–3 MB per tap inside an open app. Scrolling adds nothing, the plan never expires by itself, and the lock screen only appears from the buttons below.'
+        : 'Off: realistic usage. Taps and scrolls add 15–50 MB (Standard) or 40–120 MB (Premium), and the app locks itself at the cap or at expiry.')+'</small></span>'+
+      '<span class="switch'+(state.presentation?' on':'')+'"><i></i></span></button>'+
+    '<div style="padding:2px 8px 6px"><b style="font-size:14px">Demo usage speed</b>'+
+      '<div class="seg" style="margin:8px 0 6px">'+['off','slow','normal','fast'].map(function(k){
+        return '<button class="seg-btn'+(state.speed===k?' on':'')+'" data-act="speed" data-v="'+k+'">'+SPEEDS[k].label+'</button>'; }).join('')+'</div>'+
+      '<small class="muted" style="font-size:12.5px">Off adds nothing · Slow is half · Fast is 5 times Normal. Caps: Standard 6144 MB, Premium 20480 MB, Message & Calls 20 MB (demo).</small></div>'+
+    '<button class="menu-item" data-act="ff"><span class="mi-ic">'+ic('forward',20)+'</span>Fast-forward to end of plan</button>'+
+    '<button class="menu-item" data-act="usecap"><span class="mi-ic">'+ic('data',20)+'</span>Use up data cap</button>'+
+    '<button class="menu-item" data-act="edit-icons"><span class="mi-ic">'+ic('image',20)+'</span>Edit icons</button>'+
+    '<button class="menu-item" data-act="admin"><span class="mi-ic">'+ic('table',20)+'</span>Admin view</button>'+
+    '<button class="menu-item" data-act="about"><span class="mi-ic">'+ic('info',20)+'</span>About this demo</button>'+
+    '<button class="menu-item danger" data-act="reset"><span class="mi-ic">'+ic('reset',20)+'</span>Reset demo</button>'+
+  '</div>';
+  menuEl.classList.add('open'); menuEl.setAttribute('aria-hidden','false');
+}
+function closeMenu(){ menuEl.classList.remove('open'); menuEl.setAttribute('aria-hidden','true'); }
+
+/* ---------- Actions ---------- */
+function findById(list, id){ for (var i=0;i<list.length;i++) if (list[i].id === id) return list[i]; return null; }
+var ACT = {
+  go: function(el){ go(el.getAttribute('data-to')); },
+  'go-plans': function(){ go('plans'); },
+  'back-prev': function(){ go(state.prevScreen || (state.signedIn ? 'home' : 'onboard')); },
+  menu: function(){ openMenu(); },
+  'menu-close': function(){ closeMenu(); },
+
+  'ob-next': function(){ if (state.ob < OB.length - 1){ state.ob++; refresh(); } else go('signin'); },
+  'ob-back': function(){ if (state.ob > 0){ state.ob--; refresh(); } },
+  'ob-skip': function(){ go('signin'); },
+  'ob-return': function(){ state.ob = OB.length - 1; go('onboard'); },
+  signin: function(){
+    var d = String(state.phone || '').replace(/\D/g, '');
+    if (d.length < 4){ state.signinErr = 'Enter any phone number (at least 4 digits). No SMS is sent.'; refresh(); return; }
+    state.signinErr = ''; state.signedIn = true;
+    toast('Signed in (simulated)'); go('home');
+  },
+
+  'open-app': function(el){ openApp(el.getAttribute('data-id')); },
+  'back-home': function(){ state.mock.chat = null; go('home'); },
+  upgrade: function(){ go('plans'); },
+
+  'chat-open': function(el){
+    var c = findById(state.mock.chats, el.getAttribute('data-id')); if (!c) return;
+    c.unread = 0; state.mock.chat = c.id; refresh(); scrollBottom();
+  },
+  'chat-back': function(){ state.mock.chat = null; refresh(); view.scrollTop = 0; },
+  'chat-send': function(){
+    var inp = $('#chatin'), t = inp ? inp.value.trim() : '';
+    var c = findById(state.mock.chats, state.mock.chat); if (!c) return;
+    if (!t){ toast('Type a message first'); return; }
+    c.msgs.push({me:true, t:t, at:nowHM()}); c.time = nowHM(); inp.value = '';
+    var box = $('#msgs'); if (box) box.innerHTML = msgsHTML(c); scrollBottom();
+    var id = c.id;
+    timers.push(setTimeout(function(){
+      c.msgs.push({me:false, t:REPLIES[Math.floor(Math.random()*REPLIES.length)], at:nowHM()});
+      if (state.screen === 'app' && state.mock.chat === id){ var b = $('#msgs'); if (b){ b.innerHTML = msgsHTML(c); scrollBottom(); } }
+    }, 1300));
+  },
+  call: function(){ toast('Voice call started (simulated, no real call)'); },
+
+  like: function(el){ var p = findById(state.mock.posts, el.getAttribute('data-id')); if (!p) return; p.liked = !p.liked; p.likes += p.liked ? 1 : -1; refresh(); },
+  comment: function(el){ var p = findById(state.mock.posts, el.getAttribute('data-id')); if (p){ p.comments++; refresh(); } toast('Comment added (simulated)'); },
+  share: function(){ toast('Share sheet (simulated)'); },
+  'fb-post': function(){
+    var inp = $('#fbin'), t = inp ? inp.value.trim() : '';
+    if (!t){ toast('Write something first'); return; }
+    state.mock.posts.unshift({id:'p'+Date.now(), author:'You', time:'Just now', text:t, img:null, likes:0, comments:0});
+    refresh(); toast('Posted (only visible in this demo)');
+  },
+  story: function(el){ state.mock.seen[el.getAttribute('data-i')] = true; refresh(); toast('Story viewed (simulated)'); },
+  'ig-like': function(el){ var p = findById(state.mock.ig, el.getAttribute('data-id')); if (!p) return; p.liked = !p.liked; p.likes += p.liked ? 1 : -1; refresh(); },
+  'ig-save': function(el){ var p = findById(state.mock.ig, el.getAttribute('data-id')); if (!p) return; p.saved = !p.saved; refresh(); toast(p.saved ? 'Saved' : 'Removed from saved'); },
+  'short-toggle': function(el){ var s = findById(state.mock.shorts, el.getAttribute('data-id')); if (!s) return; s.playing = !s.playing; refresh(); },
+  'short-like': function(el){ var s = findById(state.mock.shorts, el.getAttribute('data-id')); if (!s) return; s.liked = !s.liked; s.likes += s.liked ? 1 : -1; refresh(); },
+  'vid-toggle': function(){ state.mock.vidPlaying = !state.mock.vidPlaying; refresh(); },
+  'vid-pick': function(el){ state.mock.vid = +el.getAttribute('data-i'); state.mock.vidPlaying = true; refresh(); view.scrollTop = 0; },
+  'site-tab': function(el){ var a = getApp(state.currentApp); if (!a) return; state.mock.site[a.id].tab = el.getAttribute('data-t'); refresh(); },
+  'site-more': function(el){ var a = getApp(state.currentApp); if (!a) return; var o = state.mock.site[a.id].open, i = el.getAttribute('data-i'); o[i] = !o[i]; refresh(); },
+  'site-news': function(el){ toast('Opened sample headline '+el.getAttribute('data-i')+' (mock)'); },
+
+  'add-suggest': function(el){ state.addVal = el.getAttribute('data-v'); state.addErr = ''; refresh(); },
+  'add-site': function(){
+    var host = parseHost(state.addVal);
+    if (!host){ state.addErr = 'Enter a website address like example.com'; refresh(); return; }
+    var a = null;
+    for (var i=0;i<state.apps.length;i++) if (state.apps[i].host === host) a = state.apps[i];
+    if (!a){
+      state.siteCount++;
+      a = {id:'site'+state.siteCount, name:siteName(host), host:host, kind:'site', icon:'globe', media:false, custom:true, hue:(state.siteCount*3) % GRADS.length, bg:'#E3EEF1', fg:'#1C7293'};
+      state.apps.push(a); toast(a.name + ' added to your sandbox');
+    } else toast(a.name + ' is already in your sandbox');
+    state.addVal = ''; state.addErr = '';
+    openApp(a.id);
+  },
+
+  period: function(el){ state.viewPeriod = el.getAttribute('data-p'); refresh(); },
+  choose: function(el){
+    state.pay = {plan:el.getAttribute('data-plan'), period:state.viewPeriod, provider:state.pay.provider || 'orange', number:state.pay.number || '', error:''};
+    go('pay');
+  },
+  renew: function(){
+    state.pay = {plan:state.plan, period:state.period, provider:state.pay.provider || 'orange', number:state.pay.number || '', error:''};
+    go('pay');
+  },
+  provider: function(el){ state.pay.provider = el.getAttribute('data-v'); refresh(); },
+  'pay-submit': function(){
+    var d = String(state.pay.number || '').replace(/\D/g, '');
+    if (d.length < 6){ state.pay.error = 'Enter a Mobile Money number (at least 6 digits). Any number works.'; refresh(); return; }
+    state.pay.error = '';
+    clearTimers();
+    state.approveLeft = 3;
+    go('approve');
+    timers.push(setInterval(function(){
+      state.approveLeft = Math.max(0, state.approveLeft - 1);
+      var el = $('#count'); if (el) el.textContent = state.approveLeft;
+    }, 1000));
+    timers.push(setTimeout(function(){
+      clearTimers();
+      var p = state.pay, pl = PLANS[p.plan];
+      activate(p.plan, p.period);
+      var ref = 'TEST-' + Math.random().toString(36).slice(2, 8).toUpperCase();
+      state.receipt = {plan:pl.name, period:PERIODS[p.period].label, amount:money(pl.prices[p.period]), provider:provider(p.provider).label, ref:ref, until:fmtDate(state.expiresAt)};
+      go('success'); toast(pl.name + ' plan activated');
+    }, 3000));
+  },
+  'pay-cancel': function(){ clearTimers(); toast('Payment cancelled'); go('pay'); },
+
+  ff: function(){
+    closeMenu();
+    if (!state.signedIn){ toast('Sign in first to try this'); return; }
+    clearTimers();
+    state.expiresAt = Date.now() - 1000; state.forcedExpired = true;
+    toast('Fast-forwarded to the end of the plan'); go('lock');
+  },
+  usecap: function(){
+    closeMenu();
+    if (!state.signedIn){ toast('Sign in first to try this'); return; }
+    clearTimers();
+    var cap = capMB(), rem = cap - state.used;
+    if (rem > 0){
+      var ok = state.apps.filter(function(a){ return !(state.plan === 'msg' && a.media); });
+      var w = ok.map(function(){ return Math.random() + 0.2; }), sum = w.reduce(function(x,y){ return x + y; }, 0);
+      ok.forEach(function(a, i){ state.perApp[a.id] = (state.perApp[a.id] || 0) + rem * w[i] / sum; });
+    }
+    state.used = cap; state.forcedCap = true;
+    toast('Data cap used up'); go('lock');
+  },
+  admin: function(){ closeMenu(); go('admin'); },
+  'edit-icons': function(){ closeMenu(); go('icons'); },
+  speed: function(el){ state.speed = el.getAttribute('data-v'); openMenu(); toast('Demo usage speed: ' + SPEEDS[state.speed].label); },
+  presentation: function(){
+    state.presentation = !state.presentation;
+    // leaving Presentation mode keeps things unlocked until you tap again
+    if (!state.presentation && state.used >= capMB() - 1e-9 && !state.forcedCap) state.used = capMB() - 0.1;
+    openMenu(); refresh(); toast('Presentation mode ' + (state.presentation ? 'on' : 'off'));
+  },
+  'icon-pick': function(el){
+    pendingIcon = el.getAttribute('data-id');
+    var f = $('#iconFile'); f.value = ''; f.click();
+  },
+  'icon-remove': function(el){
+    var a = getApp(el.getAttribute('data-id')); if (!a) return;
+    delete icons[a.id]; saveIcons(); refresh(); toast(a.name + ' is back to its letter tile');
+  },
+  'icons-reset': function(el){
+    if (!Object.keys(icons).length){ toast('No custom icons to reset'); return; }
+    if (Date.now() - resetArmed > 4000){
+      resetArmed = Date.now();
+      el.textContent = 'Tap again to remove all icons';
+      setTimeout(function(){ var b = document.querySelector('[data-act="icons-reset"]'); if (b && Date.now() - resetArmed >= 3900) b.textContent = 'Reset icons'; }, 4000);
+      return;
+    }
+    resetArmed = 0; icons = {};
+    try { localStorage.removeItem(ICON_KEY); } catch (e) {}
+    refresh(); toast('Icons reset to letter tiles');
+  },
+  'crop-cancel': function(){ closeCropper(); },
+  'crop-save': function(){ saveCrop(); },
+  'crop-zoom-in': function(){ if (crop) setZoom(crop.zoom * 1.2, CV / 2, CV / 2); },
+  'crop-zoom-out': function(){ if (crop) setZoom(crop.zoom / 1.2, CV / 2, CV / 2); },
+  about: function(){ closeMenu(); go('about'); },
+  reset: function(){ closeMenu(); closeCropper(); clearTimers(); state = freshState(); go('onboard'); toast('Demo reset'); }
+};
+
+/* ---------- Icon picker & cropper ---------- */
+var pendingIcon = null, resetArmed = 0, crop = null, CV = 260, OUT = 192;
+var cropEl = $('#cropper');
+function dpr(){ return Math.min(3, window.devicePixelRatio || 1); }
+function rrPath(c, x, y, w, h, r){
+  c.beginPath(); c.moveTo(x + r, y); c.lineTo(x + w - r, y); c.quadraticCurveTo(x + w, y, x + w, y + r);
+  c.lineTo(x + w, y + h - r); c.quadraticCurveTo(x + w, y + h, x + w - r, y + h); c.lineTo(x + r, y + h);
+  c.quadraticCurveTo(x, y + h, x, y + h - r); c.lineTo(x, y + r); c.quadraticCurveTo(x, y, x + r, y); c.closePath();
+}
+$('#iconFile').addEventListener('change', function(e){
+  var f = e.target.files && e.target.files[0], appId = pendingIcon;
+  if (!f || !appId) return;
+  if (f.type && !/^image\//.test(f.type)){ toast('Please choose an image file'); return; }
+  var url = URL.createObjectURL(f), img = new Image();
+  img.onload = function(){ URL.revokeObjectURL(url); openCropper(appId, img); };
+  img.onerror = function(){ URL.revokeObjectURL(url); toast('Could not read that image. Try a PNG or JPG.'); };
+  img.src = url;
+});
+function openCropper(appId, img){
+  var a = getApp(appId), w = img.naturalWidth, h = img.naturalHeight;
+  if (!a || !w || !h){ toast('Could not read that image. Try a PNG or JPG.'); return; }
+  var k = Math.min(1, 1200 / Math.max(w, h)), src = document.createElement('canvas');
+  src.width = Math.max(1, Math.round(w * k)); src.height = Math.max(1, Math.round(h * k));
+  src.getContext('2d').drawImage(img, 0, 0, src.width, src.height);
+  var base = Math.max(CV / src.width, CV / src.height), d = dpr();
+  crop = {app:appId, src:src, w:src.width, h:src.height, base:base, zoom:1,
+          x:(CV - src.width * base) / 2, y:(CV - src.height * base) / 2, ptrs:{}, start:null};
+  cropEl.innerHTML =
+    '<span class="demo-pill"><i></i>Interactive demo - simulated</span>'+
+    '<h3>Crop the '+esc(a.name)+' icon</h3>'+
+    '<p>Drag to move the image. Pinch, scroll or use the slider to zoom.</p>'+
+    '<div class="crop-stage"><canvas id="cropCv" width="'+Math.round(CV * d)+'" height="'+Math.round(CV * d)+'"></canvas></div>'+
+    '<div class="crop-zoom"><button data-act="crop-zoom-out" aria-label="Zoom out">−</button>'+
+      '<input id="cropZoom" type="range" min="1" max="5" step="0.01" value="1" aria-label="Zoom">'+
+      '<button data-act="crop-zoom-in" aria-label="Zoom in">+</button></div>'+
+    '<div class="crop-prev"><canvas id="cropPv" width="'+Math.round(52 * d)+'" height="'+Math.round(52 * d)+'"></canvas>'+
+      '<div><b>'+esc(a.name)+'</b><br><small style="opacity:.75">Tile preview</small></div></div>'+
+    '<div class="crop-actions"><button class="btn ghost" data-act="crop-cancel">Cancel</button>'+
+      '<button class="btn mint" data-act="crop-save">Use this icon</button></div>';
+  cropEl.classList.add('open'); cropEl.setAttribute('aria-hidden', 'false');
+  var cv = $('#cropCv');
+  cv.addEventListener('pointerdown', function(e){
+    e.preventDefault(); try { cv.setPointerCapture(e.pointerId); } catch (x) {}
+    crop.ptrs[e.pointerId] = {x:e.clientX, y:e.clientY}; crop.start = null;
+  });
+  cv.addEventListener('pointermove', function(e){
+    if (!crop || !crop.ptrs[e.pointerId]) return;
+    var prev = crop.ptrs[e.pointerId], ids = Object.keys(crop.ptrs);
+    crop.ptrs[e.pointerId] = {x:e.clientX, y:e.clientY};
+    if (ids.length >= 2){
+      var p1 = crop.ptrs[ids[0]], p2 = crop.ptrs[ids[1]];
+      var dist = Math.hypot(p1.x - p2.x, p1.y - p2.y);
+      var r = cv.getBoundingClientRect(), sc = CV / r.width;
+      var mid = {x:((p1.x + p2.x) / 2 - r.left) * sc, y:((p1.y + p2.y) / 2 - r.top) * sc};
+      if (!crop.start) crop.start = {dist:dist, zoom:crop.zoom};
+      else setZoom(crop.start.zoom * dist / Math.max(1, crop.start.dist), mid.x, mid.y);
+    } else {
+      var rr = cv.getBoundingClientRect(), s2 = CV / rr.width;
+      crop.x += (e.clientX - prev.x) * s2; crop.y += (e.clientY - prev.y) * s2;
+      drawCrop();
+    }
+  });
+  function up(e){ if (crop){ delete crop.ptrs[e.pointerId]; crop.start = null; } }
+  cv.addEventListener('pointerup', up); cv.addEventListener('pointercancel', up);
+  cv.addEventListener('wheel', function(e){
+    e.preventDefault();
+    var r = cv.getBoundingClientRect(), sc = CV / r.width;
+    setZoom(crop.zoom * Math.exp(-e.deltaY * 0.0015), (e.clientX - r.left) * sc, (e.clientY - r.top) * sc);
+  }, {passive:false});
+  drawCrop();
+}
+function clampCrop(){
+  var s = crop.base * crop.zoom;
+  crop.x = Math.min(0, Math.max(CV - crop.w * s, crop.x));
+  crop.y = Math.min(0, Math.max(CV - crop.h * s, crop.y));
+}
+function setZoom(z, cx, cy){
+  if (!crop) return;
+  z = Math.max(1, Math.min(5, z));
+  var s0 = crop.base * crop.zoom, s1 = crop.base * z;
+  crop.x = cx - (cx - crop.x) * s1 / s0; crop.y = cy - (cy - crop.y) * s1 / s0; crop.zoom = z;
+  var zi = $('#cropZoom'); if (zi) zi.value = z.toFixed(2);
+  drawCrop();
+}
+function paintCrop(ctx, size){
+  var k = size / CV, s = crop.base * crop.zoom;
+  ctx.fillStyle = '#FFFFFF'; ctx.fillRect(0, 0, size, size);
+  ctx.imageSmoothingQuality = 'high';
+  ctx.drawImage(crop.src, crop.x * k, crop.y * k, crop.w * s * k, crop.h * s * k);
+}
+function drawCrop(){
+  if (!crop) return;
+  clampCrop();
+  var d = dpr(), cv = $('#cropCv'), pv = $('#cropPv');
+  if (cv){ var c = cv.getContext('2d'); c.setTransform(d, 0, 0, d, 0, 0); paintCrop(c, CV); }
+  if (pv){ var c2 = pv.getContext('2d'); c2.setTransform(d, 0, 0, d, 0, 0); paintCrop(c2, 52); }
+}
+function closeCropper(){
+  crop = null; cropEl.classList.remove('open'); cropEl.setAttribute('aria-hidden', 'true'); cropEl.innerHTML = '';
+}
+function saveCrop(){
+  if (!crop) return;
+  var out = document.createElement('canvas'); out.width = out.height = OUT;
+  var o = out.getContext('2d');
+  rrPath(o, 0, 0, OUT, OUT, OUT * 0.22); o.clip();
+  clampCrop(); paintCrop(o, OUT);
+  var a = getApp(crop.app), url;
+  try { url = out.toDataURL('image/png'); } catch (e) { toast('Could not save that image'); return; }
+  icons[a.id] = url;
+  var ok = saveIcons();
+  closeCropper(); refresh();
+  toast(ok ? a.name + ' icon saved' : a.name + ' icon set for this visit only (browser storage is not available)');
+}
+
+/* ---------- Events ---------- */
+document.addEventListener('click', function(e){
+  if (e.target === menuEl){ closeMenu(); return; }
+  var el = e.target.closest ? e.target.closest('[data-act]') : null;
+  var inApp = state.screen === 'app' && !!(e.target.closest && e.target.closest('#appbody'));
+  if (el){ var fn = ACT[el.getAttribute('data-act')]; if (fn) fn(el, e); }
+  if (inApp) addUsage();
+});
+document.addEventListener('keydown', function(e){
+  if (e.key !== 'Enter' && e.key !== ' ') return;
+  var t = e.target;
+  if (e.key === 'Enter' && t && t.getAttribute && t.getAttribute('data-enter')){
+    e.preventDefault();
+    var fn = ACT[t.getAttribute('data-enter')];
+    if (fn){ fn(t, e); if (state.screen === 'app' && !state.presentation) addUsage(); }
+    return;
+  }
+  if (t && t.getAttribute && t.getAttribute('role') === 'button' && t.getAttribute('data-act')){ e.preventDefault(); t.click(); }
+});
+document.addEventListener('input', function(e){
+  if (e.target && e.target.id === 'cropZoom'){ setZoom(parseFloat(e.target.value), CV / 2, CV / 2); return; }
+  var k = e.target && e.target.getAttribute && e.target.getAttribute('data-bind');
+  if (!k) return;
+  var parts = k.split('.'), o = state;
+  for (var i=0;i<parts.length-1;i++) o = o[parts[i]];
+  o[parts[parts.length-1]] = e.target.value;
+});
+var lastScroll = 0;
+view.addEventListener('scroll', function(){
+  if (state.screen !== 'app' || state.presentation) return;   // scrolling never counts in Presentation mode
+  var now = Date.now();
+  if (now < suppressUntil || now - lastScroll < 650) return;
+  lastScroll = now; addUsage();
+}, {passive:true});
+
+/* ---------- Chrome setup ---------- */
+$('#menuBtn').innerHTML = ic('dots', 22);
+[['home','home','Home'],['plans','card','Plans'],['usage','chart','Usage'],['about','info','About']].forEach(function(t){
+  $('#tab-' + t[0]).innerHTML = ic(t[1], 24) + '<span>' + t[2] + '</span>';
+});
+function tick(){ $('#clock').textContent = nowHM(); }
+tick(); setInterval(tick, 30000);
+var PHONE_MQ = window.matchMedia('(max-width:520px), (pointer:coarse) and (max-height:520px)');
+function fit(){
+  var ph = $('#phone');
+  if (PHONE_MQ.matches){ ph.style.transform = ''; ph.style.marginBottom = ''; return; }
+  var s = Math.min(1, (window.innerHeight - 70) / 868, (window.innerWidth - 20) / 414);
+  ph.style.transform = s < 1 ? 'scale(' + s + ')' : '';
+  ph.style.marginBottom = s < 1 ? (-(868 * (1 - s))) + 'px' : '';
+}
+window.addEventListener('resize', fit); fit();
+
+render();
+})();
+</script>
+</body>
+</html>
