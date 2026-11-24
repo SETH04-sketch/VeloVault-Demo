@@ -357,6 +357,62 @@ tfoot td{font-weight:800;background:#F5F9F9}
 .switch.on{background:var(--teal)}
 .switch.on i{left:23px}
 
+/* Add-app bottom sheet */
+#addSheet{z-index:82}
+.sheet.add-sheet{display:flex;flex-direction:column;max-height:88%;height:88%;overflow:hidden;padding:0}
+.sheet.add-sheet.dragging{transition:none}
+.as-drag{padding:6px 10px 0 18px;touch-action:none;cursor:grab;flex:none;-webkit-user-select:none;user-select:none}
+.as-head{display:flex;align-items:center;justify-content:space-between}
+.as-head b{font-size:18px}
+.as-tabs{display:flex;margin:4px 16px 0;border-bottom:1px solid var(--line);flex:none}
+.as-tab{flex:1;min-height:48px;border:none;background:none;font-weight:800;font-size:14px;color:var(--muted);border-bottom:3px solid transparent;margin-bottom:-1px;padding:0 6px}
+.as-tab.on{color:#065A82;border-bottom-color:#5FD4C0}
+.as-body{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:none;-webkit-overflow-scrolling:touch;padding:0 16px 12px}
+.as-search{position:sticky;top:0;background:#fff;padding:12px 0 6px;z-index:2}
+.search-field{display:flex;align-items:center;gap:8px;min-height:48px;border:1.5px solid #CBD6DC;border-radius:14px;padding:0 12px;color:var(--muted);background:#fff}
+.search-field:focus-within{border-color:#5FD4C0;box-shadow:0 0 0 4px rgba(95,212,192,.25)}
+.search-field input{flex:1;min-width:0;border:none;outline:none;background:transparent;font-size:16px;color:var(--navy);min-height:44px}
+.as-note{font-size:12px;color:#8795A1;margin:6px 2px 0}
+.pa-group{font-size:11.5px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:14px 4px 4px}
+.pa-row{display:flex;align-items:center;gap:12px;width:100%;min-height:60px;border:none;background:none;padding:6px 4px;text-align:left;border-radius:12px;color:var(--navy)}
+.pa-row:active{background:var(--soft)}
+.pa-row[hidden]{display:none}
+.pa-tile{width:44px;height:44px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:20px;flex:none}
+.pa-name{flex:1;min-width:0;font-size:15.5px;font-weight:700}
+.pa-check{width:24px;height:24px;border-radius:7px;border:2px solid #9FB3BF;display:flex;align-items:center;justify-content:center;flex:none;color:transparent;transition:background .15s,border-color .15s}
+.pa-row[aria-checked="true"] .pa-check{background:#065A82;border-color:#065A82;color:#fff}
+.pa-row.added{cursor:default}
+.pa-row.added .pa-tile,.pa-row.added .pa-name{opacity:.45}
+.pa-row.added:active{background:none}
+.pa-added{font-size:11.5px;font-weight:800;color:var(--muted);background:var(--soft);padding:4px 9px;border-radius:99px;flex:none}
+.pa-empty{font-size:14px;color:var(--muted);margin:18px 4px}
+.pa-empty[hidden]{display:none}
+.pa-skel{display:flex;align-items:center;gap:12px;min-height:60px;padding:6px 4px}
+.pa-skel i{display:block;width:44px;height:44px;border-radius:13px;background:#E8EEF0}
+.pa-skel b{display:block;height:14px;border-radius:7px;background:#E8EEF0;flex:1;max-width:60%}
+.as-foot{flex:none;padding:10px 16px calc(14px + env(safe-area-inset-bottom));border-top:1px solid var(--line);background:#fff}
+.as-foot .btn,.web-add{background:#065A82}
+.as-web{padding:18px 0 24px}
+.web-row{display:flex;gap:8px}
+.web-row .field{flex:1;min-width:0}
+.btn.web-add{width:auto;flex:none;padding:0 22px}
+.as-help{font-size:13px;color:var(--muted);line-height:1.45;margin:10px 2px 0}
+/* Android-style permission dialog (simulated) */
+.perm-wrap{position:absolute;inset:0;z-index:88;background:rgba(0,0,0,.42);display:none;align-items:center;justify-content:center;padding:24px}
+.perm-wrap.open{display:flex}
+.perm{width:100%;max-width:312px;background:#F3F6F7;border-radius:28px;padding:24px 20px 18px;text-align:center;box-shadow:0 20px 50px rgba(0,0,0,.3);animation:permIn .18s ease-out}
+@keyframes permIn{from{transform:scale(.94);opacity:0}to{transform:none;opacity:1}}
+.perm-ic{width:40px;height:40px;border-radius:12px;background:#065A82;color:#5FD4C0;display:flex;align-items:center;justify-content:center;margin:0 auto 14px}
+.perm-title{font-size:18px;line-height:1.35;color:#1B1F23;margin:0 0 20px}
+.perm-btn{display:block;width:100%;min-height:48px;border:none;border-radius:24px;background:#DDE8EC;color:#065A82;font-size:15px;font-weight:700;margin-top:8px}
+.perm-btn:active{background:#CDDDE3}
+.perm-sim{font-size:11.5px;color:#7A8792;margin:12px 0 0}
+/* Snackbar with an action */
+.snack{position:absolute;left:12px;right:12px;bottom:96px;z-index:90;display:flex;align-items:center;gap:10px;background:#0B1F33;color:#fff;border-radius:14px;padding:8px 8px 8px 16px;font-size:14px;line-height:1.35;box-shadow:0 10px 30px rgba(11,31,51,.3);opacity:0;transform:translateY(16px);pointer-events:none;transition:opacity .2s,transform .2s}
+.snack.show{opacity:1;transform:none;pointer-events:auto}
+.snack span{flex:1}
+.snack button{min-height:44px;border:none;background:none;color:#5FD4C0;font-weight:800;font-size:14px;padding:0 10px;flex:none;max-width:45%}
+
 /* Login, OTP, country & currency */
 .flag{display:inline-block;width:28px;height:20px;border-radius:4px;flex:none;box-shadow:0 0 0 1px rgba(11,31,51,.15)}
 .flag.sm{width:22px;height:16px;border-radius:3px}
@@ -516,6 +572,9 @@ tfoot td{font-weight:800;background:#F5F9F9}
         <button class="tab" data-act="go" data-to="about" id="tab-about"></button>
       </nav>
       <div class="sheet-backdrop" id="menu" aria-hidden="true"></div>
+      <div class="sheet-backdrop" id="addSheet" aria-hidden="true"></div>
+      <div class="perm-wrap" id="permDlg" aria-hidden="true"></div>
+      <div class="snack" id="snack" role="status" aria-live="polite"></div>
       <div class="crop-wrap" id="cropper" role="dialog" aria-label="Crop icon" aria-hidden="true"></div>
       <input type="file" accept="image/*" id="iconFile" class="file-input" tabindex="-1" aria-hidden="true">
       <div class="toast" id="toast" role="status"></div>
@@ -573,6 +632,7 @@ var I = {
   pause:'<path d="M9 6v12M15 6v12"/>',
   plus:'<path d="M12 5v14M5 12h14"/>',
   chev:'<path d="M6 9l6 6 6-6"/>',
+  search:'<circle cx="11" cy="11" r="7"/><path d="M20 20l-3.6-3.6"/>',
   home:'<path d="M4 11l8-7 8 7v9h-5v-6H9v6H4z"/>',
   card:'<rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18M7 15h4"/>',
   chart:'<path d="M5 20V11M12 20V4M19 20v-6"/>',
@@ -718,7 +778,7 @@ function freshState(){
     screen:'signin', prevScreen:'home', ob:0, signedIn:false, loginLocal:'', loginErr:'', loginDigits:'', ccOpen:false, otp:['','','',''],
     plan:'std', period:'monthly', speed:'normal', presentation:true, forcedExpired:false, forcedCap:false, cycleStart:now - 12*DAY, expiresAt:now + 18*DAY,
     used:8.4, perApp:{whatsapp:3.2, facebook:5.2},
-    apps:clone(DEFAULT_APPS), siteCount:0,
+    apps:clone(DEFAULT_APPS), siteCount:0, addTab:'phone', pick:{},
     viewPeriod:'monthly', currentApp:null, addVal:'', addErr:'',
     pay:{plan:'std', period:'monthly', provider:'orange', number:'', error:''},
     approveLeft:3, receipt:null, mock:freshMock(),
@@ -945,7 +1005,7 @@ SCREENS.home = function(){
     '</button>'+
     '<div class="row-between"><h2 class="sec">Your apps</h2><button class="link" data-act="go" data-to="plans">Change plan</button></div>'+
     '<div class="grid">'+tiles+
-      '<button class="tile add" data-act="go" data-to="add"><span class="tile-ic">'+ic('plus',28)+'</span><span class="tile-name">Add app</span></button>'+
+      '<button class="tile add" data-act="add-sheet"><span class="tile-ic">'+ic('plus',28)+'</span><span class="tile-name">Add app</span></button>'+
     '</div>'+
     boostCardHTML()+
     '<p class="hint">Tap an app to open it inside the sandbox. Data used inside apps counts towards your plan.</p>'+
@@ -1073,10 +1133,12 @@ APPS.site = function(a){
   } else if (s.tab === 'news'){
     body = [1,2,3,4,5].map(function(n){ return '<button class="news-row" data-act="site-news" data-i="'+n+'"><span>Sample headline '+n+'</span><small>'+n+' h ago</small></button>'; }).join('');
   } else {
-    body = '<div class="art"><div class="art-body"><h4>About this page</h4><p>This is a mock page for '+esc(a.host)+'. The real VeloVault would open the website inside its secure container and route the traffic through your plan.</p></div></div>';
+    body = a.native
+      ? '<div class="art"><div class="art-body"><h4>About this app</h4><p>This is a mock screen for '+esc(a.name)+'. The real VeloVault would run the app installed on your phone inside its secure container and route its traffic through your plan.</p></div></div>'
+      : '<div class="art"><div class="art-body"><h4>About this page</h4><p>This is a mock page for '+esc(a.host)+'. The real VeloVault would open the website inside its secure container and route the traffic through your plan.</p></div></div>';
   }
-  return '<div class="site"><div class="urlbar">'+ic('lock',14)+'<span>https://'+esc(a.host)+'</span></div>'+
-    '<div class="site-hero" style="background:'+GRADS[(a.hue||0) % GRADS.length]+'"><small>Mock page</small><h2>'+esc(a.name)+'</h2><p>A generic preview of '+esc(a.host)+' running inside the sandbox.</p></div>'+
+  return '<div class="site">'+(a.native ? '' : '<div class="urlbar">'+ic('lock',14)+'<span>https://'+esc(a.host)+'</span></div>')+
+    '<div class="site-hero" style="background:'+GRADS[(a.hue||0) % GRADS.length]+(a.native ? ';margin-top:12px' : '')+'"><small>'+(a.native ? 'Mock app' : 'Mock page')+'</small><h2>'+esc(a.name)+'</h2><p>A generic preview of '+esc(a.native ? a.name : a.host)+' running inside the sandbox.</p></div>'+
     '<div class="site-tabs">'+['home','news','about'].map(function(t){ return '<button class="'+(s.tab===t?'on':'')+'" data-act="site-tab" data-t="'+t+'">'+t.charAt(0).toUpperCase()+t.slice(1)+'</button>'; }).join('')+'</div>'+
     '<div class="site-sec">'+body+'</div></div>';
 };
@@ -1091,21 +1153,6 @@ SCREENS.blocked = function(){
     '<div class="banner info">Standard ('+money(PLANS.std.prices[state.period])+'/'+PERIODS[state.period].per+') includes all apps with compressed images.</div>'+
     '<button class="btn" data-act="upgrade">Upgrade plan</button>'+
     '<button class="btn ghost" data-act="back-home">Back to sandbox</button></div>';
-};
-
-SCREENS.add = function(){
-  return '<div class="pad">'+
-    '<div class="sub-head">'+backBtn('back-home')+'<h2>Add an app</h2></div>'+
-    '<p class="muted" style="line-height:1.5;margin:4px 0 0">Type a website address. VeloVault adds it to your sandbox as a new tile.</p>'+
-    '<label class="field-label" for="addin">Website address</label>'+
-    '<input class="field" id="addin" type="text" inputmode="url" autocapitalize="off" autocorrect="off" spellcheck="false" autocomplete="off" placeholder="e.g. news.example.com" value="'+esc(state.addVal)+'" data-bind="addVal" data-enter="add-site">'+
-    (state.addErr ? '<div class="err">'+state.addErr+'</div>' : '')+
-    '<div class="field-label">Try one</div>'+
-    '<div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px">'+['example.com','news.example.org','shop.example.net'].map(function(v){
-      return '<button class="btn ghost sm" data-act="add-suggest" data-v="'+v+'">'+v+'</button>'; }).join('')+'</div>'+
-    '<button class="btn" data-act="add-site">Add to sandbox</button>'+
-    '<p class="small muted" style="margin-top:14px">In this demo the new tile opens a generic mock page. Nothing is loaded from the internet.</p>'+
-  '</div>';
 };
 
 SCREENS.plans = function(){
@@ -1270,6 +1317,7 @@ SCREENS.about = function(){
     'No real payments: the Mobile Money screens are a test flow. Nothing is charged and no wallet is contacted.',
     'No real apps inside: WhatsApp, Facebook, Instagram, TikTok, YouTube and added websites are simple mock screens with letter tiles, not the real services.',
     'Icons you upload in Edit icons are saved only in this browser (localStorage) and never leave your device.',
+    'The \u201CApps on your phone\u201D list is a fixed sample: a web page cannot see which apps are installed. The permission prompt is a mock-up of the Android one.',
     'No real accounts: any phone number signs in and no SMS is sent.',
     'Standard and Premium use their real caps (6 GB = 6144 MB and 20 GB = 20480 MB). Message & Calls uses a small 20 MB demo cap. The lock screen appears when you press Fast-forward to end of plan or Use up data cap in the demo menu.',
     'The admin view shows 8 fictional users.',
@@ -1606,19 +1654,44 @@ var ACT = {
   'site-more': function(el){ var a = getApp(state.currentApp); if (!a) return; var o = state.mock.site[a.id].open, i = el.getAttribute('data-i'); o[i] = !o[i]; refresh(); },
   'site-news': function(el){ toast('Opened sample headline '+el.getAttribute('data-i')+' (mock)'); },
 
-  'add-suggest': function(el){ state.addVal = el.getAttribute('data-v'); state.addErr = ''; refresh(); },
   'add-site': function(){
     var host = parseHost(state.addVal);
-    if (!host){ state.addErr = 'Enter a website address like example.com'; refresh(); return; }
+    if (!host){ state.addErr = 'Enter a website address like example.com'; renderAddSheet(); var w = $('#webAddr'); if (w) w.focus(); return; }
     var a = null;
     for (var i=0;i<state.apps.length;i++) if (state.apps[i].host === host) a = state.apps[i];
     if (!a){
       state.siteCount++;
-      a = {id:'site'+state.siteCount, name:siteName(host), host:host, kind:'site', icon:'globe', media:false, custom:true, hue:(state.siteCount*3) % GRADS.length, bg:'#E3EEF1', fg:'#1C7293'};
-      state.apps.push(a); toast(a.name + ' added to your sandbox');
-    } else toast(a.name + ' is already in your sandbox');
+      var col = WEB_TILE_COLORS[hashStr(host) % WEB_TILE_COLORS.length];
+      a = {id:'site'+state.siteCount, name:siteName(host), host:host, kind:'site', icon:'globe', media:false, custom:true, hue:(state.siteCount*3) % GRADS.length, bg:col[0], fg:col[1]};
+      state.apps.push(a); saveAddedApps(); toast(a.name + ' added to your VeloVault');
+    } else toast(a.name + ' is already in your VeloVault');
     state.addVal = ''; state.addErr = '';
+    closeAddSheet();
     openApp(a.id);
+  },
+  'add-sheet': function(){ openAddSheet('phone'); },
+  'add-close': function(){ closeAddSheet(); },
+  'add-tab': function(el){ state.addTab = el.getAttribute('data-v'); state.addErr = ''; renderAddSheet(); maybeAskPermission(); },
+  'perm-allow': function(){ ssSet(PERM_KEY, 'granted'); hidePerm(); renderAddSheet(); },
+  'perm-deny': function(){
+    hidePerm(); closeAddSheet();
+    showSnack('VeloVault can\u2019t see the apps on your phone. You can still add any app by its web address.', 'Add by web address', function(){ openAddSheet('web'); });
+  },
+  'snack-act': function(){ var f = snackFn; hideSnack(); if (f) f(); },
+  'pick-app': function(el){
+    var id = el.getAttribute('data-v');
+    if (getApp(id)) return;   // already added
+    if (state.pick[id]) delete state.pick[id]; else state.pick[id] = true;
+    el.setAttribute('aria-checked', String(!!state.pick[id]));
+    updatePickFoot();
+  },
+  'pick-add': function(){
+    var ids = PHONE_APP_LIST.map(function(r){ return r[0]; }).filter(function(id){ return state.pick[id] && !getApp(id); });
+    if (!ids.length) return;
+    ids.forEach(function(id){ state.apps.push(makePhoneApp(id)); });
+    saveAddedApps(); closeAddSheet();
+    if (state.screen !== 'home') go('home'); else refresh();
+    toast(ids.length + ' app' + (ids.length === 1 ? '' : 's') + ' added to your VeloVault');
   },
 
   period: function(el){ state.viewPeriod = el.getAttribute('data-p'); refresh(); },
@@ -1716,7 +1789,7 @@ var ACT = {
   'crop-zoom-in': function(){ if (crop) setZoom(crop.zoom * 1.2, CV / 2, CV / 2); },
   'crop-zoom-out': function(){ if (crop) setZoom(crop.zoom / 1.2, CV / 2, CV / 2); },
   about: function(){ closeMenu(); go('about'); },
-  reset: function(){ closeMenu(); closeCropper(); clearTimers(); saveSession(null); auth.cc = 'SL'; auth.local = ''; auth.show = 'country'; state = freshState(); go('signin'); toast('Demo reset'); }
+  reset: function(){ closeMenu(); closeCropper(); closeAddSheet(); hidePerm(); hideSnack(); clearTimers(); saveSession(null); ssSet(APPS_KEY, null); ssSet(PERM_KEY, null); auth.cc = 'SL'; auth.local = ''; auth.show = 'country'; state = freshState(); go('signin'); toast('Demo reset'); }
 };
 
 /* ---------- Icon picker & cropper ---------- */
@@ -1833,6 +1906,171 @@ function saveCrop(){
   toast(ok ? a.name + ' icon saved' : a.name + ' icon set for this visit only (browser storage is not available)');
 }
 
+/* ---------- Add apps: bottom sheet (phone apps are a SIMULATED list) ---------- */
+/* A web page cannot read the apps installed on a device, so this list is fixed sample data.
+   Each row: id | name | tile colour | mock screen (default: generic app screen) | media-heavy */
+const PHONE_APPS = [
+  ['Messaging & social', [['whatsapp','WhatsApp','#25D366'], ['facebook','Facebook','#1877F2'], ['messenger','Messenger','#0A7CFF','chat'],
+    ['instagram','Instagram','#E1306C'], ['tiktok','TikTok','#111111'], ['telegram','Telegram','#229ED9','chat'],
+    ['snapchat','Snapchat','#FFFC00','photos',true], ['x','X','#14171A','feed']]],
+  ['Browsers & tools', [['opera-mini','Opera Mini','#FF1B2D'], ['chrome','Chrome','#4285F4'], ['gmail','Gmail','#EA4335'], ['google-maps','Google Maps','#34A853']]],
+  ['Money', [['orange-money','Orange Money','#FF7900'], ['africell-money','Africell Money','#E6007E'], ['opay','OPay','#1DCF9F'],
+    ['palmpay','PalmPay','#6A2CE3'], ['moniepoint','Moniepoint','#0357EE'], ['kuda','Kuda','#40196D']]],
+  ['Everyday', [['youtube','YouTube','#FF0000'], ['jumia','Jumia','#F68B1E'], ['bolt','Bolt','#34D186'], ['bbc-news','BBC News','#BB1919'],
+    ['spotify','Spotify','#1DB954','site',true]]]
+];
+const PHONE_APP_LIST = [];
+PHONE_APPS.forEach(function(g){ g[1].forEach(function(r){ PHONE_APP_LIST.push(r); }); });
+/* Web-app tiles take a colour from the VeloVault palette: [background, letter] */
+const WEB_TILE_COLORS = [['#065A82','#FFFFFF'], ['#1C7293','#FFFFFF'], ['#5FD4C0','#0B1F33'], ['#0B1F33','#5FD4C0'], ['#2B8FA6','#FFFFFF']];
+
+var APPS_KEY = 'velovault.apps.v1', PERM_KEY = 'velovault.appsperm.v1', memStore = {};
+function ssGet(k){ try { var v = sessionStorage.getItem(k); if (v !== null) return v; } catch (e) {} return Object.prototype.hasOwnProperty.call(memStore, k) ? memStore[k] : null; }
+function ssSet(k, v){ if (v === null) delete memStore[k]; else memStore[k] = v; try { if (v === null) sessionStorage.removeItem(k); else sessionStorage.setItem(k, v); } catch (e) {} }
+function hashStr(t){ var h = 0; for (var i = 0; i < t.length; i++) h = (h * 31 + t.charCodeAt(i)) >>> 0; return h; }
+function letterOn(hex){   // dark or white letter, whichever reads better on this colour
+  var n = parseInt(hex.slice(1), 16), c = [n >> 16 & 255, n >> 8 & 255, n & 255].map(function(v){ v /= 255; return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4); });
+  var L = 0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2];
+  return (1.05 / (L + 0.05)) >= ((L + 0.05) / 0.0595) ? '#FFFFFF' : '#0B1F33';   // 0.0595 = luminance of #0B1F33 + 0.05
+}
+function phoneRow(id){ for (var i = 0; i < PHONE_APP_LIST.length; i++) if (PHONE_APP_LIST[i][0] === id) return PHONE_APP_LIST[i]; return null; }
+function makePhoneApp(id){
+  var r = phoneRow(id), kind = r[3] || 'site';
+  return {id:r[0], name:r[1], kind:kind, native:kind === 'site', media:!!r[4], custom:true, phone:true,
+          icon:'globe', bg:r[2], fg:letterOn(r[2]), hue:hashStr(r[0]) % GRADS.length, host:r[0] + '.app'};
+}
+function saveAddedApps(){
+  ssSet(APPS_KEY, JSON.stringify(state.apps.filter(function(a){ return a.custom; })));
+}
+function restoreAddedApps(){
+  var list = [];
+  try { list = JSON.parse(ssGet(APPS_KEY) || '[]'); } catch (e) { list = []; }
+  if (!Array.isArray(list)) return;
+  list.forEach(function(a){
+    if (!a || typeof a.id !== 'string' || !/^[a-z0-9-]{1,40}$/.test(a.id) || getApp(a.id)) return;
+    if (typeof a.name !== 'string' || !APPS[a.kind] || !/^#[0-9A-Fa-f]{6}$/.test(a.bg) || !/^#[0-9A-Fa-f]{6}$/.test(a.fg)) return;
+    if (a.kind === 'site' && !a.native && (typeof a.host !== 'string' || !parseHost(a.host))) return;
+    state.apps.push({id:a.id, name:a.name.slice(0, 40), kind:a.kind, native:!!a.native, media:!!a.media, custom:true, phone:!!a.phone,
+                     icon:'globe', bg:a.bg, fg:a.fg, hue:(+a.hue || 0) % GRADS.length, host:String(a.host || '')});
+    var m = /^site(\d+)$/.exec(a.id); if (m) state.siteCount = Math.max(state.siteCount, +m[1]);
+  });
+}
+
+var addEl = $('#addSheet'), permEl = $('#permDlg'), snackEl = $('#snack'), snackFn = null, snackT = null;
+function permGranted(){ return ssGet(PERM_KEY) === 'granted'; }
+function openAddSheet(tab){
+  closeMenu(); hideSnack();
+  state.addTab = tab || 'phone'; state.pick = {}; state.pickQuery = ''; state.addErr = '';
+  renderAddSheet();
+  addEl.classList.add('open'); addEl.setAttribute('aria-hidden', 'false');
+  maybeAskPermission();
+  if (state.addTab === 'web') setTimeout(function(){ var w = $('#webAddr'); if (w) w.focus(); }, 260);
+}
+function closeAddSheet(){
+  addEl.classList.remove('open'); addEl.setAttribute('aria-hidden', 'true');
+  var pnl = $('#addSheetPanel'); if (pnl){ pnl.style.transform = ''; pnl.classList.remove('dragging'); }
+}
+function maybeAskPermission(){
+  if (state.addTab !== 'phone' || permGranted() || !addEl.classList.contains('open')) return;
+  permEl.innerHTML = '<div class="perm" role="alertdialog" aria-modal="true" aria-labelledby="permTitle">'+
+    '<div class="perm-ic">'+ic('vault', 22)+'</div>'+
+    '<p class="perm-title" id="permTitle">Allow <b>VeloVault</b> to see apps installed on this device?</p>'+
+    '<button class="perm-btn" data-act="perm-allow">Allow</button>'+
+    '<button class="perm-btn" data-act="perm-deny">Deny</button>'+
+    '<p class="perm-sim">Simulated permission prompt</p></div>';
+  permEl.classList.add('open'); permEl.setAttribute('aria-hidden', 'false');
+}
+function hidePerm(){ permEl.classList.remove('open'); permEl.setAttribute('aria-hidden', 'true'); permEl.innerHTML = ''; }
+function showSnack(text, action, fn){
+  snackFn = fn;
+  snackEl.innerHTML = '<span>' + esc(text) + '</span><button data-act="snack-act">' + esc(action) + '</button>';
+  snackEl.classList.add('show');
+  clearTimeout(snackT); snackT = setTimeout(hideSnack, 6000);
+}
+function hideSnack(){ clearTimeout(snackT); snackEl.classList.remove('show'); snackFn = null; }
+
+function phoneTabHTML(){
+  if (!permGranted()){
+    var sk = ''; for (var i = 0; i < 7; i++) sk += '<div class="pa-skel"><i></i><b style="max-width:' + (35 + (i * 13) % 30) + '%"></b></div>';
+    return '<div style="padding-top:12px" aria-hidden="true">' + sk + '</div>';
+  }
+  return '<div class="as-search"><label class="search-field">' + ic('search', 18) +
+      '<input id="paSearch" type="search" placeholder="Search apps" autocomplete="off" aria-label="Search apps" value="' + esc(state.pickQuery || '') + '"></label>' +
+      '<p class="as-note">Sample list for the demo: the real app reads the apps installed on your phone.</p></div>' +
+    PHONE_APPS.map(function(g){
+      return '<div class="pa-sec"><p class="pa-group">' + esc(g[0]) + '</p>' + g[1].map(function(r){
+        var added = !!getApp(r[0]), on = !!state.pick[r[0]];
+        return '<button class="pa-row' + (added ? ' added' : '') + '" role="checkbox" aria-checked="' + (on && !added) + '"' + (added ? ' aria-disabled="true"' : '') +
+          ' data-act="pick-app" data-v="' + r[0] + '" data-name="' + esc(r[1].toLowerCase()) + '">' +
+          '<span class="pa-tile" style="background:' + r[2] + ';color:' + letterOn(r[2]) + '">' + esc(r[1].charAt(0)) + '</span>' +
+          '<span class="pa-name">' + esc(r[1]) + '</span>' +
+          (added ? '<span class="pa-added">Added</span>' : '<span class="pa-check">' + ic('check', 16) + '</span>') + '</button>';
+      }).join('') + '</div>';
+    }).join('') +
+    '<p class="pa-empty" id="paEmpty" hidden>No apps match your search.</p>';
+}
+function webTabHTML(){
+  return '<div class="as-web"><label class="field-label" for="webAddr" style="margin-top:0">Web address</label>' +
+    '<div class="web-row"><input class="field" id="webAddr" type="text" inputmode="url" autocapitalize="off" autocorrect="off" spellcheck="false" autocomplete="off" placeholder="example.com" value="' + esc(state.addVal || '') + '" data-bind="addVal" data-enter="add-site" aria-describedby="webHelp">' +
+    '<button class="btn web-add" data-act="add-site">Add</button></div>' +
+    (state.addErr ? '<div class="err" role="alert">' + esc(state.addErr) + '</div>' : '') +
+    '<p class="as-help" id="webHelp">Any website can be added and opened inside VeloVault.</p></div>';
+}
+function renderAddSheet(){
+  var phone = state.addTab === 'phone';
+  addEl.innerHTML = '<div class="sheet add-sheet" id="addSheetPanel" role="dialog" aria-label="Add apps to VeloVault">' +
+    '<div class="as-drag" id="asDrag"><div class="sheet-grip"></div><div class="as-head"><b>Add to VeloVault</b>' +
+      '<button class="icon-btn" data-act="add-close" aria-label="Close">' + ic('cross') + '</button></div></div>' +
+    '<div class="as-tabs" role="tablist">' + [['phone', 'Apps on your phone'], ['web', 'Add by web address']].map(function(t){
+      return '<button class="as-tab' + (state.addTab === t[0] ? ' on' : '') + '" role="tab" aria-selected="' + (state.addTab === t[0]) + '" data-act="add-tab" data-v="' + t[0] + '">' + t[1] + '</button>'; }).join('') + '</div>' +
+    '<div class="as-body" id="asBody">' + (phone ? phoneTabHTML() : webTabHTML()) + '</div>' +
+    (phone && permGranted() ? '<div class="as-foot"><button class="btn" id="pickAddBtn" data-act="pick-add" disabled>Add apps</button></div>' : '') +
+  '</div>';
+  if (phone && permGranted()){ filterPicker(); updatePickFoot(); }
+}
+function updatePickFoot(){
+  var n = Object.keys(state.pick).filter(function(id){ return !getApp(id); }).length, b = $('#pickAddBtn');
+  if (!b) return;
+  b.disabled = n === 0;
+  b.textContent = n === 0 ? 'Add apps' : 'Add ' + n + ' app' + (n === 1 ? '' : 's');
+}
+function filterPicker(){
+  var q = String(state.pickQuery || '').trim().toLowerCase(), any = false;
+  var secs = addEl.querySelectorAll('.pa-sec');
+  for (var i = 0; i < secs.length; i++){
+    var rows = secs[i].querySelectorAll('.pa-row'), vis = 0;
+    for (var j = 0; j < rows.length; j++){ var show = !q || rows[j].getAttribute('data-name').indexOf(q) >= 0; rows[j].hidden = !show; if (show) vis++; }
+    secs[i].style.display = vis ? '' : 'none'; if (vis) any = true;
+  }
+  var e = $('#paEmpty'); if (e) e.hidden = any;
+}
+/* Swipe down on the handle area to close */
+var asDrag = null;
+document.addEventListener('pointerdown', function(e){
+  var z = e.target.closest && e.target.closest('#asDrag');
+  if (!z || e.target.closest('button')) return;
+  e.preventDefault();   // no text selection, so the browser cannot turn the swipe into a drag-and-drop
+  asDrag = {y:e.clientY, dy:0, id:e.pointerId};
+  var pnl = $('#addSheetPanel'); if (pnl) pnl.classList.add('dragging');
+  try { z.setPointerCapture(e.pointerId); } catch (x) {}
+});
+document.addEventListener('pointermove', function(e){
+  if (!asDrag || e.pointerId !== asDrag.id) return;
+  asDrag.dy = Math.max(0, e.clientY - asDrag.y);
+  var pnl = $('#addSheetPanel'); if (pnl) pnl.style.transform = 'translateY(' + asDrag.dy + 'px)';
+});
+function endAsDrag(e){
+  if (!asDrag || (e && e.pointerId !== asDrag.id)) return;
+  var dy = asDrag.dy, pnl = $('#addSheetPanel'); asDrag = null;
+  if (pnl){ pnl.classList.remove('dragging'); pnl.style.transform = ''; }
+  if (dy > 90) closeAddSheet();
+}
+document.addEventListener('pointerup', endAsDrag);
+document.addEventListener('dragstart', function(e){ if (e.target && e.target.closest && e.target.closest('#addSheet')) e.preventDefault(); });
+document.addEventListener('pointercancel', endAsDrag);
+
+restoreAddedApps();   // bring back apps added earlier in this browser session
+
 /* ---------- Login & OTP helpers ---------- */
 function showLoginState(onBlur){
   var f = $('#loginPhone'); if (!f) return;
@@ -1872,6 +2110,7 @@ document.addEventListener('paste', function(e){
 /* ---------- Events ---------- */
 document.addEventListener('click', function(e){
   if (e.target === menuEl){ closeMenu(); return; }
+  if (e.target === addEl){ closeAddSheet(); return; }
   if (state.ccOpen && !(e.target.closest && e.target.closest('.cc-wrap'))){ state.ccOpen = false; refresh(); return; }
   var el = e.target.closest ? e.target.closest('[data-act]') : null;
   var inApp = state.screen === 'app' && !!(e.target.closest && e.target.closest('#appbody'));
@@ -1888,6 +2127,7 @@ document.addEventListener('keydown', function(e){
     if (e.key === 'Enter'){ e.preventDefault(); verifyOtp(); return; }
   }
   if (e.key === 'Escape' && state.ccOpen){ state.ccOpen = false; refresh(); return; }
+  if (e.key === 'Escape' && addEl.classList.contains('open') && !permEl.classList.contains('open')){ closeAddSheet(); return; }
   if (e.key !== 'Enter' && e.key !== ' ') return;
   var t = e.target;
   if (e.key === 'Enter' && t && t.getAttribute && t.getAttribute('data-enter')){
@@ -1900,6 +2140,7 @@ document.addEventListener('keydown', function(e){
 });
 document.addEventListener('input', function(e){
   if (e.target && e.target.id === 'cropZoom'){ setZoom(parseFloat(e.target.value), CV / 2, CV / 2); return; }
+  if (e.target && e.target.id === 'paSearch'){ state.pickQuery = e.target.value; filterPicker(); return; }
   if (e.target && e.target.id === 'ccSearch'){
     var items = $('#ccItems'), html = countryListHTML(e.target.value);
     if (e.target.closest('.sheet-cc')) html = html.replace(/data-act="cc-pick"/g, 'data-act="country-switch"');
