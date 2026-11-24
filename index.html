@@ -357,6 +357,97 @@ tfoot td{font-weight:800;background:#F5F9F9}
 .switch.on{background:var(--teal)}
 .switch.on i{left:23px}
 
+/* Login, OTP, country & currency */
+.flag{display:inline-block;width:28px;height:20px;border-radius:4px;flex:none;box-shadow:0 0 0 1px rgba(11,31,51,.15)}
+.flag.sm{width:22px;height:16px;border-radius:3px}
+.flag-SL{background:linear-gradient(180deg,#1EB53A 0 33.34%,#FFFFFF 33.34% 66.67%,#0072C6 66.67%)}
+.flag-NG{background:linear-gradient(90deg,#008751 0 33.34%,#FFFFFF 33.34% 66.67%,#008751 66.67%)}
+.login{min-height:100%;display:flex;flex-direction:column;background:var(--bg)}
+.login-head{background:#065A82;color:#fff;padding:34px 24px 74px;border-radius:0 0 28px 28px;text-align:center}
+.login-head.compact{padding:22px 24px 64px}
+.login-logo{display:flex;align-items:center;justify-content:center;gap:12px;font-size:27px;font-weight:800;letter-spacing:-.01em}
+.logo-mark.light{background:#fff;color:#065A82;width:48px;height:48px;border-radius:14px}
+.login-head p{margin:12px 0 0;font-size:16px;opacity:.9}
+.login-card{background:#fff;margin:-50px 18px 0;border-radius:22px;padding:8px 18px 22px;box-shadow:0 14px 36px rgba(6,90,130,.16);position:relative}
+.login-card .field-label{margin-top:16px}
+.cc-wrap{position:relative}
+.cc-btn{display:flex;align-items:center;gap:12px;width:100%;min-height:54px;border:1.5px solid #CBD6DC;background:#fff;border-radius:14px;padding:0 14px;font-size:16px;font-weight:700;text-align:left;color:var(--navy)}
+.cc-btn[aria-expanded="true"],.cc-btn:focus-visible{border-color:#5FD4C0;box-shadow:0 0 0 4px rgba(95,212,192,.25);outline:none}
+.cc-name{flex:1;min-width:0}
+.cc-dial{color:var(--muted);font-weight:700}
+.cc-list{position:absolute;left:0;right:0;top:calc(100% + 6px);background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:0 16px 36px rgba(11,31,51,.18);padding:6px;z-index:10}
+.cc-search{width:100%;min-height:46px;border:1.5px solid #CBD6DC;border-radius:12px;padding:0 12px;font-size:16px;outline:none;margin-bottom:4px;color:var(--navy);background:#fff}
+.cc-search:focus{border-color:#5FD4C0;box-shadow:0 0 0 3px rgba(95,212,192,.25)}
+.cc-items{max-height:300px;overflow-y:auto;overscroll-behavior:none;-webkit-overflow-scrolling:touch}
+.sheet-cc .cc-items{max-height:240px;border:1px solid var(--line);border-radius:12px;padding:4px}
+.sheet .bc-label{display:block;font-size:12px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+.cc-group{font-size:11.5px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:8px 10px 4px}
+.cc-empty{font-size:14px;color:var(--muted);margin:12px 10px}
+.flag-emoji{display:inline-flex;align-items:center;justify-content:center;width:28px;height:20px;font-size:22px;line-height:1;flex:none}
+.flag-emoji.sm{width:22px;font-size:17px}
+.flag-code{display:inline-flex;align-items:center;justify-content:center;width:28px;height:20px;border-radius:4px;background:var(--soft);color:var(--navy);font-size:10.5px;font-weight:800;flex:none;box-shadow:0 0 0 1px rgba(11,31,51,.15)}
+.flag-code.sm{width:24px;height:16px;font-size:9.5px}
+.cc-opt{display:flex;align-items:center;gap:12px;width:100%;min-height:52px;border:none;background:none;border-radius:10px;padding:0 10px;font-size:16px;font-weight:700;text-align:left;color:var(--navy)}
+.cc-opt:active,.cc-opt.on{background:#E7F8F4}
+.cc-opt .tick{color:#1C9C86;display:flex}
+.phone-field{display:flex;align-items:center;min-height:54px;border:1.5px solid #CBD6DC;border-radius:14px;background:#fff;overflow:hidden}
+.phone-field:focus-within{border-color:#5FD4C0;box-shadow:0 0 0 4px rgba(95,212,192,.25)}
+.phone-field.invalid{border-color:var(--danger)}
+.phone-prefix{align-self:stretch;display:flex;align-items:center;padding:0 12px 0 14px;background:var(--soft);color:var(--navy);font-weight:800;font-size:17px;border-right:1.5px solid #CBD6DC;flex:none}
+.phone-field input{flex:1;min-width:0;border:none;outline:none;background:transparent;font-size:18px;padding:0 14px;min-height:52px;color:var(--navy);letter-spacing:.02em}
+.login .err:empty{display:none}
+.login .btn{margin-top:18px}
+.btn:disabled{opacity:.45;cursor:not-allowed;filter:none}
+.login-about{display:block;margin:14px auto 22px}
+.otp-title{font-size:21px;margin:18px 0 6px}
+.otp-row{display:flex;justify-content:center;gap:12px;margin:22px 0 10px}
+.otp-box{width:58px;height:64px;border:1.5px solid #CBD6DC;border-radius:14px;text-align:center;font-size:28px;font-weight:800;color:var(--navy);background:#fff;outline:none;padding:0}
+.otp-box:focus{border-color:#5FD4C0;box-shadow:0 0 0 4px rgba(95,212,192,.25)}
+.otp-box.filled{border-color:#065A82}
+.otp-help{text-align:center;color:#8795A1;font-size:13px;margin:4px 0 0}
+.otp-links{display:flex;justify-content:space-between;margin-top:10px}
+.strip-right{display:flex;align-items:center;gap:6px}
+.cc-chip{display:flex;align-items:center;gap:6px;min-height:44px;min-width:44px;padding:0 9px;border:1px solid var(--line);background:#fff;border-radius:12px;font-size:12px;font-weight:800;color:var(--navy)}
+.cc-chip[hidden]{display:none}
+.opt .flag{margin-right:2px}
+
+/* Boost */
+.sim-tag{display:inline-block;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;background:var(--warnbg);color:var(--warn);padding:2px 6px;border-radius:99px;margin-left:6px;vertical-align:1px;white-space:nowrap}
+.status-row{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px}
+.status-row .status-ok{font-size:13px;padding:8px 11px;gap:7px}
+.status-row .boost-pill{padding:0 5px 0 8px;gap:5px;font-size:13px}
+.status-row .boost-pill .switch.sm{width:38px}
+.status-row .boost-pill .switch.sm.on i{left:17px}
+.boost-card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:6px 8px 12px;margin:18px 0 0}
+.boost-card .seg{margin:6px 8px 8px}
+.boost-card .bc-label{display:block;font-size:12px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;padding:8px 8px 0}
+.boost-card .toggle-row .bolt{width:36px;height:36px;border-radius:10px;background:#E4F7F3;color:#0E6B5C;display:flex;align-items:center;justify-content:center;flex:none}
+.boost-locked{display:flex;align-items:center;gap:12px;padding:8px}
+.boost-locked .grow{flex:1;min-width:0}
+.boost-locked b{display:block;font-size:15.5px}
+.boost-locked small{display:block;color:var(--muted);font-size:12.5px;line-height:1.4;margin-top:2px}
+.boost-result{margin:6px 8px 0;background:#E4F7F3;color:#0E6B5C;border-radius:12px;padding:10px 12px;font-size:13px;font-weight:700;line-height:1.45}
+.boost-result.off{background:var(--soft);color:var(--navy)}
+.boost-result small{display:block;font-weight:600;opacity:.8;font-size:12px;margin-bottom:2px}
+.boost-bar{display:flex;align-items:center;gap:10px;padding:6px 8px 6px 14px;background:#fff;border-top:1px solid var(--line);min-height:56px}
+.boost-res{flex:1;min-width:0;font-size:12.5px;font-weight:700;line-height:1.35;color:var(--navy)}
+.boost-res.on{color:#0E6B5C}
+.bl-prog{display:block;height:6px;border-radius:99px;background:var(--soft);overflow:hidden;margin-top:5px}
+.bl-prog i{display:block;height:100%;width:100%;background:var(--mint);transform-origin:left center;animation-name:blprog;animation-timing-function:linear;animation-fill-mode:forwards}
+@keyframes blprog{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+.boost-pill{display:flex;align-items:center;gap:8px;min-height:44px;border:1.5px solid var(--line);background:#fff;border-radius:99px;padding:0 8px 0 10px;font-weight:800;font-size:13.5px;flex:none;color:var(--navy)}
+.boost-pill.on{border-color:var(--teal);color:var(--teal);background:#F0F8FA}
+.boost-pill em{font-style:normal;font-size:10.5px;font-weight:800;background:var(--mint);color:var(--navy);padding:1px 6px;border-radius:99px}
+.switch.sm{width:40px;height:24px}
+.switch.sm i{width:18px;height:18px;top:3px;left:3px}
+.switch.sm.on i{left:19px}
+#appbody{transition:opacity .2s}
+#appbody.is-loading{opacity:.45}
+.boost-saved{background:#fff;border:1px solid var(--line);border-radius:20px;padding:16px 18px;margin:14px 0}
+.boost-saved .bs-head{display:flex;align-items:center;gap:8px;font-weight:800;font-size:15px}
+.boost-saved .bs-head span.ic-box{width:32px;height:32px;border-radius:10px;background:#E4F7F3;color:#0E6B5C;display:flex;align-items:center;justify-content:center}
+.boost-saved .big-num{margin-top:8px}
+
 /* Custom icons & cropper */
 .has-img{background:transparent!important;overflow:hidden;padding:0;border-radius:22%!important}
 .has-img img{width:100%;height:100%;object-fit:cover;display:block}
@@ -412,7 +503,10 @@ tfoot td{font-weight:800;background:#F5F9F9}
       </div>
       <div class="demo-strip">
         <span class="demo-pill"><i></i>Interactive demo - simulated</span>
-        <button class="icon-btn menu-btn" data-act="menu" aria-label="Open demo controls" title="Demo controls" id="menuBtn"></button>
+        <div class="strip-right">
+          <button class="cc-chip" id="ccChip" data-act="country-sheet" aria-label="Switch country and currency" title="Switch country" hidden></button>
+          <button class="icon-btn menu-btn" data-act="menu" aria-label="Open demo controls" title="Demo controls" id="menuBtn"></button>
+        </div>
       </div>
       <main id="view" aria-live="polite"></main>
       <nav class="tabbar hidden" id="tabbar">
@@ -434,6 +528,37 @@ tfoot td{font-weight:800;background:#F5F9F9}
 (function(){
 'use strict';
 var DAY = 86400000;
+/* =====================================================================
+   CURRENCY. Plan prices are stored ONCE, in USD, in PLANS below: that is
+   the single source of truth. They are converted here for display only.
+   To update exchange rates, change FX and nothing else.
+   ===================================================================== */
+const FX = { USD: 1, EUR: 0.91, SLE: 22.7, NGN: 1400 };   // units of each currency per 1 USD (EUR: mid-market rate, Nov 2026)
+const CURRENCIES = {
+  USD: { name:'US dollar',      symbol:'$',      space:false, step:0.01 },  // exact cents:                      "$3.80"
+  EUR: { name:'Euro',           symbol:'€', space:false, step:0.01 },  // nearest cent:                     "€3.46"
+  SLE: { name:'New Leone',      symbol:'NLe',    space:true,  step:1    },  // round to the nearest whole leone: "NLe 86"
+  NGN: { name:'Nigerian Naira', symbol:'₦', space:false, step:50   }   // round to the nearest 50 naira:    "₦5,300"
+};
+/* Which currency a country shows by default: the launch markets in their own currency,
+   euro-area countries in euros, every other country in US dollars. */
+const LOCAL_CURRENCY = { SL:'SLE', NG:'NGN' };
+const EURO_AREA = 'AT BE BG HR CY EE FI FR DE GR IE IT LV LT LU MT NL PT SK SI ES AD MC SM VA ME XK GF GP MQ RE YT PM'.split(' ');
+const LAUNCH = ['SL', 'NG'];   // shown first in the country list
+
+/* Every country: ISO code | name | dial code digits (North American territories include their area code) */
+const COUNTRY_DATA = 'AF|Afghanistan|93;AL|Albania|355;DZ|Algeria|213;AS|American Samoa|1684;AD|Andorra|376;AO|Angola|244;AI|Anguilla|1264;AG|Antigua and Barbuda|1268;AR|Argentina|54;AM|Armenia|374;AW|Aruba|297;AU|Australia|61;AT|Austria|43;AZ|Azerbaijan|994;BS|Bahamas|1242;BH|Bahrain|973;BD|Bangladesh|880;BB|Barbados|1246;BY|Belarus|375;BE|Belgium|32;BZ|Belize|501;BJ|Benin|229;BM|Bermuda|1441;BT|Bhutan|975;BO|Bolivia|591;BA|Bosnia and Herzegovina|387;BW|Botswana|267;BR|Brazil|55;VG|British Virgin Islands|1284;BN|Brunei|673;BG|Bulgaria|359;BF|Burkina Faso|226;BI|Burundi|257;CV|Cabo Verde|238;KH|Cambodia|855;CM|Cameroon|237;CA|Canada|1;KY|Cayman Islands|1345;CF|Central African Republic|236;TD|Chad|235;CL|Chile|56;CN|China|86;CO|Colombia|57;KM|Comoros|269;CG|Congo|242;CD|Congo (DRC)|243;CK|Cook Islands|682;CR|Costa Rica|506;CI|Côte d’Ivoire|225;HR|Croatia|385;CU|Cuba|53;CW|Curaçao|599;CY|Cyprus|357;CZ|Czechia|420;DK|Denmark|45;DJ|Djibouti|253;DM|Dominica|1767;DO|Dominican Republic|1809;EC|Ecuador|593;EG|Egypt|20;SV|El Salvador|503;GQ|Equatorial Guinea|240;ER|Eritrea|291;EE|Estonia|372;SZ|Eswatini|268;ET|Ethiopia|251;FK|Falkland Islands|500;FO|Faroe Islands|298;FJ|Fiji|679;FI|Finland|358;FR|France|33;GF|French Guiana|594;PF|French Polynesia|689;GA|Gabon|241;GM|Gambia|220;GE|Georgia|995;DE|Germany|49;GH|Ghana|233;GI|Gibraltar|350;GR|Greece|30;GL|Greenland|299;GD|Grenada|1473;GP|Guadeloupe|590;GU|Guam|1671;GT|Guatemala|502;GN|Guinea|224;GW|Guinea-Bissau|245;GY|Guyana|592;HT|Haiti|509;HN|Honduras|504;HK|Hong Kong|852;HU|Hungary|36;IS|Iceland|354;IN|India|91;ID|Indonesia|62;IR|Iran|98;IQ|Iraq|964;IE|Ireland|353;IL|Israel|972;IT|Italy|39;JM|Jamaica|1876;JP|Japan|81;JO|Jordan|962;KZ|Kazakhstan|7;KE|Kenya|254;KI|Kiribati|686;XK|Kosovo|383;KW|Kuwait|965;KG|Kyrgyzstan|996;LA|Laos|856;LV|Latvia|371;LB|Lebanon|961;LS|Lesotho|266;LR|Liberia|231;LY|Libya|218;LI|Liechtenstein|423;LT|Lithuania|370;LU|Luxembourg|352;MO|Macao|853;MG|Madagascar|261;MW|Malawi|265;MY|Malaysia|60;MV|Maldives|960;ML|Mali|223;MT|Malta|356;MH|Marshall Islands|692;MQ|Martinique|596;MR|Mauritania|222;MU|Mauritius|230;YT|Mayotte|262;MX|Mexico|52;FM|Micronesia|691;MD|Moldova|373;MC|Monaco|377;MN|Mongolia|976;ME|Montenegro|382;MS|Montserrat|1664;MA|Morocco|212;MZ|Mozambique|258;MM|Myanmar|95;NA|Namibia|264;NR|Nauru|674;NP|Nepal|977;NL|Netherlands|31;NC|New Caledonia|687;NZ|New Zealand|64;NI|Nicaragua|505;NE|Niger|227;NG|Nigeria|234;NU|Niue|683;KP|North Korea|850;MK|North Macedonia|389;MP|Northern Mariana Islands|1670;NO|Norway|47;OM|Oman|968;PK|Pakistan|92;PW|Palau|680;PS|Palestine|970;PA|Panama|507;PG|Papua New Guinea|675;PY|Paraguay|595;PE|Peru|51;PH|Philippines|63;PL|Poland|48;PT|Portugal|351;PR|Puerto Rico|1787;QA|Qatar|974;RE|Réunion|262;RO|Romania|40;RU|Russia|7;RW|Rwanda|250;SH|Saint Helena|290;KN|Saint Kitts and Nevis|1869;LC|Saint Lucia|1758;PM|Saint Pierre and Miquelon|508;VC|Saint Vincent and the Grenadines|1784;WS|Samoa|685;SM|San Marino|378;ST|São Tomé and Príncipe|239;SA|Saudi Arabia|966;SN|Senegal|221;RS|Serbia|381;SC|Seychelles|248;SL|Sierra Leone|232;SG|Singapore|65;SX|Sint Maarten|1721;SK|Slovakia|421;SI|Slovenia|386;SB|Solomon Islands|677;SO|Somalia|252;ZA|South Africa|27;KR|South Korea|82;SS|South Sudan|211;ES|Spain|34;LK|Sri Lanka|94;SD|Sudan|249;SR|Suriname|597;SE|Sweden|46;CH|Switzerland|41;SY|Syria|963;TW|Taiwan|886;TJ|Tajikistan|992;TZ|Tanzania|255;TH|Thailand|66;TL|Timor-Leste|670;TG|Togo|228;TK|Tokelau|690;TO|Tonga|676;TT|Trinidad and Tobago|1868;TN|Tunisia|216;TR|Türkiye|90;TM|Turkmenistan|993;TC|Turks and Caicos Islands|1649;TV|Tuvalu|688;UG|Uganda|256;UA|Ukraine|380;AE|United Arab Emirates|971;GB|United Kingdom|44;US|United States|1;UY|Uruguay|598;VI|US Virgin Islands|1340;UZ|Uzbekistan|998;VU|Vanuatu|678;VA|Vatican City|39;VE|Venezuela|58;VN|Vietnam|84;WF|Wallis and Futuna|681;YE|Yemen|967;ZM|Zambia|260;ZW|Zimbabwe|263';
+const EXAMPLES = { SL:'76 123 456', NG:'803 123 4567' };   // placeholder examples for the launch markets
+const COUNTRIES = {}, COUNTRY_ORDER = [];   // ISO code -> { id, name, dial, currency }
+COUNTRY_DATA.split(';').forEach(function(row){
+  var f = row.split('|'), d = f[2];
+  var dial = d.length === 4 && d.charAt(0) === '1' ? '+1 ' + d.slice(1) : '+' + d;   // e.g. Jamaica "+1 876"
+  COUNTRIES[f[0]] = { id:f[0], name:f[1], dial:dial,
+    currency: LOCAL_CURRENCY[f[0]] || (EURO_AREA.indexOf(f[0]) >= 0 ? 'EUR' : 'USD') };
+  COUNTRY_ORDER.push(f[0]);
+});
+COUNTRY_ORDER.sort(function(a, b){ return COUNTRIES[a].name.localeCompare(COUNTRIES[b].name, 'en'); });
+
 function $(s){ return document.querySelector(s); }
 var view = $('#view'), tabbar = $('#tabbar'), menuEl = $('#menu'), toastEl = $('#toast');
 
@@ -447,6 +572,7 @@ var I = {
   playtri:'<path d="M8 5l11 7-11 7z" fill="currentColor"/>',
   pause:'<path d="M9 6v12M15 6v12"/>',
   plus:'<path d="M12 5v14M5 12h14"/>',
+  chev:'<path d="M6 9l6 6 6-6"/>',
   home:'<path d="M4 11l8-7 8 7v9h-5v-6H9v6H4z"/>',
   card:'<rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18M7 15h4"/>',
   chart:'<path d="M5 20V11M12 20V4M19 20v-6"/>',
@@ -576,7 +702,7 @@ function adminCapMB(plan){ return plan === 'msg' ? null : CAPS_MB[plan]; }   // 
 var OB = [
   {icon:'vault', title:'Your apps, one safe sandbox', text:'VeloVault is a container that hosts the apps you already use. It is not a messaging app itself.'},
   {icon:'bolt', title:'Works on a zero-balance SIM', text:'Keep using your apps even when your SIM has no airtime or data bundle, on one flat plan.'},
-  {icon:'wallet', title:'Pay with Mobile Money', text:'Weekly, monthly or quarterly plans from $0.40. Pay with Orange Money, MTN MoMo and other wallets.'}
+  {icon:'wallet', title:'Pay with Mobile Money', text:function(){ return 'Weekly, monthly or quarterly plans from ' + money(PLANS.msg.prices.weekly) + '. Pay with Orange Money, MTN MoMo and other wallets.'; }}
 ];
 
 function clone(o){ return JSON.parse(JSON.stringify(o)); }
@@ -589,13 +715,14 @@ function freshMock(){
 function freshState(){
   var now = Date.now();
   return {
-    screen:'onboard', prevScreen:'home', ob:0, signedIn:false, phone:'', signinErr:'',
+    screen:'signin', prevScreen:'home', ob:0, signedIn:false, loginLocal:'', loginErr:'', loginDigits:'', ccOpen:false, otp:['','','',''],
     plan:'std', period:'monthly', speed:'normal', presentation:true, forcedExpired:false, forcedCap:false, cycleStart:now - 12*DAY, expiresAt:now + 18*DAY,
     used:8.4, perApp:{whatsapp:3.2, facebook:5.2},
     apps:clone(DEFAULT_APPS), siteCount:0,
     viewPeriod:'monthly', currentApp:null, addVal:'', addErr:'',
     pay:{plan:'std', period:'monthly', provider:'orange', number:'', error:''},
-    approveLeft:3, receipt:null, mock:freshMock()
+    approveLeft:3, receipt:null, mock:freshMock(),
+    boost:false, autoBoost:false, boostQuality:'boost', connection:'good', load:null, lastLoad:null, boostSaved:0, boostLoads:0, boostSecSaved:0
   };
 }
 /* Custom icons live outside the demo state, so "Reset demo" keeps them */
@@ -608,13 +735,83 @@ function saveIcons(){
   try { localStorage.setItem(ICON_KEY, JSON.stringify(icons)); return true; } catch (e) { return false; }
 }
 var icons = loadIcons();
+/* Signed-in country and number, remembered for the browser session (survives reloads) */
+var SESSION_KEY = 'velovault.session.v1', memSession = null;
+var auth = { cc:'SL', local:'', show:'country' };   // show: 'country' (the country's currency), 'USD' or 'EUR'
+function loadSession(){
+  var o = null;
+  try { var raw = sessionStorage.getItem(SESSION_KEY); if (raw) o = JSON.parse(raw); } catch (e) { o = memSession; }
+  if (!o) o = memSession;
+  if (o && !o.cc && o.dial){ o.cc = o.dial === '+234' ? 'NG' : 'SL'; }   // sessions saved by the earlier demo
+  return (o && COUNTRIES[o.cc] && /^\d{5,14}$/.test(o.local)) ? o : null;
+}
+function sessionNow(){ return {cc:auth.cc, local:auth.local, show:auth.show}; }
+function saveSession(o){
+  memSession = o;
+  try { if (o) sessionStorage.setItem(SESSION_KEY, JSON.stringify(o)); else sessionStorage.removeItem(SESSION_KEY); } catch (e) {}
+}
 var state = freshState();
+(function restore(){
+  var s0 = loadSession();
+  if (s0){ auth.cc = s0.cc; auth.local = s0.local; auth.show = s0.show || 'country'; state.signedIn = true; state.screen = 'home'; }
+})();
 var timers = [];
 function clearTimers(){ timers.forEach(function(t){ clearTimeout(t); clearInterval(t); }); timers = []; }
 
 /* ---------- Helpers ---------- */
 function esc(s){ return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
-function money(n){ return '$' + n.toFixed(2); }
+function curCode(){ return auth.show === 'country' ? COUNTRIES[auth.cc].currency : auth.show; }
+function money(usd){   // usd: a price from PLANS (USD). Returns the display price in the chosen currency.
+  var code = curCode(), c = CURRENCIES[code];
+  var v = Math.round(usd * FX[code] / c.step) * c.step, dec = c.step < 1 ? 2 : 0;
+  return c.symbol + (c.space ? ' ' : '') + v.toLocaleString('en-US', {minimumFractionDigits:dec, maximumFractionDigits:dec});
+}
+var EMOJI_FLAGS = (function(){   // can this device draw flag emoji? (Windows shows two letters instead)
+  try { var x = document.createElement('canvas').getContext('2d'); x.font = '20px sans-serif';
+    return x.measureText('🇸🇱').width < 1.5 * x.measureText('🇸').width; } catch (e) { return false; }
+})();
+function flagHTML(cc, cls){
+  cls = cls ? ' ' + cls : '';
+  if (cc === 'SL' || cc === 'NG') return '<span class="flag flag-' + cc + cls + '" aria-hidden="true"></span>';
+  if (EMOJI_FLAGS) return '<span class="flag-emoji' + cls + '" aria-hidden="true">' + String.fromCodePoint(0x1F1E6 + cc.charCodeAt(0) - 65, 0x1F1E6 + cc.charCodeAt(1) - 65) + '</span>';
+  return '<span class="flag-code' + cls + '" aria-hidden="true">' + cc + '</span>';
+}
+
+function fmtLocal(d){   // group digits for display, e.g. 76 123 456 or 803 123 4567
+  d = String(d || '');
+  if (d.length === 8) return d.slice(0,2) + ' ' + d.slice(2,5) + ' ' + d.slice(5);
+  if (d.length === 10) return d.slice(0,3) + ' ' + d.slice(3,6) + ' ' + d.slice(6);
+  return d.replace(/(\d{3})(?=\d)/g, '$1 ');
+}
+function fullNumber(){ return COUNTRIES[auth.cc].dial + ' ' + fmtLocal(auth.local); }
+function digitRange(cc){   // loose length check: 7-11 in the launch markets; elsewhere 5 up to the 15-digit world maximum
+  if (cc === 'SL' || cc === 'NG') return [7, 11];
+  return [5, Math.min(14, 15 - COUNTRIES[cc].dial.replace(/\D/g, '').length)];
+}
+function phoneCheck(raw){   // numbers only (spaces ignored); does not enforce national formats
+  var v = String(raw || '').replace(/\s+/g, ''), r = digitRange(auth.cc), span = r[0] + ' to ' + r[1] + ' digits';
+  if (!v) return {ok:false, kind:'empty', msg:''};
+  if (/\D/.test(v)) return {ok:false, kind:'chars', msg:'Please use numbers only, without letters or symbols.'};
+  if (v.length < r[0]) return {ok:false, kind:'short', msg:'That number looks a little short. Enter ' + span + '.'};
+  if (v.length > r[1]) return {ok:false, kind:'long', msg:'That number looks a little long. Enter ' + span + '.'};
+  return {ok:true, digits:v};
+}
+function countryListHTML(q){   // the searchable country list (launch markets first, then A to Z)
+  q = String(q || '').trim().toLowerCase();
+  var qd = q.replace(/[^\d]/g, '');
+  var hit = function(cc){ var c = COUNTRIES[cc];
+    var digits = c.dial.replace(/\D/g, ''), area = c.dial.split(' ')[1] || '';   // e.g. "1876" and "876" for Jamaica
+    return !q || c.name.toLowerCase().indexOf(q) >= 0 || cc.toLowerCase() === q || (qd && (digits.indexOf(qd) === 0 || area.indexOf(qd) === 0)); };
+  var opt = function(cc){ var c = COUNTRIES[cc], on = cc === auth.cc;
+    return '<button class="cc-opt'+(on?' on':'')+'" role="option" aria-selected="'+on+'" data-act="cc-pick" data-v="'+cc+'">'+
+      flagHTML(cc)+'<span class="cc-name">'+esc(c.name)+'</span><span class="cc-dial">'+c.dial+'</span>'+
+      (on ? '<span class="tick">'+ic('check',18)+'</span>' : '')+'</button>'; };
+  var launch = LAUNCH.filter(hit), rest = COUNTRY_ORDER.filter(function(cc){ return LAUNCH.indexOf(cc) < 0 && hit(cc); });
+  if (!launch.length && !rest.length) return '<p class="cc-empty">No country matches “'+esc(q)+'”.</p>';
+  return (launch.length ? '<p class="cc-group">Launch markets</p>' + launch.map(opt).join('') : '') +
+         (rest.length ? '<p class="cc-group">All countries</p>' + rest.map(opt).join('') : '');
+}
+
 function mb(n){ return n >= 1023.95 ? (n/1024).toFixed(2).replace(/\.?0+$/, '') + ' GB' : n.toFixed(1) + ' MB'; }
 function fmtDate(t){ return new Date(t).toLocaleDateString('en-US',{month:'short', day:'numeric', year:'numeric'}); }
 function fmtShort(t){ return new Date(t).toLocaleDateString('en-US',{month:'short', day:'numeric'}); }
@@ -679,7 +876,7 @@ SCREENS.onboard = function(){
       '<button class="link" data-act="ob-skip">Skip</button></div>'+
     '<div class="ob-art"><div class="ob-circle">'+ic(c.icon,92)+'</div></div>'+
     '<div class="ob-step">Step '+(state.ob+1)+' of '+OB.length+'</div>'+
-    '<h1>'+c.title+'</h1><p>'+c.text+'</p>'+
+    '<h1>'+c.title+'</h1><p>'+(typeof c.text === 'function' ? c.text() : c.text)+'</p>'+
     '<div class="dots">'+OB.map(function(_,i){ return '<i class="'+(i===state.ob?'on':'')+'"></i>'; }).join('')+'</div>'+
     '<div class="ob-actions">'+(state.ob>0 ? '<button class="btn ghost" data-act="ob-back">Back</button>' : '')+
       '<button class="btn" data-act="ob-next">'+(last ? 'Get started' : 'Next')+'</button></div>'+
@@ -687,16 +884,43 @@ SCREENS.onboard = function(){
 };
 
 SCREENS.signin = function(){
-  return '<div class="signin">'+
-    '<div class="sub-head" style="margin-left:-12px">'+backBtn('ob-return')+'<div class="logo"><span class="logo-mark">'+ic('vault',24)+'</span>VeloVault</div></div>'+
-    '<h1>Sign in with your phone</h1>'+
-    '<p>Enter your phone number to continue. Any number works in this demo and no SMS is sent.</p>'+
-    '<label class="field-label" for="signin">Phone number</label>'+
-    '<input class="field" id="signin" type="tel" inputmode="tel" autocomplete="off" placeholder="+000 00 000 000" value="'+esc(state.phone)+'" data-bind="phone" data-enter="signin">'+
-    (state.signinErr ? '<div class="err">'+state.signinErr+'</div>' : '')+
-    '<div style="flex:1;min-height:30px"></div>'+
-    '<button class="btn" data-act="signin">Continue</button>'+
-    '<p class="small muted center" style="margin-top:12px">Simulated sign-in. Nothing is stored after you reload.</p>'+
+  var c = COUNTRIES[auth.cc], chk = phoneCheck(state.loginLocal);
+  return '<div class="login">'+
+    '<div class="login-head"><div class="login-logo"><span class="logo-mark light">'+ic('vault',26)+'</span><span>VeloVault</span></div>'+
+      '<p>Sign in to continue</p></div>'+
+    '<div class="login-card">'+
+      '<span class="field-label" id="ccLabel">Country</span>'+
+      '<div class="cc-wrap">'+
+        '<button class="cc-btn" data-act="cc-toggle" aria-haspopup="listbox" aria-expanded="'+state.ccOpen+'" aria-labelledby="ccLabel">'+
+          flagHTML(auth.cc)+'<span class="cc-name">'+esc(c.name)+'</span><span class="cc-dial">'+c.dial+'</span>'+ic('chev',18)+'</button>'+
+        (state.ccOpen ? '<div class="cc-list"><input id="ccSearch" class="cc-search" type="search" placeholder="Search country or code" autocomplete="off" aria-label="Search country or dial code">'+
+          '<div class="cc-items" id="ccItems" role="listbox" aria-labelledby="ccLabel">'+countryListHTML('')+'</div></div>' : '')+
+      '</div>'+
+      '<label class="field-label" for="loginPhone">Phone number</label>'+
+      '<div class="phone-field'+(state.loginErr?' invalid':'')+'" id="phoneField"><span class="phone-prefix">'+c.dial+'</span>'+
+        '<input id="loginPhone" type="tel" inputmode="numeric" autocomplete="tel-national" maxlength="20" placeholder="'+(EXAMPLES[auth.cc] || 'Phone number')+'" value="'+esc(state.loginLocal)+'" data-enter="login-continue" aria-describedby="loginErr"></div>'+
+      '<div class="err" id="loginErr" role="alert">'+esc(state.loginErr)+'</div>'+
+      '<button class="btn" id="loginBtn" data-act="login-continue"'+(chk.ok ? '' : ' disabled')+'>Continue</button>'+
+      '<p class="small muted center" style="margin:12px 0 0">Demo sign-in: no SMS is sent and nothing leaves this page.</p>'+
+    '</div>'+
+    '<button class="link login-about" data-act="ob-open">What is VeloVault?</button>'+
+  '</div>';
+};
+
+SCREENS.otp = function(){
+  var full = COUNTRIES[auth.cc].dial + ' ' + fmtLocal(state.loginDigits), all = state.otp.join('').length === 4;
+  return '<div class="login">'+
+    '<div class="login-head compact"><div class="login-logo"><span class="logo-mark light">'+ic('vault',26)+'</span><span>VeloVault</span></div>'+
+      '<p>Verify your number</p></div>'+
+    '<div class="login-card">'+
+      '<h2 class="otp-title">Enter your code</h2>'+
+      '<p class="muted" style="margin:0;line-height:1.5">We sent a 4-digit code to <b style="color:var(--navy);white-space:nowrap">'+esc(full)+'</b></p>'+
+      '<div class="otp-row">'+[0,1,2,3].map(function(i){
+        return '<input class="otp-box'+(state.otp[i]?' filled':'')+'" id="otp'+i+'" data-i="'+i+'" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="4" autocomplete="'+(i===0?'one-time-code':'off')+'" aria-label="Digit '+(i+1)+' of 4" value="'+state.otp[i]+'">'; }).join('')+'</div>'+
+      '<p class="otp-help">Demo: enter any 4 digits</p>'+
+      '<button class="btn" id="otpBtn" data-act="otp-verify"'+(all ? '' : ' disabled')+'>Verify</button>'+
+      '<div class="otp-links"><button class="link" data-act="otp-resend">Resend code</button><button class="link" data-act="otp-change">Change number</button></div>'+
+    '</div>'+
   '</div>';
 };
 
@@ -710,9 +934,11 @@ SCREENS.home = function(){
   }).join('');
   return '<section class="pad">'+
     '<h1 class="home-title">VeloVault - Your app sandbox</h1>'+
-    '<div class="status-ok"><span class="dot"></span>Zero-Balance Mode Active</div>'+
+    '<div class="status-row"><div class="status-ok"><span class="dot"></span>Zero-Balance Mode Active</div>'+
+      (boostAvailable() ? '<button class="boost-pill'+(boostActive()?' on':'')+'" role="switch" aria-checked="'+state.boost+'" data-act="boost-toggle" aria-label="Boost">'+
+        ic('bolt',16)+'Boost'+(boostAuto()?'<em>Auto</em>':'')+'<span class="switch sm'+(boostActive()?' on':'')+'"><i></i></span></button>' : '')+'</div>'+
     '<button class="plan-card" data-act="go" data-to="usage" aria-label="Open usage">'+
-      '<div class="pc-top"><div><small>Current plan</small><b>'+p.name+' · '+per.label+'</b></div>'+
+      '<div class="pc-top"><div><small>Current plan</small><b>'+p.name+' · '+money(p.prices[state.period])+'/'+per.per+'</b></div>'+
         '<div class="days"><b>'+daysLeft()+'</b><small>days left</small></div></div>'+
       '<div class="bar"><span style="width:'+pct.toFixed(1)+'%"></span></div>'+
       '<div class="pc-foot"><span>'+mb(state.used)+' of '+mb(cap)+' used</span><span>'+(p.demoCap ? 'Demo cap' : 'Fair-use cap')+' · details ›</span></div>'+
@@ -721,6 +947,7 @@ SCREENS.home = function(){
     '<div class="grid">'+tiles+
       '<button class="tile add" data-act="go" data-to="add"><span class="tile-ic">'+ic('plus',28)+'</span><span class="tile-name">Add app</span></button>'+
     '</div>'+
+    boostCardHTML()+
     '<p class="hint">Tap an app to open it inside the sandbox. Data used inside apps counts towards your plan.</p>'+
   '</section>';
 };
@@ -739,8 +966,9 @@ SCREENS.app = function(){
       '</header>'+
       '<div class="app-meter" title="Plan usage"><span id="appmeter" style="width:'+pct.toFixed(1)+'%"></span></div>'+
       note+
+      boostBarHTML()+
     '</div>'+
-    '<div class="app-body" id="appbody">'+APPS[a.kind](a)+'</div>'+
+    '<div class="app-body'+(loadPending() ? ' is-loading' : '')+'" id="appbody">'+APPS[a.kind](a)+'</div>'+
   '</div>';
 };
 
@@ -946,7 +1174,7 @@ SCREENS.success = function(){
       '<div class="sum-row"><span>Paid with</span><b>'+r.provider+'</b></div>'+
       '<div class="sum-row"><span>Reference</span><b>'+r.ref+'</b></div>'+
       '<div class="sum-row"><span>Valid until</span><b>'+r.until+'</b></div>'+
-      '<div class="sum-row total"><span>Amount</span><span>'+r.amount+'</span></div></div>'+
+      '<div class="sum-row total"><span>Amount</span><span>'+money(r.amountUSD)+'</span></div></div>'+
     '<button class="btn" data-act="go" data-to="home">Open my sandbox</button>'+
     '<button class="btn ghost" data-act="go" data-to="usage">View usage</button></div>';
 };
@@ -964,6 +1192,10 @@ SCREENS.usage = function(){
       '<div class="bar light'+cls+'"><span style="width:'+pct.toFixed(1)+'%"></span></div>'+
       '<div class="u-meta"><span>'+pct.toFixed(0)+'% of this cycle\'s cap</span><span>'+daysLeft()+' days left</span></div>'+
       '<p class="small muted" style="margin:12px 0 0">'+(p.demoCap ? 'Demo cap. The real plan has a '+p.realCap+'.' : 'Fair-use cap: '+mb(cap)+' per billing cycle.')+'</p></div>'+
+    '<div class="boost-saved"><div class="bs-head"><span class="ic-box">'+ic('bolt',18)+'</span>Total data saved by Boost<span class="sim-tag">Simulated</span></div>'+
+      '<div class="big-num">'+(state.boostSaved ? mb(state.boostSaved) : '0 MB')+'</div>'+
+      '<p class="small muted" style="margin:6px 0 0">'+(state.boostLoads ? state.boostLoads+' boosted page load'+(state.boostLoads===1?'':'s')+' · about '+state.boostSecSaved.toFixed(1)+' s faster in total' : 'No boosted page loads yet. Turn on Boost on the home screen or inside an app.')+
+      (state.plan === 'msg' ? '<br>Boost is not included in Message & Calls.' : '')+' <span class="sim-tag">Simulated</span></p></div>'+
     '<h2 class="sec" style="margin:20px 0 4px">By app</h2>'+
     rows.map(function(r){
       var excluded = state.plan === 'msg' && r.a.media;
@@ -1041,6 +1273,7 @@ SCREENS.about = function(){
     'No real accounts: any phone number signs in and no SMS is sent.',
     'Standard and Premium use their real caps (6 GB = 6144 MB and 20 GB = 20480 MB). Message & Calls uses a small 20 MB demo cap. The lock screen appears when you press Fast-forward to end of plan or Use up data cap in the demo menu.',
     'The admin view shows 8 fictional users.',
+    'Prices are stored in US dollars. Sierra Leone and Nigeria see New Leone and naira, euro-area countries see euros and every other country sees US dollars; Country & currency can switch the whole app to US dollars or euros. Rates are fixed demo rates (per US dollar: \u20AC0.91, NLe 22.7, \u20A61,400). Sign-in and the 4-digit code are simulated: no SMS is sent.',
     'Everything runs offline in this one file. Nothing is saved after you reload, except icons you upload.'
   ];
   var real = [
@@ -1050,7 +1283,8 @@ SCREENS.about = function(){
     'Measure real data use per app and apply fair-use caps: 6 GB on Standard, 20 GB on Premium.',
     'Compress images on the Standard plan to save about 70% of data.',
     'Limit Message & Calls to chat and calls, and reduce speed when a cap is reached until renewal or top-up.',
-    'Give operators a live dashboard of subscribers, usage and renewals.'
+    'Give operators a live dashboard of subscribers, usage and renewals.',
+    'Boost reduces the data sent and loads content more efficiently. It does not increase the speed of your mobile network.'
   ];
   return '<div class="pad">'+
     '<div class="sub-head">'+backBtn('back-prev')+'<h2>About this demo</h2></div>'+
@@ -1077,6 +1311,9 @@ function render(){
   $('#screen').classList.toggle('no-tabs', !showTabs);
   var tabs = tabbar.querySelectorAll('.tab');
   for (var i=0;i<tabs.length;i++) tabs[i].classList.toggle('active', tabs[i].getAttribute('data-to') === s);
+  var chip = $('#ccChip');
+  chip.hidden = !state.signedIn;
+  chip.innerHTML = flagHTML(auth.cc, 'sm') + curCode();
 }
 function go(to){
   if (state.screen === 'approve' && to !== 'success' && to !== 'approve') clearTimers();
@@ -1085,6 +1322,7 @@ function go(to){
     state.prevScreen = state.screen === 'approve' ? 'pay' : state.screen;
   }
   if (to === 'plans' && state.screen !== 'plans') state.viewPeriod = state.period;
+  if (to !== 'app') clearTimeout(loadT);
   state.screen = to;
   suppressUntil = Date.now() + 300;
   render();
@@ -1104,7 +1342,87 @@ function openApp(id){
   state.mock.chat = null;
   if (lockReason()) return go('lock');
   if (state.plan === 'msg' && a.media) return go('blocked');
+  startLoad();
   go('app');
+}
+
+/* ---------- Boost (all load times and savings are simulated) ---------- */
+var BOOST = {
+  loadSec:  { good:[3.6, 5.6], slow:[6.8, 9.8] },          // simulated page load with Boost off, in seconds
+  factor:   { boost:[0.38, 0.52], original:[0.55, 0.68] }, // Boost load time as a share of the Boost-off time
+  savedMB:  { std:{ boost:[22, 48] }, prem:{ boost:[25, 55], original:[8, 18] } },
+  animMsPerSec: 300                                        // the loading bar plays at 0.3 s per simulated second
+};
+var loadT = null;
+function rnd(r){ return r[0] + Math.random() * (r[1] - r[0]); }
+function r1(n){ return Math.round(n * 10) / 10; }
+function boostAvailable(){ return state.plan !== 'msg'; }
+function boostAuto(){ return boostAvailable() && !state.boost && state.autoBoost && state.connection === 'slow'; }
+function boostActive(){ return boostAvailable() && (state.boost || boostAuto()); }
+function boostQ(){ return state.plan === 'prem' ? state.boostQuality : 'boost'; }
+function loadPending(){ var L = state.load; return !!(L && L.app === state.currentApp && Date.now() - L.start < L.dur); }
+function startLoad(){
+  clearTimeout(loadT);
+  var a = getApp(state.currentApp);
+  if (!a || !boostAvailable()){ state.load = null; return; }
+  var q = boostQ(), on = boostActive(), off = r1(rnd(BOOST.loadSec[state.connection]));
+  var t = on ? Math.max(0.4, r1(off * rnd(BOOST.factor[q]))) : off;
+  var saved = on ? Math.round(rnd(BOOST.savedMB[state.plan][q])) : 0;
+  var est = r1(off * (BOOST.factor[q][0] + BOOST.factor[q][1]) / 2);
+  if (on){ state.boostSaved += saved; state.boostLoads++; state.boostSecSaved += off - t; }
+  var L = {app:a.id, appName:a.name, start:Date.now(), dur:t * BOOST.animMsPerSec, t:t, off:off, est:est, saved:saved, on:on, auto:boostAuto(), q:q, slow:state.connection === 'slow'};
+  state.load = L; state.lastLoad = L;
+  loadT = setTimeout(function(){ if (state.screen === 'app' && state.load === L) updateBoostBar(); }, L.dur + 30);
+}
+function loadText(L){
+  if (L.on) return (L.auto ? 'Auto-boost (slow connection): ' : '') + 'Loaded in ' + L.t.toFixed(1) + ' s (Boost off: ' + L.off.toFixed(1) + ' s) - saved ' + L.saved + ' MB' + (L.q === 'original' ? ' · original quality' : '');
+  return 'Loaded in ' + L.off.toFixed(1) + ' s' + (L.slow ? ' on a slow connection' : '') + ' - Boost off (with Boost: about ' + L.est.toFixed(1) + ' s)';
+}
+function boostResHTML(){
+  var L = state.load;
+  if (!L || L.app !== state.currentApp) return '<span class="muted">Boost '+(boostActive() ? 'on' : 'off')+'</span>';
+  if (loadPending()){
+    var el = Date.now() - L.start;
+    return 'Loading' + (L.on ? ' with Boost' : '') + '…<span class="sim-tag">Simulated</span>' +
+      '<span class="bl-prog"><i style="animation-duration:' + Math.round(L.dur) + 'ms;animation-delay:-' + Math.round(el) + 'ms"></i></span>';
+  }
+  return loadText(L) + '<span class="sim-tag">Simulated</span>';
+}
+function boostBarHTML(){
+  if (!boostAvailable()) return '';
+  var L = state.load, done = L && L.app === state.currentApp && !loadPending();
+  return '<div class="boost-bar"><div class="boost-res' + (done && L.on ? ' on' : '') + '" id="boostres">' + boostResHTML() + '</div>' +
+    '<button class="boost-pill' + (boostActive() ? ' on' : '') + '" role="switch" aria-checked="' + state.boost + '" data-act="boost-toggle" aria-label="Boost">' +
+      ic('bolt', 16) + 'Boost' + (boostAuto() ? '<em>Auto</em>' : '') + '<span class="switch sm' + (boostActive() ? ' on' : '') + '"><i></i></span></button></div>';
+}
+function updateBoostBar(){
+  var r = $('#boostres'), b = $('#appbody'), L = state.load;
+  if (r){ r.innerHTML = boostResHTML(); r.classList.toggle('on', !!(L && L.on && !loadPending())); }
+  if (b) b.classList.toggle('is-loading', loadPending());
+}
+function boostCardHTML(){
+  if (!boostAvailable()){
+    return '<div class="boost-card"><div class="boost-locked"><span class="tile-ic sm" style="background:var(--soft);color:var(--muted)">' + ic('bolt', 18) + '</span>' +
+      '<div class="grow"><b>Boost</b><small>Not included in Message & Calls. Upgrade to Standard or Premium to use Boost.</small></div>' +
+      '<button class="btn sm" data-act="go-plans">Upgrade</button></div></div>';
+  }
+  var L = state.lastLoad;
+  return '<div class="boost-card">' +
+    '<button class="toggle-row" role="switch" aria-checked="' + state.boost + '" data-act="boost-toggle"><span class="bolt">' + ic('bolt', 20) + '</span>' +
+      '<span class="grow"><b>Boost</b><small>Loads apps faster by sending less data.' + (boostAuto() ? ' Auto-boost is on now (slow connection).' : '') + '</small></span>' +
+      '<span class="switch' + (state.boost ? ' on' : '') + '"><i></i></span></button>' +
+    '<button class="toggle-row" role="switch" aria-checked="' + state.autoBoost + '" data-act="autoboost-toggle">' +
+      '<span class="grow"><b>Auto-boost on slow connection</b><small>Turns Boost on by itself when the connection is slow.</small></span>' +
+      '<span class="switch' + (state.autoBoost ? ' on' : '') + '"><i></i></span></button>' +
+    (state.plan === 'prem' ? '<span class="bc-label">Premium Boost option</span><div class="seg">' +
+      [['boost', 'Boost'], ['original', 'Boost + original quality']].map(function(o){
+        return '<button class="seg-btn' + (state.boostQuality === o[0] ? ' on' : '') + '" data-act="boost-quality" data-v="' + o[0] + '">' + o[1] + '</button>'; }).join('') + '</div>' : '') +
+    '<span class="bc-label">Connection <span class="sim-tag">Simulated</span></span><div class="seg">' +
+      [['good', 'Good'], ['slow', 'Slow']].map(function(o){
+        return '<button class="seg-btn' + (state.connection === o[0] ? ' on' : '') + '" data-act="connection" data-v="' + o[0] + '">' + o[1] + '</button>'; }).join('') + '</div>' +
+    (L ? '<div class="boost-result' + (L.on ? '' : ' off') + '"><small>Last load · ' + esc(L.appName) + '</small>' + loadText(L) + '<span class="sim-tag">Simulated</span></div>' : '') +
+    (state.boostSaved ? '<div class="boost-result" style="background:var(--soft);color:var(--navy)">Saved by Boost so far: ' + mb(state.boostSaved) + '<span class="sim-tag">Simulated</span></div>' : '') +
+  '</div>';
 }
 
 function addUsage(){
@@ -1166,10 +1484,34 @@ function openMenu(){
     '<button class="menu-item" data-act="edit-icons"><span class="mi-ic">'+ic('image',20)+'</span>Edit icons</button>'+
     '<button class="menu-item" data-act="admin"><span class="mi-ic">'+ic('table',20)+'</span>Admin view</button>'+
     '<button class="menu-item" data-act="about"><span class="mi-ic">'+ic('info',20)+'</span>About this demo</button>'+
+    '<button class="menu-item" data-act="country-sheet"><span class="mi-ic">'+flagHTML(auth.cc,'sm')+'</span>Switch country or currency ('+curCode()+')</button>'+
+    (state.signedIn ? '<button class="menu-item" data-act="signout"><span class="mi-ic">'+ic('back',20)+'</span>Sign out</button>' : '')+
     '<button class="menu-item danger" data-act="reset"><span class="mi-ic">'+ic('reset',20)+'</span>Reset demo</button>'+
   '</div>';
   menuEl.classList.add('open'); menuEl.setAttribute('aria-hidden','false');
 }
+function openCountrySheet(){
+  var c = COUNTRIES[auth.cc], local = CURRENCIES[c.currency];
+  var shows = [['country', 'Country (' + c.currency + ')'], ['USD', 'US dollars'], ['EUR', 'Euros']];
+  menuEl.innerHTML = '<div class="sheet" role="dialog" aria-label="Country and currency">'+
+    '<div class="sheet-grip"></div>'+
+    '<div class="sheet-head"><b>Country &amp; currency</b><button class="icon-btn" data-act="menu-close" aria-label="Close">'+ic('cross')+'</button></div>'+
+    '<span class="bc-label" style="padding:4px 4px 0">Show prices in</span>'+
+    '<div class="seg" style="margin:8px 0 6px">'+shows.map(function(o){
+      return '<button class="seg-btn'+(auth.show===o[0]?' on':'')+'" data-act="currency-show" data-v="'+o[0]+'">'+o[1]+'</button>'; }).join('')+'</div>'+
+    '<p class="small muted" style="margin:0 4px 12px">'+(auth.show === 'country'
+      ? 'Showing the currency for '+esc(c.name)+': '+local.name+'. Choose US dollars or euros when presenting to investors.'
+      : 'Showing '+CURRENCIES[auth.show].name.toLowerCase()+'s for every country. Choose Country to go back to '+local.name+'.')+'</p>'+
+    '<span class="bc-label" style="padding:0 4px">Country</span>'+
+    '<div class="cc-wrap sheet-cc"><input id="ccSearch" class="cc-search" type="search" placeholder="Search country or code" autocomplete="off" aria-label="Search country or dial code">'+
+      '<div class="cc-items" id="ccItems" role="listbox" aria-label="Countries">'+countryListHTML('').replace(/data-act="cc-pick"/g, 'data-act="country-switch"')+'</div></div>'+
+    '<p class="small muted" style="margin:8px 4px 0">Demo rates per 1 USD: €'+FX.EUR+', NLe '+FX.SLE+', ₦'+FX.NGN.toLocaleString('en-US')+'.</p>'+
+    (state.signedIn ? '<p class="small muted" style="margin:6px 4px 10px">Signed in as <b>'+esc(fullNumber())+'</b></p>'+
+      '<button class="btn danger-ghost" data-act="signout">Sign out</button>' : '')+
+  '</div>';
+  menuEl.classList.add('open'); menuEl.setAttribute('aria-hidden','false');
+}
+
 function closeMenu(){ menuEl.classList.remove('open'); menuEl.setAttribute('aria-hidden','true'); }
 
 /* ---------- Actions ---------- */
@@ -1177,19 +1519,48 @@ function findById(list, id){ for (var i=0;i<list.length;i++) if (list[i].id === 
 var ACT = {
   go: function(el){ go(el.getAttribute('data-to')); },
   'go-plans': function(){ go('plans'); },
-  'back-prev': function(){ go(state.prevScreen || (state.signedIn ? 'home' : 'onboard')); },
+  'back-prev': function(){ go(state.prevScreen || (state.signedIn ? 'home' : 'signin')); },
   menu: function(){ openMenu(); },
   'menu-close': function(){ closeMenu(); },
 
   'ob-next': function(){ if (state.ob < OB.length - 1){ state.ob++; refresh(); } else go('signin'); },
   'ob-back': function(){ if (state.ob > 0){ state.ob--; refresh(); } },
   'ob-skip': function(){ go('signin'); },
-  'ob-return': function(){ state.ob = OB.length - 1; go('onboard'); },
-  signin: function(){
-    var d = String(state.phone || '').replace(/\D/g, '');
-    if (d.length < 4){ state.signinErr = 'Enter any phone number (at least 4 digits). No SMS is sent.'; refresh(); return; }
-    state.signinErr = ''; state.signedIn = true;
-    toast('Signed in (simulated)'); go('home');
+  'ob-open': function(){ state.ob = 0; go('onboard'); },
+  'cc-toggle': function(){ state.ccOpen = !state.ccOpen; refresh(); if (state.ccOpen){ var q = $('#ccSearch'); if (q) q.focus(); } },
+  'cc-pick': function(el){
+    auth.cc = el.getAttribute('data-v'); state.ccOpen = false; refresh();
+    var f = $('#loginPhone'); if (f) f.focus();
+  },
+  'login-continue': function(){
+    var chk = phoneCheck(state.loginLocal);
+    if (!chk.ok){ state.loginErr = chk.msg || 'Please enter your phone number (7 to 11 digits).'; showLoginState(); return; }
+    state.loginErr = ''; state.loginDigits = chk.digits; state.otp = ['','','','']; state.verifying = false;
+    go('otp'); focusOtp(0);
+  },
+  'otp-verify': function(){ verifyOtp(); },
+  'otp-resend': function(){ toast('New code sent to ' + COUNTRIES[auth.cc].dial + ' ' + fmtLocal(state.loginDigits) + ' (simulated)'); },
+  'otp-change': function(){ state.otp = ['','','','']; go('signin'); },
+  'country-sheet': function(){ openCountrySheet(); },
+  'country-switch': function(el){
+    auth.cc = el.getAttribute('data-v');
+    if (state.signedIn) saveSession(sessionNow());
+    closeMenu(); refresh();
+    var c = CURRENCIES[curCode()];
+    toast(COUNTRIES[auth.cc].name + ': prices in ' + c.name + ' (' + c.symbol + ')');
+  },
+  'currency-show': function(el){
+    auth.show = el.getAttribute('data-v');
+    if (state.signedIn) saveSession(sessionNow());
+    refresh(); openCountrySheet();
+    var c = CURRENCIES[curCode()];
+    toast('Prices now in ' + c.name + ' (' + c.symbol + ')');
+  },
+  signout: function(){
+    closeMenu(); closeCropper(); clearTimers();
+    saveSession(null); state.signedIn = false;
+    state.loginLocal = auth.local; state.loginErr = ''; state.otp = ['','','',''];
+    go('signin'); toast('Signed out');
   },
 
   'open-app': function(el){ openApp(el.getAttribute('data-id')); },
@@ -1276,7 +1647,7 @@ var ACT = {
       var p = state.pay, pl = PLANS[p.plan];
       activate(p.plan, p.period);
       var ref = 'TEST-' + Math.random().toString(36).slice(2, 8).toUpperCase();
-      state.receipt = {plan:pl.name, period:PERIODS[p.period].label, amount:money(pl.prices[p.period]), provider:provider(p.provider).label, ref:ref, until:fmtDate(state.expiresAt)};
+      state.receipt = {plan:pl.name, period:PERIODS[p.period].label, amountUSD:pl.prices[p.period], provider:provider(p.provider).label, ref:ref, until:fmtDate(state.expiresAt)};
       go('success'); toast(pl.name + ' plan activated');
     }, 3000));
   },
@@ -1305,6 +1676,15 @@ var ACT = {
   admin: function(){ closeMenu(); go('admin'); },
   'edit-icons': function(){ closeMenu(); go('icons'); },
   speed: function(el){ state.speed = el.getAttribute('data-v'); openMenu(); toast('Demo usage speed: ' + SPEEDS[state.speed].label); },
+  'boost-toggle': function(){
+    if (!boostAvailable()) return;
+    state.boost = !state.boost;
+    if (state.screen === 'app') startLoad();   // reload the page so you can compare
+    refresh(); toast('Boost ' + (state.boost ? 'on' : 'off') + (boostAuto() ? ' · Auto-boost still on (slow connection)' : ''));
+  },
+  'autoboost-toggle': function(){ state.autoBoost = !state.autoBoost; refresh(); toast('Auto-boost on slow connection: ' + (state.autoBoost ? 'on' : 'off')); },
+  'boost-quality': function(el){ state.boostQuality = el.getAttribute('data-v'); refresh(); toast(state.boostQuality === 'original' ? 'Boost + original quality' : 'Boost (optimised images)'); },
+  connection: function(el){ state.connection = el.getAttribute('data-v'); refresh(); toast('Simulated connection: ' + (state.connection === 'slow' ? 'Slow' : 'Good')); },
   presentation: function(){
     state.presentation = !state.presentation;
     // leaving Presentation mode keeps things unlocked until you tap again
@@ -1336,7 +1716,7 @@ var ACT = {
   'crop-zoom-in': function(){ if (crop) setZoom(crop.zoom * 1.2, CV / 2, CV / 2); },
   'crop-zoom-out': function(){ if (crop) setZoom(crop.zoom / 1.2, CV / 2, CV / 2); },
   about: function(){ closeMenu(); go('about'); },
-  reset: function(){ closeMenu(); closeCropper(); clearTimers(); state = freshState(); go('onboard'); toast('Demo reset'); }
+  reset: function(){ closeMenu(); closeCropper(); clearTimers(); saveSession(null); auth.cc = 'SL'; auth.local = ''; auth.show = 'country'; state = freshState(); go('signin'); toast('Demo reset'); }
 };
 
 /* ---------- Icon picker & cropper ---------- */
@@ -1453,15 +1833,61 @@ function saveCrop(){
   toast(ok ? a.name + ' icon saved' : a.name + ' icon set for this visit only (browser storage is not available)');
 }
 
+/* ---------- Login & OTP helpers ---------- */
+function showLoginState(onBlur){
+  var f = $('#loginPhone'); if (!f) return;
+  var chk = phoneCheck(f.value), msg = '';
+  if (!chk.ok && chk.msg && (chk.kind !== 'short' || onBlur || state.loginErr)) msg = chk.msg;
+  if (chk.ok) msg = '';
+  state.loginErr = msg;
+  $('#loginErr').textContent = msg;
+  $('#phoneField').classList.toggle('invalid', !!msg);
+  $('#loginBtn').disabled = !chk.ok;
+}
+function focusOtp(i){ setTimeout(function(){ var b = $('#otp' + i); if (b){ b.focus(); try { b.select(); } catch (e) {} } }, 30); }
+function syncOtp(){
+  for (var i = 0; i < 4; i++){ var b = $('#otp' + i); if (b){ b.value = state.otp[i]; b.classList.toggle('filled', !!state.otp[i]); } }
+  var full = state.otp.join('').length === 4, btn = $('#otpBtn'); if (btn) btn.disabled = !full;
+  if (full && !state.verifying){ state.verifying = true; setTimeout(verifyOtp, 250); }
+}
+function verifyOtp(){
+  if (state.screen !== 'otp' || !/^\d{4}$/.test(state.otp.join(''))){ state.verifying = false; return; }
+  auth.local = state.loginDigits;
+  saveSession(sessionNow());
+  state.signedIn = true; state.verifying = false; state.otp = ['','','',''];
+  toast('Signed in as ' + fullNumber());
+  go('home');
+}
+document.addEventListener('focusout', function(e){ if (e.target && e.target.id === 'loginPhone') showLoginState(true); });
+document.addEventListener('focusin', function(e){ if (e.target && e.target.classList && e.target.classList.contains('otp-box')){ try { e.target.select(); } catch (x) {} } });
+document.addEventListener('paste', function(e){
+  var t = e.target; if (!t || !t.classList || !t.classList.contains('otp-box')) return;
+  var d = ((e.clipboardData || window.clipboardData).getData('text') || '').replace(/\D/g, '').slice(0, 4);
+  if (!d) return;
+  e.preventDefault();
+  for (var i = 0; i < 4; i++) state.otp[i] = d[i] || '';
+  syncOtp(); focusOtp(Math.min(d.length, 3));
+});
+
 /* ---------- Events ---------- */
 document.addEventListener('click', function(e){
   if (e.target === menuEl){ closeMenu(); return; }
+  if (state.ccOpen && !(e.target.closest && e.target.closest('.cc-wrap'))){ state.ccOpen = false; refresh(); return; }
   var el = e.target.closest ? e.target.closest('[data-act]') : null;
   var inApp = state.screen === 'app' && !!(e.target.closest && e.target.closest('#appbody'));
   if (el){ var fn = ACT[el.getAttribute('data-act')]; if (fn) fn(el, e); }
   if (inApp) addUsage();
 });
 document.addEventListener('keydown', function(e){
+  var ot = e.target;
+  if (ot && ot.classList && ot.classList.contains('otp-box')){
+    var oi = +ot.getAttribute('data-i');
+    if (e.key === 'Backspace' && !ot.value && oi > 0){ e.preventDefault(); state.otp[oi - 1] = ''; syncOtp(); focusOtp(oi - 1); return; }
+    if (e.key === 'ArrowLeft' && oi > 0){ e.preventDefault(); focusOtp(oi - 1); return; }
+    if (e.key === 'ArrowRight' && oi < 3){ e.preventDefault(); focusOtp(oi + 1); return; }
+    if (e.key === 'Enter'){ e.preventDefault(); verifyOtp(); return; }
+  }
+  if (e.key === 'Escape' && state.ccOpen){ state.ccOpen = false; refresh(); return; }
   if (e.key !== 'Enter' && e.key !== ' ') return;
   var t = e.target;
   if (e.key === 'Enter' && t && t.getAttribute && t.getAttribute('data-enter')){
@@ -1474,6 +1900,24 @@ document.addEventListener('keydown', function(e){
 });
 document.addEventListener('input', function(e){
   if (e.target && e.target.id === 'cropZoom'){ setZoom(parseFloat(e.target.value), CV / 2, CV / 2); return; }
+  if (e.target && e.target.id === 'ccSearch'){
+    var items = $('#ccItems'), html = countryListHTML(e.target.value);
+    if (e.target.closest('.sheet-cc')) html = html.replace(/data-act="cc-pick"/g, 'data-act="country-switch"');
+    if (items){ items.innerHTML = html; items.scrollTop = 0; }
+    return;
+  }
+  if (e.target && e.target.id === 'loginPhone'){ state.loginLocal = e.target.value; showLoginState(false); return; }
+  if (e.target && e.target.classList && e.target.classList.contains('otp-box')){
+    var i = +e.target.getAttribute('data-i'), d = e.target.value.replace(/\D/g, '');
+    if (d.length === 2 && state.otp[i] && d.indexOf(state.otp[i]) === 0) d = d.slice(1);   // typed over a filled box
+    if (d.length > 1){   // pasted or auto-filled several digits: spread them
+      for (var k = 0; k < d.length && i + k < 4; k++) state.otp[i + k] = d[k];
+      syncOtp(); focusOtp(Math.min(i + d.length, 3)); return;
+    }
+    state.otp[i] = d; syncOtp();
+    if (d && i < 3) focusOtp(i + 1);
+    return;
+  }
   var k = e.target && e.target.getAttribute && e.target.getAttribute('data-bind');
   if (!k) return;
   var parts = k.split('.'), o = state;
